@@ -105,6 +105,9 @@ devDependencies:
   globals:
     specifier: ^16.5.0
     version: 16.5.0
+  husky:
+    specifier: ^9.1.7
+    version: 9.1.7
   tw-animate-css:
     specifier: ^1.4.0
     version: 1.4.0
@@ -2626,6 +2629,12 @@ packages:
     dependencies:
       void-elements: 3.1.0
     dev: false
+
+  /husky@9.1.7:
+    resolution: {integrity: sha512-5gs5ytaNjBrh5Ow3zrvdUUY+0VxIuWVL4i9irt6friV+BqdCfmV11CQTWMiBYWHbXhco+J1kHfTOUkePhCDvMA==}
+    engines: {node: '>=18'}
+    hasBin: true
+    dev: true
 
   /i18next@25.7.3(typescript@5.9.3):
     resolution: {integrity: sha512-2XaT+HpYGuc2uTExq9TVRhLsso+Dxym6PWaKpn36wfBmTI779OQ7iP/XaZHzrnGyzU4SHpFrTYLKfVyBfAhVNA==}
