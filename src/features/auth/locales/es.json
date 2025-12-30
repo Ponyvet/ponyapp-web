@@ -1,0 +1,10 @@
+{
+  "login": {
+    "welcomeBack": "¡Bienvenido de nuevo!",
+    "title": "Iniciar sesión en PonyVet",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "submit": "Iniciar sesión",
+    "invalidCredentials": "Correo electrónico o contraseña inválidos."
+  }
+}

@@ -1,0 +1,76 @@
+import * as React from 'react'
+import { ContactRound, Hospital } from 'lucide-react'
+
+import { NavUser } from './NavUser'
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from '@/components/ui/sidebar'
+import { useTranslation } from 'react-i18next'
+import { NavMain } from './NavMain'
+import { Link } from 'react-router'
+import useProfile from '@/features/auth/queries/useProfile'
+
+const data = {
+  menus: [
+    {
+      name: 'Clientes',
+      url: '/clients',
+      icon: ContactRound,
+    },
+    /*    {
+      name: 'Vacunas',
+      url: '/vaccines',
+      icon: Syringe,
+    }, */
+  ],
+}
+
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { t } = useTranslation('shared')
+  const { isSuccess, data: user } = useProfile()
+
+  return (
+    <Sidebar variant="inset" {...props}>
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg" asChild>
+              <Link to="/">
+                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                  <Hospital className="size-4" />
+                </div>
+                <div className="grid flex-1 text-left text-sm leading-tight">
+                  <span className="truncate font-medium">
+                    {t('sidebar.title')}
+                  </span>
+                  <span className="truncate text-xs">
+                    {t('sidebar.subtitle')}
+                  </span>
+                </div>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
+      <SidebarContent>
+        <NavMain menus={data.menus} />
+      </SidebarContent>
+      {isSuccess && (
+        <SidebarFooter>
+          <NavUser
+            user={{
+              email: user.email,
+              name: user.name,
+            }}
+          />
+        </SidebarFooter>
+      )}
+    </Sidebar>
+  )
+}
