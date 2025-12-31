@@ -13,7 +13,6 @@ const ClientDetailsPage = () => {
   const { data: client, isSuccess } = useGetSingleClient(params.id)
   const { data: pets = [] } = useGetPets(params.id)
 
-  console.log(pets)
   if (!isSuccess) {
     return null
   }
@@ -45,7 +44,9 @@ const ClientDetailsPage = () => {
         <Button
           variant="outline"
           size="sm"
-          onClick={() => navigate('/pets/add')}
+          onClick={() =>
+            navigate('/pets/add', { state: { clientId: client.id } })
+          }
         >
           <PlusIcon />
           Agregar Cartilla
