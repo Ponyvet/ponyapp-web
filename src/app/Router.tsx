@@ -9,6 +9,7 @@ import CreateClientPage from '@/features/clients/pages/CreateClientPage'
 import ClientDetailsPage from '@/features/clients/pages/ClientDetailsPage'
 import CreatePetPage from '@/features/pets/pages/CreatePetPage'
 import VaccinesPage from '@/features/vaccines/pages/VaccinesPage'
+import CreateVaccinePage from '@/features/vaccines/pages/CreateVaccinePage'
 
 const Router = () => {
   return (
@@ -21,6 +22,7 @@ const Router = () => {
           <Route path="/clients/:id" element={<ClientDetailsPage />} />
           <Route path="/pets/add" element={<CreatePetPage />} />
           <Route path="/vaccines" element={<VaccinesPage />} />
+          <Route path="/vaccines/add" element={<CreateVaccinePage />} />
         </Route>
       </Route>
       <Route path="/login" element={<LoginPage />} />
