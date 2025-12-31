@@ -14,7 +14,7 @@ const DetailsButton = ({ pet }: DetailsButtonProps) => {
       variant="ghost"
       size="icon-sm"
       onClick={() => {
-        navigate(`/vaccination/pet/${pet.id}`)
+        navigate(`/pets/${pet.id}`)
       }}
     >
       <IdCard />
