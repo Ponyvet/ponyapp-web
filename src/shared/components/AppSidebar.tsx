@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ContactRound, Hospital } from 'lucide-react'
+import { ContactRound, Hospital, Syringe } from 'lucide-react'
 
 import { NavUser } from './NavUser'
 import {
@@ -23,11 +23,11 @@ const data = {
       url: '/clients',
       icon: ContactRound,
     },
-    /*    {
+    {
       name: 'Vacunas',
       url: '/vaccines',
       icon: Syringe,
-    }, */
+    },
   ],
 }
 
