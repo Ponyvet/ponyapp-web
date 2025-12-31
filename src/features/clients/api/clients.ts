@@ -1,5 +1,5 @@
 import api from '@/app/api'
-import { clientSchema, type Client } from '@/features/models/Client'
+import { clientSchema, type Client } from '@/features/clients/models/Client'
 
 export const getClients = async (): Promise<Client[]> => {
   const res = await api.get('/clients')

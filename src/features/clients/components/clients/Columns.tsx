@@ -1,4 +1,4 @@
-import type { Client } from '@/features/models/Client'
+import type { Client } from '@/features/clients/models/Client'
 import type { ColumnDef } from '@tanstack/react-table'
 
 export const columns: ColumnDef<Client>[] = [
