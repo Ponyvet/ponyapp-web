@@ -5,8 +5,8 @@ import {
 } from '@/components/ui/input-group'
 import useGetClients from '../queries/useGetClients'
 
-import { columns } from '@/features/components/clients/Columns'
-import { DataTable } from '@/features/components/clients/DataTable'
+import { columns } from '@/features/clients/components/clients/Columns'
+import { DataTable } from '@/features/clients/components/clients/DataTable'
 import { Button } from '@/components/ui/button'
 import { PlusIcon, Search } from 'lucide-react'
 import { useMemo, useState } from 'react'
