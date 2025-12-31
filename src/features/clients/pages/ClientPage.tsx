@@ -10,8 +10,10 @@ import { DataTable } from '@/features/clients/components/clients/DataTable'
 import { Button } from '@/components/ui/button'
 import { PlusIcon, Search } from 'lucide-react'
 import { useMemo, useState } from 'react'
+import { useNavigate } from 'react-router'
 
 const ClientPage = () => {
+  const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState('')
   const { data: clients, isSuccess } = useGetClients()
   const filteredClients = useMemo(() => {
@@ -35,7 +37,11 @@ const ClientPage = () => {
           </InputGroupAddon>
           {/* <InputGroupAddon align="inline-end">12 results</InputGroupAddon> */}
         </InputGroup>
-        <Button variant="outline" size="sm">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => navigate('/clients/add')}
+        >
           <PlusIcon />
           Agregar Cliente
         </Button>

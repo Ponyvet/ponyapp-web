@@ -5,6 +5,7 @@ import ClientPage from '@/features/clients/pages/ClientPage'
 import AppFrame from '@/shared/components/AppFrame'
 import PrivateRoute from '@/shared/components/PrivateRoute'
 import HomePage from '@/shared/page/HomePage'
+import CreateClientPage from '@/features/clients/pages/CreateClientPage'
 
 const Router = () => {
   return (
@@ -13,6 +14,7 @@ const Router = () => {
         <Route element={<AppFrame />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/clients" element={<ClientPage />} />
+          <Route path="/clients/add" element={<CreateClientPage />} />
         </Route>
       </Route>
       <Route path="/login" element={<LoginPage />} />
