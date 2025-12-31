@@ -10,6 +10,8 @@ import ClientDetailsPage from '@/features/clients/pages/ClientDetailsPage'
 import CreatePetPage from '@/features/pets/pages/CreatePetPage'
 import VaccinesPage from '@/features/vaccines/pages/VaccinesPage'
 import CreateVaccinePage from '@/features/vaccines/pages/CreateVaccinePage'
+import PetDetailsPage from '@/features/pets/pages/PetDetailsPage'
+import NotFound from '@/shared/page/NotFound'
 
 const Router = () => {
   return (
@@ -21,12 +23,13 @@ const Router = () => {
           <Route path="/clients/add" element={<CreateClientPage />} />
           <Route path="/clients/:id" element={<ClientDetailsPage />} />
           <Route path="/pets/add" element={<CreatePetPage />} />
+          <Route path="/pets/:id" element={<PetDetailsPage />} />
           <Route path="/vaccines" element={<VaccinesPage />} />
           <Route path="/vaccines/add" element={<CreateVaccinePage />} />
         </Route>
       </Route>
       <Route path="/login" element={<LoginPage />} />
-      <Route path="*" element={<LoginPage />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }
