@@ -11,3 +11,8 @@ export const createClient = async (data: CreateClient): Promise<Client> => {
   const res = await api.post('/clients', data)
   return clientSchema.parse(res.data)
 }
+
+export const getSingleClient = async (id: string): Promise<Client> => {
+  const res = await api.get(`/clients/${id}`)
+  return clientSchema.parse(res.data)
+}
