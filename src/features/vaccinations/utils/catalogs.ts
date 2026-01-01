@@ -1,6 +1,6 @@
 import { VaccinationStatus } from './enum'
 
-export const VACCINE_STATUS_OPTIONS = [
+export const VACCINATION_STATUS_CATALOG = [
   {
     value: VaccinationStatus.PENDING,
     label: 'Pendiente',

@@ -3,6 +3,11 @@ import { formatDate } from 'date-fns'
 
 import type { Vaccination } from '../../models/Vaccination'
 import VaccineName from './VaccineName'
+import { cn, getLabelFromCatalog } from '@/shared/utils/helpers'
+import { VACCINATION_STATUS_CATALOG } from '../../utils/catalogs'
+import { VaccinationStatus } from '../../utils/enum'
+import { Badge } from '@/components/ui/badge'
+import VeterinarianName from './VeterinarianName'
 
 export const columns: ColumnDef<Vaccination>[] = [
   {
@@ -13,6 +18,11 @@ export const columns: ColumnDef<Vaccination>[] = [
       const formattedDate = formatDate(date, 'dd/MM/yyyy')
       return <span>{formattedDate}</span>
     },
+  },
+  {
+    accessorKey: 'vaccineId',
+    header: 'Vacuna',
+    cell: ({ row }) => <VaccineName vaccineId={row.original.vaccineId} />,
   },
   {
     accessorKey: 'nextDueDate',
@@ -26,14 +36,26 @@ export const columns: ColumnDef<Vaccination>[] = [
   {
     accessorKey: 'status',
     header: 'Estado',
-  },
-  {
-    accessorKey: 'vaccineId',
-    header: 'Vacuna',
-    cell: ({ row }) => <VaccineName vaccineId={row.original.vaccineId} />,
+    cell: ({ row }) => (
+      <Badge
+        className={cn({
+          'bg-yellow-100 text-yellow-800':
+            row.original.status === VaccinationStatus.PENDING,
+          'bg-green-100 text-green-800':
+            row.original.status === VaccinationStatus.APPLIED,
+          'bg-red-100 text-red-800':
+            row.original.status === VaccinationStatus.CANCELLED,
+        })}
+      >
+        {getLabelFromCatalog(row.original.status, VACCINATION_STATUS_CATALOG)}
+      </Badge>
+    ),
   },
   {
     accessorKey: 'veterinarianId',
     header: 'Veterinario',
+    cell: ({ row }) => (
+      <VeterinarianName veterinarianId={row.original.veterinarianId} />
+    ),
   },
 ]

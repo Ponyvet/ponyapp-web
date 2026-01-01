@@ -33,7 +33,7 @@ import useVaccines from '@/features/vaccines/hooks/useVaccines'
 import DatePicker from '@/shared/components/DatePicker'
 import ControlledSelect from '@/shared/components/ControlledSelect'
 import useUsers from '@/features/users/hooks/useUsers'
-import { VACCINE_STATUS_OPTIONS } from '../utils/catalogs'
+import { VACCINATION_STATUS_CATALOG } from '../utils/catalogs'
 
 const defaultValues: CreateVaccination = {
   appliedAt: new Date(),
@@ -138,7 +138,7 @@ const CreateVaccinationPage = () => {
             <ControlledSelect
               control={control}
               name="status"
-              options={VACCINE_STATUS_OPTIONS}
+              options={VACCINATION_STATUS_CATALOG}
               label="Estado"
               fieldDescription="Selecciona el estado de la vacunación"
             />

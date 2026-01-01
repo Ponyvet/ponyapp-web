@@ -8,7 +8,11 @@ const useClients = () => {
     return client?.name ?? ''
   }
 
-  return { clients, getClientName }
+  const selectClientById = (clientId: string) => {
+    return clients.find((c) => c.id === clientId)
+  }
+
+  return { clients, getClientName, selectClientById }
 }
 
 export default useClients
