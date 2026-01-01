@@ -37,7 +37,7 @@ import { VACCINE_STATUS_OPTIONS } from '../utils/catalogs'
 
 const defaultValues: CreateVaccination = {
   appliedAt: new Date(),
-  nextDueDate: undefined,
+  nextDueDate: null,
   status: VaccinationStatus.APPLIED,
   petId: '',
   vaccineId: '',
@@ -58,6 +58,11 @@ const CreateVaccinationPage = () => {
     onSuccess: () => {
       navigate(-1)
       toast.success('Esquema de vacunación creado con éxito')
+    },
+    onError: (error) => {
+      toast.error('Error al crear el esquema de vacunación', {
+        description: error instanceof Error ? error.message : undefined,
+      })
     },
   })
   const { handleSubmit, control, setValue } = useForm({

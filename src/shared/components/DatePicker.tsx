@@ -52,7 +52,7 @@ const DatePicker = <T extends FieldValues>({
               >
                 {field.value
                   ? new Date(field.value).toLocaleDateString()
-                  : 'Select date'}
+                  : 'Seleccionar fecha'}
                 <ChevronDownIcon />
               </Button>
             </PopoverTrigger>

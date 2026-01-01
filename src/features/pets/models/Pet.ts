@@ -9,6 +9,8 @@ export const petSchema = z.object({
   sex: z.enum(Sex),
   breed: z.string().nullable(),
   birthDate: z.coerce.date().nullable(),
+  color: z.string().nullable(),
+  notes: z.string().nullable(),
   clientId: z.string(),
 })
 

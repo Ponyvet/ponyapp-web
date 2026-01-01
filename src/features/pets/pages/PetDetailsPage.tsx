@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router'
 import useGetSinglePet from '../queries/useGetSinglePet'
-import { Card } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import useClients from '@/features/clients/hooks/useClients'
 import { DataTable } from '@/features/vaccinations/components/vaccinations/DataTable'
 import { columns } from '@/features/vaccinations/components/vaccinations/Columns'
@@ -8,6 +8,8 @@ import useGetPetVaccinations from '@/features/vaccinations/queries/useGetPetVacc
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
 import { PlusIcon } from 'lucide-react'
+import { getLabelFromCatalog } from '@/shared/utils/helpers'
+import { SEX_CATALOG, SPECIES_CATALOG } from '../utils/catalogs'
 
 const PetDetailsPage = () => {
   const navigate = useNavigate()
@@ -23,23 +25,35 @@ const PetDetailsPage = () => {
   return (
     <div>
       <h1 className="text-2xl font-bold mb-4">Detalles de la Mascota</h1>
-      <Card className="p-4">
-        <p>
-          <strong>Nombre:</strong> {pet.name}
-        </p>
-        <p>
-          <strong>Especie:</strong> {pet.species}
-        </p>
-        <p>
-          <strong>Raza:</strong> {pet.breed}
-        </p>
-        <p>
-          <strong>Fecha de nacimiento:</strong>
-          {pet.birthDate?.toLocaleDateString()}
-        </p>
-        <p>
-          <strong>Propietario:</strong> {getClientName(pet.clientId)}
-        </p>
+      <Card>
+        <CardContent>
+          <p>
+            <strong>Nombre:</strong> {pet.name}
+          </p>
+          <p>
+            <strong>Especie:</strong>{' '}
+            {getLabelFromCatalog(pet.species, SPECIES_CATALOG)}
+          </p>
+          <p>
+            <strong>Sexo:</strong> {getLabelFromCatalog(pet.sex, SEX_CATALOG)}
+          </p>
+          <p>
+            <strong>Raza:</strong> {pet.breed}
+          </p>
+          <p>
+            <strong>Color:</strong> {pet.color}
+          </p>
+          <p>
+            <strong>Fecha de nacimiento:</strong>
+            {pet.birthDate?.toLocaleDateString()}
+          </p>
+          <p>
+            <strong>Propietario:</strong> {getClientName(pet.clientId)}
+          </p>
+          <p>
+            <strong>Notas:</strong> {pet.notes}
+          </p>
+        </CardContent>
       </Card>
       <Separator className="my-6" />
 
