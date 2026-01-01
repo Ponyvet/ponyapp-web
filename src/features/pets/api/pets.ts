@@ -13,3 +13,8 @@ export const createPet = async (data: CreatePet): Promise<Pet> => {
   const res = await api.post('/pets', data)
   return petSchema.parse(res.data)
 }
+
+export const getSinglePet = async (petId: Pet['id']): Promise<Pet> => {
+  const res = await api.get(`/pets/${petId}`)
+  return petSchema.parse(res.data)
+}
