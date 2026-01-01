@@ -8,9 +8,17 @@ const useVaccines = () => {
     return vaccine ? vaccine.name : ''
   }
 
+  const getVaccineOptions = () => {
+    return vaccines.map((vaccine) => ({
+      value: vaccine.id,
+      label: vaccine.name,
+    }))
+  }
+
   return {
     vaccines,
     getVaccineName,
+    getVaccineOptions,
   }
 }
 

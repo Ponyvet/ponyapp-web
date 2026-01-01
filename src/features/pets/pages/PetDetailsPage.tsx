@@ -1,4 +1,4 @@
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import useGetSinglePet from '../queries/useGetSinglePet'
 import { Card } from '@/components/ui/card'
 import useClients from '@/features/clients/hooks/useClients'
@@ -6,8 +6,11 @@ import { DataTable } from '@/features/vaccinations/components/vaccinations/DataT
 import { columns } from '@/features/vaccinations/components/vaccinations/Columns'
 import useGetPetVaccinations from '@/features/vaccinations/queries/useGetPetVaccinations'
 import { Separator } from '@/components/ui/separator'
+import { Button } from '@/components/ui/button'
+import { PlusIcon } from 'lucide-react'
 
 const PetDetailsPage = () => {
+  const navigate = useNavigate()
   const params = useParams()
   const { getClientName } = useClients()
   const { data: pet, isSuccess } = useGetSinglePet(params.id)
@@ -42,6 +45,20 @@ const PetDetailsPage = () => {
 
       <div className="flex items-center justify-between my-4">
         <h2 className="text-xl font-bold">Vacunaciones</h2>
+      </div>
+      <div className="flex justify-end mb-4">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() =>
+            navigate('/vaccination/add', {
+              state: { petId: pet.id, clientId: pet.clientId },
+            })
+          }
+        >
+          <PlusIcon className="mr-2 h-4 w-4" />
+          Nueva Vacunación
+        </Button>
       </div>
       <DataTable columns={columns} data={vaccinations} />
     </div>

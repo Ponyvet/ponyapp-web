@@ -41,16 +41,10 @@ const CreatePetPage = () => {
       toast.success('Vacuna creada exitosamente')
     },
   })
-  const {
-    handleSubmit,
-    register,
-    control,
-    formState: { errors },
-  } = useForm({
+  const { handleSubmit, register, control } = useForm({
     defaultValues,
     resolver: zodResolver(createVaccineSchema),
   })
-  console.log({ errors })
 
   const handleOnSubmit: SubmitHandler<CreateVaccine> = (data) => {
     mutate(data)

@@ -12,6 +12,7 @@ import VaccinesPage from '@/features/vaccines/pages/VaccinesPage'
 import CreateVaccinePage from '@/features/vaccines/pages/CreateVaccinePage'
 import PetDetailsPage from '@/features/pets/pages/PetDetailsPage'
 import NotFound from '@/shared/page/NotFound'
+import CreateVaccinationPage from '@/features/vaccinations/pages/CreateVaccinationPage'
 
 const Router = () => {
   return (
@@ -26,6 +27,7 @@ const Router = () => {
           <Route path="/pets/:id" element={<PetDetailsPage />} />
           <Route path="/vaccines" element={<VaccinesPage />} />
           <Route path="/vaccines/add" element={<CreateVaccinePage />} />
+          <Route path="/vaccination/add" element={<CreateVaccinationPage />} />
         </Route>
       </Route>
       <Route path="/login" element={<LoginPage />} />
