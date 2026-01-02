@@ -1,12 +1,7 @@
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import {
-  calculateAge,
-  cn,
-  formatPhoneNumber,
-  getLabelFromCatalog,
-} from '@/shared/utils/helpers'
+import { calculateAge, cn, getLabelFromCatalog } from '@/shared/utils/helpers'
 import { SEX_CATALOG, SPECIES_CATALOG } from '../../utils/catalogs'
 import ItemInfo from '@/shared/components/ItemInfo'
 import {
@@ -24,6 +19,7 @@ import type { Pet } from '../../models/Pet'
 import useClients from '@/features/clients/hooks/useClients'
 import { Sex, Species } from '../../utils/enum'
 import { Link } from 'react-router'
+import WhatsAppLink from '@/shared/components/WhatsAppLink'
 
 interface PetInfoProps {
   pet: Pet
@@ -129,15 +125,7 @@ const PetInfo = ({ pet }: PetInfoProps) => {
               <ItemInfo
                 icon={<PhoneIcon />}
                 title="Teléfono"
-                description={
-                  <a
-                    href={`https://wa.me/${owner.phone}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {formatPhoneNumber(owner.phone)}
-                  </a>
-                }
+                description={<WhatsAppLink phone={owner.phone} />}
               />
             )}
           </div>
