@@ -34,6 +34,7 @@ import DatePicker from '@/shared/components/DatePicker'
 import ControlledSelect from '@/shared/components/ControlledSelect'
 import useUsers from '@/features/users/hooks/useUsers'
 import { VACCINATION_STATUS_CATALOG } from '../utils/catalogs'
+import useProfile from '@/features/auth/queries/useProfile'
 
 const defaultValues: CreateVaccination = {
   appliedAt: new Date(),
@@ -51,8 +52,9 @@ const CreateVaccinationPage = () => {
   const petId = state?.petId as string | undefined
   const { data: pets = [] } = useGetPets(clientId)
   const { clients } = useClients()
-  const { getUsersAsOptions } = useUsers()
+  const { getUsersAsOptions, users } = useUsers()
   const { getVaccineOptions } = useVaccines()
+  const { data: session } = useProfile()
   const { mutate, isPending } = useMutation({
     mutationFn: createVaccination,
     onSuccess: () => {
@@ -75,6 +77,12 @@ const CreateVaccinationPage = () => {
       setValue('petId', petId)
     }
   }, [petId, setValue, pets, clientId])
+
+  useEffect(() => {
+    if (users.length > 0 && session?.id) {
+      setValue('veterinarianId', session.id)
+    }
+  }, [session?.id, setValue, users])
 
   const handleOnSubmit: SubmitHandler<CreateVaccination> = (data) => {
     mutate(data)
