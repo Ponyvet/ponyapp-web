@@ -17,6 +17,7 @@ import {
   Map,
   NotebookIcon,
   PaletteIcon,
+  PhoneIcon,
   UserIcon,
 } from 'lucide-react'
 import type { Pet } from '../../models/Pet'
@@ -126,7 +127,7 @@ const PetInfo = ({ pet }: PetInfoProps) => {
             )}
             {owner?.phone && (
               <ItemInfo
-                icon={<UserIcon />}
+                icon={<PhoneIcon />}
                 title="Teléfono"
                 description={
                   <a

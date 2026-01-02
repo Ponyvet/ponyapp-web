@@ -29,9 +29,6 @@ const PetDetailsPage = () => {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold">Detalles de la Mascota</h1>
-      </div>
       <PetInfo pet={pet} />
       <Separator />
       <Card>
