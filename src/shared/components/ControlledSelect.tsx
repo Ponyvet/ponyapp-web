@@ -57,7 +57,7 @@ const ControlledSelect = <T extends FieldValues>({
               ))}
             </SelectContent>
           </SelectLib>
-          {fieldDescription && (
+          {fieldDescription && !fieldState.invalid && (
             <FieldDescription>{fieldDescription}</FieldDescription>
           )}
           {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
