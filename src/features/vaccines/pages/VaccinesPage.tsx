@@ -1,7 +1,7 @@
 import { PlusIcon } from 'lucide-react'
 
 import { columns } from '../components/vaccines/Columns'
-import { DataTable } from '../components/vaccines/DataTable'
+import { DataTable } from '@/shared/components/DataTable'
 import { Button } from '@/components/ui/button'
 import { useNavigate } from 'react-router'
 import useGetVaccines from '../queries/useGetVaccines'

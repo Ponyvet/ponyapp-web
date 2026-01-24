@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router'
 import useGetSingleClient from '../queries/useGetSingleClient'
 import useGetPets from '@/features/pets/queries/useGetPets'
-import { DataTable } from '@/features/pets/components/pets/DataTable'
+import { DataTable } from '@/shared/components/DataTable'
 import { columns } from '@/features/pets/components/pets/Columns'
 import {
   Card,

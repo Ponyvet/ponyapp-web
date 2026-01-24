@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { DataTable } from '@/features/vaccinations/components/vaccinations/DataTable'
+import { DataTable } from '@/shared/components/DataTable'
 import { columns } from '@/features/vaccinations/components/vaccinations/Columns'
 import useGetPetVaccinations from '@/features/vaccinations/queries/useGetPetVaccinations'
 import { Separator } from '@/components/ui/separator'

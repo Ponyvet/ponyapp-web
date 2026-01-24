@@ -6,7 +6,7 @@ import {
 import useGetClients from '../queries/useGetClients'
 
 import { columns } from '@/features/clients/components/clients/Columns'
-import { DataTable } from '@/features/clients/components/clients/DataTable'
+import { DataTable } from '@/shared/components/DataTable'
 import { Button } from '@/components/ui/button'
 import { PlusIcon, Search } from 'lucide-react'
 import { useMemo, useState } from 'react'
@@ -19,7 +19,7 @@ const ClientPage = () => {
   const filteredClients = useMemo(() => {
     if (!isSuccess) return []
     return clients.filter((client) =>
-      client.name.toLowerCase().includes(searchTerm.toLowerCase())
+      client.name.toLowerCase().includes(searchTerm.toLowerCase()),
     )
   }, [clients, isSuccess, searchTerm])
 
