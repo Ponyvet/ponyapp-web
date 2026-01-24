@@ -37,7 +37,7 @@ import { VACCINATION_STATUS_CATALOG } from '../utils/catalogs'
 import useProfile from '@/features/auth/queries/useProfile'
 
 const defaultValues: CreateVaccination = {
-  appliedAt: new Date(),
+  appliedAt: null,
   nextDueDate: null,
   status: VaccinationStatus.APPLIED,
   petId: '',
@@ -159,6 +159,7 @@ const CreateVaccinationPage = () => {
             />
           </FieldGroup>
         </FieldSet>
+
         <Field orientation="horizontal">
           <Button type="submit" disabled={isPending}>
             Guardar

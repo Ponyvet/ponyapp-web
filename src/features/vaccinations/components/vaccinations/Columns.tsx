@@ -13,8 +13,11 @@ export const columns: ColumnDef<Vaccination>[] = [
   {
     accessorKey: 'appliedAt',
     header: 'Fecha de Aplicación',
-    cell: ({ getValue }) => {
-      const date = getValue<Date>()
+    cell: ({ row }) => {
+      const date = row.original.appliedAt
+      if (!date) {
+        return <span>--</span>
+      }
       const formattedDate = formatDate(date, 'dd/MM/yyyy')
       return <span>{formattedDate}</span>
     },
@@ -27,8 +30,11 @@ export const columns: ColumnDef<Vaccination>[] = [
   {
     accessorKey: 'nextDueDate',
     header: 'Próxima Fecha',
-    cell: ({ getValue }) => {
-      const date = getValue<Date>()
+    cell: ({ row }) => {
+      const date = row.original.nextDueDate
+      if (!date) {
+        return <span>--</span>
+      }
       const formattedDate = formatDate(date, 'dd/MM/yyyy')
       return <span>{formattedDate}</span>
     },

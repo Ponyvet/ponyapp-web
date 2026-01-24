@@ -3,7 +3,7 @@ import { VaccinationStatus } from '../utils/enum'
 
 export const vaccinationSchema = z.object({
   id: z.string(),
-  appliedAt: z.coerce.date(),
+  appliedAt: z.coerce.date().nullable(),
   nextDueDate: z.coerce.date().nullable(),
   status: z.enum(VaccinationStatus),
   petId: z.string(),
