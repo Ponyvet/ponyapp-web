@@ -31,14 +31,8 @@ import {
 } from '@/components/ui/popover'
 import { Calendar } from '@/components/ui/calendar'
 import { Textarea } from '@/components/ui/textarea'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import useGetClients from '@/features/clients/queries/useGetClients'
+import ControlledSelect from '@/shared/components/ControlledSelect'
 
 const defaultValues: CreatePet = {
   name: '',
@@ -81,39 +75,14 @@ const CreatePetPage = () => {
         <FieldSet>
           <FieldLegend>Crear Cartilla</FieldLegend>
           <FieldGroup className="gap-3">
-            <Controller
+            <ControlledSelect
+              label="Cliente"
               control={control}
               name="clientId"
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="clientId">Cliente</FieldLabel>
-                  <Select
-                    name={field.name}
-                    value={field.value}
-                    onValueChange={field.onChange}
-                  >
-                    <SelectTrigger
-                      id="clientId"
-                      aria-invalid={fieldState.invalid}
-                    >
-                      <SelectValue placeholder="Select" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {clients.map((client) => (
-                        <SelectItem key={client.id} value={client.id}>
-                          {client.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FieldDescription>
-                    Selecciona el cliente propietario de la mascota
-                  </FieldDescription>
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
+              options={clients.map((client) => ({
+                label: client.name,
+                value: client.id,
+              }))}
             />
             <Controller
               name="species"

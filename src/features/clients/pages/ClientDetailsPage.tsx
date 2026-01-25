@@ -2,8 +2,6 @@ import { useNavigate, useParams } from 'react-router'
 import useGetSingleClient from '../queries/useGetSingleClient'
 import useDeleteClient from '../queries/useDeleteClient'
 import useGetPets from '@/features/pets/queries/useGetPets'
-import { DataTable } from '@/shared/components/DataTable'
-import { columns } from '@/features/pets/components/pets/Columns'
 import {
   Card,
   CardAction,
@@ -13,19 +11,17 @@ import {
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import {
-  DogIcon,
   EditIcon,
   MapIcon,
   NotebookIcon,
   PhoneIcon,
-  PlusIcon,
   TrashIcon,
   UserIcon,
 } from 'lucide-react'
 import ItemInfo from '@/shared/components/ItemInfo'
 import { Separator } from '@radix-ui/react-separator'
 import { formatPhoneNumber } from '@/shared/utils/helpers'
-import EmptyTable from '@/shared/components/EmptyTable'
+import PetsTable from '@/features/pets/components/pets/PetsTable'
 
 const ClientDetailsPage = () => {
   const navigate = useNavigate()
@@ -110,45 +106,7 @@ const ClientDetailsPage = () => {
         </CardContent>
       </Card>
       <Separator />
-      <Card>
-        <CardHeader>
-          <CardTitle>
-            <h2 className="text-xl font-bold">Mascotas</h2>
-          </CardTitle>
-          <CardAction>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() =>
-                navigate('/pets/add', { state: { clientId: client.id } })
-              }
-            >
-              <PlusIcon />
-              Agregar Cartilla
-            </Button>
-          </CardAction>
-        </CardHeader>
-        <CardContent>
-          {pets.length > 0 ? (
-            <DataTable columns={columns} data={pets} filterBy="name" />
-          ) : (
-            <EmptyTable
-              icon={<DogIcon />}
-              title="No hay mascotas registradas"
-              description="Agrega una nueva cartilla para este cliente."
-              buttonText={
-                <>
-                  <PlusIcon className="mr-2" />
-                  Agregar primera cartilla
-                </>
-              }
-              onclick={() =>
-                navigate('/pets/add', { state: { clientId: client.id } })
-              }
-            />
-          )}
-        </CardContent>
-      </Card>
+      <PetsTable clientId={client.id} pets={pets} />
     </div>
   )
 }

@@ -9,6 +9,7 @@ import CreateClientPage from '@/features/clients/pages/CreateClientPage'
 import EditClientPage from '@/features/clients/pages/EditClientPage'
 import ClientDetailsPage from '@/features/clients/pages/ClientDetailsPage'
 import CreatePetPage from '@/features/pets/pages/CreatePetPage'
+import PetsPage from '@/features/pets/pages/PetsPage'
 import VaccinesPage from '@/features/vaccines/pages/VaccinesPage'
 import CreateVaccinePage from '@/features/vaccines/pages/CreateVaccinePage'
 import EditVaccinePage from '@/features/vaccines/pages/EditVaccinePage'
@@ -26,6 +27,7 @@ const Router = () => {
           <Route path="/clients/add" element={<CreateClientPage />} />
           <Route path="/clients/:clientId/edit" element={<EditClientPage />} />
           <Route path="/clients/:clientId" element={<ClientDetailsPage />} />
+          <Route path="/pets" element={<PetsPage />} />
           <Route path="/pets/add" element={<CreatePetPage />} />
           <Route
             path="/clients/:clientId/pets/:petId"

@@ -1,6 +1,7 @@
 import z from 'zod'
 
 import { Sex, Species } from '../utils/enum'
+import { paginatedDataSchema } from '@/shared/models/PaginatedData'
 
 export const petSchema = z.object({
   id: z.string(),
@@ -15,3 +16,6 @@ export const petSchema = z.object({
 })
 
 export type Pet = z.infer<typeof petSchema>
+
+export const petsPaginatedDataSchema = paginatedDataSchema(petSchema)
+export type PetsPaginatedData = z.infer<typeof petsPaginatedDataSchema>
