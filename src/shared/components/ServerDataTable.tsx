@@ -17,7 +17,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { useState, useEffect, useCallback } from 'react'
-import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 
 import { Input } from '@/components/ui/input'
 import {
@@ -37,6 +37,7 @@ import {
 } from '@/components/ui/select'
 import { useTranslation } from 'react-i18next'
 import { useDebounce } from '../../hooks/use-debounce'
+import TablePagination from './TablePagination'
 
 export interface ServerSideState {
   page: number
@@ -328,57 +329,13 @@ export function ServerDataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-
-      {/* Pagination Controls */}
-      <div className="flex items-center justify-between space-x-2 py-4">
-        <div className="flex items-center space-x-2">
-          <p className="text-sm font-medium">Filas por página:</p>
-          <Select
-            value={pagination.limit.toString()}
-            onValueChange={handlePageSizeChange}
-            disabled={isLoading}
-          >
-            <SelectTrigger className="h-8 w-18">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent side="top">
-              {pageSizeOptions.map((pageSize) => (
-                <SelectItem key={pageSize} value={pageSize.toString()}>
-                  {pageSize}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="flex items-center space-x-2">
-          <div className="flex items-center justify-center text-sm font-medium">
-            Página {pagination.page} de {pagination.totalPages} (
-            {pagination.total} elementos)
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => handlePageChange(pagination.page - 1)}
-              disabled={!pagination.hasPrev || isLoading}
-            >
-              <ChevronLeft className="h-4 w-4" />
-              Anterior
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => handlePageChange(pagination.page + 1)}
-              disabled={!pagination.hasNext || isLoading}
-            >
-              Siguiente
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-      </div>
+      <TablePagination
+        pagination={pagination}
+        pageSizeOptions={pageSizeOptions}
+        isLoading={isLoading}
+        onPageChange={handlePageChange}
+        onPageSizeChange={handlePageSizeChange}
+      />
     </div>
   )
 }
