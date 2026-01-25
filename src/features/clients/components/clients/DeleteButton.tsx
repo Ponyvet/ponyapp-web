@@ -22,6 +22,7 @@ const DeleteButton = ({ client }: DeleteButtonProps) => {
   return (
     <Button
       variant="ghost"
+      className="text-destructive hover:text-destructive"
       size="sm"
       onClick={handleDelete}
       disabled={isPending}

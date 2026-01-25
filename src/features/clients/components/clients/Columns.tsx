@@ -29,8 +29,8 @@ export const columns: ColumnDef<Client>[] = [
     header: '',
     cell: ({ row }) => (
       <div className="flex gap-1">
-        <EditButton client={row.original} />
         <DetailsButton client={row.original} />
+        <EditButton client={row.original} />
         <DeleteButton client={row.original} />
       </div>
     ),

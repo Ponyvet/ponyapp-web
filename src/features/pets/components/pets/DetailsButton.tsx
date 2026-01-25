@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button'
-import { IdCard } from 'lucide-react'
+import { Eye } from 'lucide-react'
 import { useNavigate } from 'react-router'
 import type { Pet } from '../../models/Pet'
 
@@ -17,7 +17,7 @@ const DetailsButton = ({ pet }: DetailsButtonProps) => {
         navigate(`/clients/${pet.clientId}/pets/${pet.id}`)
       }}
     >
-      <IdCard />
+      <Eye />
     </Button>
   )
 }

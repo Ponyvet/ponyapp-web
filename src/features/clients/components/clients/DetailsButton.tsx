@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button'
-import { IdCard } from 'lucide-react'
+import { Eye } from 'lucide-react'
 import { useNavigate } from 'react-router'
 import type { Client } from '../../models/Client'
 
@@ -17,7 +17,7 @@ const DetailsButton = ({ client }: DetailsButtonProps) => {
         navigate(`/clients/${client.id}`)
       }}
     >
-      <IdCard />
+      <Eye />
     </Button>
   )
 }
