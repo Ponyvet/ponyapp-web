@@ -11,6 +11,7 @@ import ClientDetailsPage from '@/features/clients/pages/ClientDetailsPage'
 import CreatePetPage from '@/features/pets/pages/CreatePetPage'
 import VaccinesPage from '@/features/vaccines/pages/VaccinesPage'
 import CreateVaccinePage from '@/features/vaccines/pages/CreateVaccinePage'
+import EditVaccinePage from '@/features/vaccines/pages/EditVaccinePage'
 import PetDetailsPage from '@/features/pets/pages/PetDetailsPage'
 import NotFound from '@/shared/page/NotFound'
 import CreateVaccinationPage from '@/features/vaccinations/pages/CreateVaccinationPage'
@@ -33,6 +34,10 @@ const Router = () => {
           <Route path="/pets/:petId" element={<PetDetailsPage />} />
           <Route path="/vaccines" element={<VaccinesPage />} />
           <Route path="/vaccines/add" element={<CreateVaccinePage />} />
+          <Route
+            path="/vaccines/:vaccineId/edit"
+            element={<EditVaccinePage />}
+          />
           <Route path="/vaccination/add" element={<CreateVaccinationPage />} />
         </Route>
       </Route>
