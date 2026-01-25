@@ -26,6 +26,8 @@ import { formatPhoneNumber } from '@/shared/utils/helpers'
 import EmptyTable from '@/shared/components/EmptyTable'
 import { DataTable } from '@/shared/components/DataTable'
 import { useColumns } from '@/features/pets/components/pets/Columns'
+import { useConfirm } from '@/hooks/use-confirm'
+import { ConfirmDialog } from '@/shared/components/ConfirmDialog'
 
 const ClientDetailsPage = () => {
   const navigate = useNavigate()
@@ -34,14 +36,21 @@ const ClientDetailsPage = () => {
   const { data: pets = [] } = useGetPets(params.clientId)
   const deleteClientMutation = useDeleteClient(() => navigate('/clients'))
   const columns = useColumns({ showClientName: false })
+  const { confirm, isOpen, options, handleConfirm, handleCancel } = useConfirm()
 
-  const handleDeleteClient = () => {
+  const handleDeleteClient = async () => {
     if (!client) return
-    const confirmed = window.confirm(
-      `¿Estás seguro de que deseas eliminar a ${client.name}? Esta acción no se puede deshacer.`,
-    )
-    if (!confirmed) return
-    deleteClientMutation.mutate(client.id)
+
+    const confirmed = await confirm({
+      title: '¿Estás absolutamente seguro?',
+      description: `¿Estás seguro de que deseas eliminar a ${client.name}? Esta acción no se puede deshacer.`,
+      confirmText: 'Eliminar',
+      cancelText: 'Cancelar',
+    })
+
+    if (confirmed) {
+      deleteClientMutation.mutate(client.id)
+    }
   }
 
   if (!isSuccess) {
@@ -149,6 +158,16 @@ const ClientDetailsPage = () => {
           )}
         </CardContent>
       </Card>
+      <ConfirmDialog
+        open={isOpen}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+        title={options.title}
+        description={options.description}
+        confirmText={options.confirmText}
+        cancelText={options.cancelText}
+        isLoading={deleteClientMutation.isPending}
+      />
     </div>
   )
 }
