@@ -5,16 +5,25 @@ import type { Pet } from '../../models/Pet'
 import { getLabelFromCatalog } from '@/shared/utils/helpers'
 import { SEX_CATALOG, SPECIES_CATALOG } from '../../utils/catalogs'
 import SortableColumn from '@/shared/components/SortableColumn'
+import { Link } from 'react-router'
+import { Button } from '@/components/ui/button'
+import { formatDate } from 'date-fns'
 
 export const useColumns = () => {
   const columns: ColumnDef<Pet>[] = [
     {
       accessorKey: 'clientId',
       header: ({ column }) => (
-        <SortableColumn column={column}>ID Cliente</SortableColumn>
+        <SortableColumn column={column}>Cliente</SortableColumn>
       ),
       enableSorting: true,
-      cell: ({ row }) => row.original.client?.name ?? '',
+      cell: ({ row }) => (
+        <Button variant="link" className="p-0">
+          <Link to={`/clients/${row.original.client?.id}`}>
+            {row.original.client?.name}
+          </Link>
+        </Button>
+      ),
     },
     {
       accessorKey: 'name',
@@ -45,6 +54,14 @@ export const useColumns = () => {
         <SortableColumn column={column}>Sexo</SortableColumn>
       ),
       cell: ({ row }) => getLabelFromCatalog(row.original.sex, SEX_CATALOG),
+      enableSorting: true,
+    },
+    {
+      accessorKey: 'createdAt',
+      header: ({ column }) => (
+        <SortableColumn column={column}>Fecha de Creación</SortableColumn>
+      ),
+      cell: ({ row }) => formatDate(row.original.createdAt, 'dd/MM/yyyy'),
       enableSorting: true,
     },
     {

@@ -19,6 +19,8 @@ export const petSchema = z.object({
       name: z.string(),
     })
     .nullish(),
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date(),
 })
 
 export type Pet = z.infer<typeof petSchema>

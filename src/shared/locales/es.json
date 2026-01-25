@@ -19,7 +19,9 @@
       "nextDueDate": "Próxima fecha",
       "status": "Estado",
       "veterinarianId": "Veterinario",
-      "birthDate": "Fecha de nacimiento"
+      "birthDate": "Fecha de nacimiento",
+      "createdAt": "Fecha de creación",
+      "clientId": "Cliente"
     }
   },
   "breadcrumbs": {
