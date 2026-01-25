@@ -22,7 +22,9 @@ const ClientPage = () => {
           Agregar Cliente
         </Button>
       </div>
-      {isSuccess && <DataTable columns={columns} data={clients} />}
+      {isSuccess && (
+        <DataTable columns={columns} data={clients} filterBy="name" />
+      )}
     </div>
   )
 }

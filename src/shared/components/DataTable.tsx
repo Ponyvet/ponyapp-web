@@ -36,7 +36,7 @@ import { useTranslation } from 'react-i18next'
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
-  filterBy?: string
+  filterBy?: keyof TData
 }
 
 export function DataTable<TData, TValue>({
@@ -71,12 +71,16 @@ export function DataTable<TData, TValue>({
       <div className="flex items-center py-4">
         {filterBy && (
           <Input
-            placeholder={`Filter by ${filterBy}...`}
+            placeholder={`Buscar por ${t(`table.columns.${filterBy as string}`)}`}
             value={
-              (table.getColumn(filterBy)?.getFilterValue() as string) ?? ''
+              (table
+                .getColumn(filterBy as string)
+                ?.getFilterValue() as string) ?? ''
             }
             onChange={(event) =>
-              table.getColumn('email')?.setFilterValue(event.target.value)
+              table
+                .getColumn(filterBy as string)
+                ?.setFilterValue(event.target.value)
             }
             className="max-w-sm"
           />

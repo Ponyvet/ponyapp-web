@@ -98,7 +98,7 @@ const ClientDetailsPage = () => {
         </CardHeader>
         <CardContent>
           {pets.length > 0 ? (
-            <DataTable columns={columns} data={pets} />
+            <DataTable columns={columns} data={pets} filterBy="name" />
           ) : (
             <EmptyTable
               icon={<DogIcon />}
