@@ -41,7 +41,7 @@ const PetsTable = ({
 
   if (showEmptyState && !pagination) {
     return (
-      <Card>
+      <Card className="border-none shadow-none">
         <CardHeader>
           <CardTitle>
             <h2 className="text-xl font-bold">Mascotas</h2>
@@ -75,7 +75,7 @@ const PetsTable = ({
   }
 
   return (
-    <Card>
+    <Card className="border-none shadow-none">
       <CardHeader>
         <CardTitle>
           <h2 className="text-xl font-bold">Mascotas</h2>
