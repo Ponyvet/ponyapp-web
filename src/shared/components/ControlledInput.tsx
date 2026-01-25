@@ -5,6 +5,7 @@ import {
   FieldLabel,
 } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
+import type { ComponentProps } from 'react'
 import {
   Controller,
   type Control,
@@ -12,7 +13,9 @@ import {
   type Path,
 } from 'react-hook-form'
 
-interface ControlledInputProps<T extends FieldValues> {
+interface ControlledInputProps<T extends FieldValues> extends ComponentProps<
+  typeof Input
+> {
   control: Control<T>
   name: Path<T>
   label?: string
@@ -25,6 +28,7 @@ const ControlledInput = <T extends FieldValues>({
   label,
   fieldDescription,
   placeholder,
+  ...props
 }: ControlledInputProps<T>) => {
   return (
     <Controller
@@ -34,6 +38,7 @@ const ControlledInput = <T extends FieldValues>({
         <Field data-invalid={fieldState.invalid}>
           {label && <FieldLabel htmlFor={field.name}>{label}</FieldLabel>}
           <Input
+            {...props}
             aria-invalid={fieldState.invalid}
             id={field.name}
             placeholder={placeholder}

@@ -69,6 +69,7 @@ const ClientForm = ({
           name="phone"
           label="Teléfono"
           placeholder="123-456-7890"
+          maxLength={10}
         />
         <ControlledTextarea
           control={control}

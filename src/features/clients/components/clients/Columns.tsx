@@ -2,6 +2,7 @@ import type { Client } from '@/features/clients/models/Client'
 import type { ColumnDef } from '@tanstack/react-table'
 import DetailsButton from './DetailsButton'
 import EditButton from './EditButton'
+import DeleteButton from './DeleteButton'
 import { formatPhoneNumber } from '@/shared/utils/helpers'
 import SortableColumn from '@/shared/components/SortableColumn'
 
@@ -30,6 +31,7 @@ export const columns: ColumnDef<Client>[] = [
       <div className="flex gap-1">
         <EditButton client={row.original} />
         <DetailsButton client={row.original} />
+        <DeleteButton client={row.original} />
       </div>
     ),
     enableHiding: false,

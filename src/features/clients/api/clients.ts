@@ -24,3 +24,7 @@ export const getSingleClient = async (id: string): Promise<Client> => {
   const res = await api.get(`/clients/${id}`)
   return clientSchema.parse(res.data)
 }
+
+export const deleteClient = async (id: string): Promise<void> => {
+  await api.delete(`/clients/${id}`)
+}
