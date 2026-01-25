@@ -13,6 +13,12 @@ export const petSchema = z.object({
   color: z.string().nullable(),
   notes: z.string().nullable(),
   clientId: z.string(),
+  client: z
+    .object({
+      id: z.string(),
+      name: z.string(),
+    })
+    .nullish(),
 })
 
 export type Pet = z.infer<typeof petSchema>

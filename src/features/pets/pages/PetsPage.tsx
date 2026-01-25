@@ -1,29 +1,48 @@
+import { useState } from 'react'
 import useGetAllPets from '../queries/useGetAllPets'
 import PetsTable from '../components/pets/PetsTable'
+import type { ServerSideState } from '@/shared/components/ServerDataTable'
 
 const PetsPage = () => {
+  const [serverState, setServerState] = useState<ServerSideState>({
+    page: 1,
+    limit: 10,
+    sortBy: 'name',
+    sortOrder: 'asc',
+  })
+
   const {
     data: petsData,
     isLoading,
     isSuccess,
   } = useGetAllPets({
     params: {
-      page: 1,
-      limit: 100,
-      sortBy: 'name',
-      sortOrder: 'asc',
+      page: serverState.page,
+      limit: serverState.limit,
+      sortBy:
+        (serverState.sortBy as
+          | 'name'
+          | 'species'
+          | 'birthDate'
+          | 'createdAt'
+          | 'updatedAt') || 'name',
+      sortOrder: serverState.sortOrder || 'asc',
+      ...serverState.filters,
     },
   })
 
-  if (isLoading) {
-    return <div>Cargando...</div>
-  }
-
-  if (!isSuccess) {
+  if (!isSuccess && !isLoading) {
     return <div>Error al cargar las cartillas</div>
   }
 
-  return <PetsTable pets={petsData.data} />
+  return (
+    <PetsTable
+      pets={petsData?.data || []}
+      pagination={petsData?.pagination}
+      isLoading={isLoading}
+      onStateChange={setServerState}
+    />
+  )
 }
 
 export default PetsPage

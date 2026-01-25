@@ -11,17 +11,21 @@ import {
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import {
+  DogIcon,
   EditIcon,
   MapIcon,
   NotebookIcon,
   PhoneIcon,
+  PlusIcon,
   TrashIcon,
   UserIcon,
 } from 'lucide-react'
 import ItemInfo from '@/shared/components/ItemInfo'
 import { Separator } from '@radix-ui/react-separator'
 import { formatPhoneNumber } from '@/shared/utils/helpers'
-import PetsTable from '@/features/pets/components/pets/PetsTable'
+import EmptyTable from '@/shared/components/EmptyTable'
+import { DataTable } from '@/shared/components/DataTable'
+import { useColumns } from '@/features/pets/components/pets/Columns'
 
 const ClientDetailsPage = () => {
   const navigate = useNavigate()
@@ -29,6 +33,7 @@ const ClientDetailsPage = () => {
   const { data: client, isSuccess } = useGetSingleClient(params.clientId)
   const { data: pets = [] } = useGetPets(params.clientId)
   const deleteClientMutation = useDeleteClient(() => navigate('/clients'))
+  const columns = useColumns({ showClientName: false })
 
   const handleDeleteClient = () => {
     if (!client) return
@@ -106,7 +111,44 @@ const ClientDetailsPage = () => {
         </CardContent>
       </Card>
       <Separator />
-      <PetsTable clientId={client.id} pets={pets} />
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            <h2 className="text-xl font-bold">Mascotas</h2>
+          </CardTitle>
+          <CardAction>
+            <Button
+              size="sm"
+              onClick={() =>
+                navigate('/pets/add', { state: { clientId: client.id } })
+              }
+            >
+              <PlusIcon />
+              Agregar Cartilla
+            </Button>
+          </CardAction>
+        </CardHeader>
+        <CardContent>
+          {pets.length > 0 ? (
+            <DataTable columns={columns} data={pets} filterBy="name" />
+          ) : (
+            <EmptyTable
+              icon={<DogIcon />}
+              title="No hay mascotas registradas"
+              description="Agrega una nueva cartilla para este cliente."
+              buttonText={
+                <>
+                  <PlusIcon className="mr-2" />
+                  Agregar primera cartilla
+                </>
+              }
+              onclick={() =>
+                navigate('/pets/add', { state: { clientId: client.id } })
+              }
+            />
+          )}
+        </CardContent>
+      </Card>
     </div>
   )
 }

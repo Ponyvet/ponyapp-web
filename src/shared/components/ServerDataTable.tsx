@@ -1,0 +1,384 @@
+import {
+  type ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+  type VisibilityState,
+  type SortingState,
+  type ColumnFiltersState,
+} from '@tanstack/react-table'
+
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
+import { useState, useEffect, useCallback } from 'react'
+import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react'
+
+import { Input } from '@/components/ui/input'
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { Button } from '@/components/ui/button'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { useTranslation } from 'react-i18next'
+import { useDebounce } from '../../hooks/use-debounce'
+
+export interface ServerSideState {
+  page: number
+  limit: number
+  sortBy?: string
+  sortOrder?: 'asc' | 'desc'
+  filters?: Record<string, string | number | boolean>
+}
+
+export interface PaginationInfo {
+  page: number
+  limit: number
+  total: number
+  totalPages: number
+  hasNext: boolean
+  hasPrev: boolean
+}
+
+interface ServerDataTableProps<TData, TValue> {
+  columns: ColumnDef<TData, TValue>[]
+  data: TData[]
+  pagination: PaginationInfo
+  isLoading?: boolean
+  onStateChange: (state: ServerSideState) => void
+  filterConfig?: {
+    searchPlaceholder?: string
+    searchBy?: string
+    filters?: Array<{
+      key: string
+      label: string
+      type: 'select' | 'input'
+      options?: Array<{ label: string; value: string }>
+    }>
+  }
+  pageSizeOptions?: number[]
+}
+
+export function ServerDataTable<TData, TValue>({
+  columns,
+  data,
+  pagination,
+  isLoading = false,
+  onStateChange,
+  filterConfig,
+  pageSizeOptions = [10, 20, 50, 100],
+}: ServerDataTableProps<TData, TValue>) {
+  const { t } = useTranslation('shared')
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+  const [sorting, setSorting] = useState<SortingState>([])
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+  const [searchValue, setSearchValue] = useState('')
+
+  // Debounce search input
+  const debouncedSearchValue = useDebounce(searchValue, 300)
+
+  // Create filters object from column filters and search
+  const getFiltersObject = useCallback(() => {
+    const filters: Record<string, string | number | boolean> = {}
+
+    // Add search filter
+    if (debouncedSearchValue && filterConfig?.searchBy) {
+      filters[filterConfig.searchBy] = debouncedSearchValue
+    }
+
+    // Add column filters
+    columnFilters.forEach((filter) => {
+      if (filter.value) {
+        filters[filter.id] = filter.value as string | number | boolean
+      }
+    })
+
+    return filters
+  }, [debouncedSearchValue, filterConfig?.searchBy, columnFilters])
+
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    manualPagination: true,
+    manualSorting: true,
+    manualFiltering: true,
+    onColumnVisibilityChange: setColumnVisibility,
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    pageCount: pagination.totalPages,
+    state: {
+      columnVisibility,
+      sorting,
+      columnFilters,
+      pagination: {
+        pageIndex: pagination.page - 1,
+        pageSize: pagination.limit,
+      },
+    },
+  })
+
+  // Handle state changes
+  useEffect(() => {
+    const sortedColumn = sorting[0]
+    const filters = getFiltersObject()
+
+    onStateChange({
+      page: pagination.page,
+      limit: pagination.limit,
+      sortBy: sortedColumn?.id,
+      sortOrder: sortedColumn?.desc ? 'desc' : 'asc',
+      filters: Object.keys(filters).length > 0 ? filters : undefined,
+    })
+  }, [
+    sorting,
+    debouncedSearchValue,
+    columnFilters,
+    pagination.page,
+    pagination.limit,
+    onStateChange,
+    filterConfig?.searchBy,
+    getFiltersObject,
+  ])
+
+  const handlePageChange = (newPage: number) => {
+    const filters = getFiltersObject()
+    onStateChange({
+      page: newPage,
+      limit: pagination.limit,
+      sortBy: sorting[0]?.id,
+      sortOrder: sorting[0]?.desc ? 'desc' : 'asc',
+      filters: Object.keys(filters).length > 0 ? filters : undefined,
+    })
+  }
+
+  const handlePageSizeChange = (newSize: string) => {
+    const filters = getFiltersObject()
+    onStateChange({
+      page: 1,
+      limit: parseInt(newSize),
+      sortBy: sorting[0]?.id,
+      sortOrder: sorting[0]?.desc ? 'desc' : 'asc',
+      filters: Object.keys(filters).length > 0 ? filters : undefined,
+    })
+  }
+
+  return (
+    <div className="w-full">
+      <div className="flex items-center justify-between py-4">
+        <div className="flex items-center space-x-2">
+          {/* Search Input */}
+          {filterConfig?.searchBy && (
+            <Input
+              placeholder={filterConfig.searchPlaceholder || 'Buscar...'}
+              value={searchValue}
+              onChange={(event) => setSearchValue(event.target.value)}
+              className="max-w-sm"
+              disabled={isLoading}
+            />
+          )}
+
+          {/* Additional Filters */}
+          {filterConfig?.filters?.map((filter) => (
+            <div key={filter.key} className="flex items-center space-x-2">
+              <label className="text-sm font-medium">{filter.label}:</label>
+              {filter.type === 'select' && filter.options ? (
+                <Select
+                  value={
+                    (table.getColumn(filter.key)?.getFilterValue() as string) ??
+                    ''
+                  }
+                  onValueChange={(value) => {
+                    table
+                      .getColumn(filter.key)
+                      ?.setFilterValue(value === 'all' ? '' : value)
+                  }}
+                  disabled={isLoading}
+                >
+                  <SelectTrigger className="w-35">
+                    <SelectValue placeholder="Todos" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">Todos</SelectItem>
+                    {filter.options.map((option) => (
+                      <SelectItem key={option.value} value={option.value}>
+                        {option.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              ) : (
+                <Input
+                  placeholder={`Filtrar por ${filter.label.toLowerCase()}`}
+                  value={
+                    (table.getColumn(filter.key)?.getFilterValue() as string) ??
+                    ''
+                  }
+                  onChange={(event) =>
+                    table
+                      .getColumn(filter.key)
+                      ?.setFilterValue(event.target.value)
+                  }
+                  className="max-w-xs"
+                  disabled={isLoading}
+                />
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Column Visibility */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" disabled={isLoading}>
+              Columnas <ChevronDown />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuGroup>
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) =>
+                      column.toggleVisibility(!!value)
+                    }
+                  >
+                    {t(`table.columns.${column.id}`)}
+                  </DropdownMenuCheckboxItem>
+                ))}
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+
+      <div className="overflow-hidden rounded-md border">
+        <Table>
+          <TableHeader className="bg-muted">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <TableHead key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
+                  </TableHead>
+                ))}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {isLoading ? (
+              Array.from({ length: pagination.limit }).map((_, index) => (
+                <TableRow key={index}>
+                  {columns.map((_, cellIndex) => (
+                    <TableCell key={cellIndex}>
+                      <div className="h-6 bg-gray-200 animate-pulse rounded" />
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && 'selected'}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
+                  No se encontraron datos.
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+
+      {/* Pagination Controls */}
+      <div className="flex items-center justify-between space-x-2 py-4">
+        <div className="flex items-center space-x-2">
+          <p className="text-sm font-medium">Filas por página:</p>
+          <Select
+            value={pagination.limit.toString()}
+            onValueChange={handlePageSizeChange}
+            disabled={isLoading}
+          >
+            <SelectTrigger className="h-8 w-18">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent side="top">
+              {pageSizeOptions.map((pageSize) => (
+                <SelectItem key={pageSize} value={pageSize.toString()}>
+                  {pageSize}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="flex items-center space-x-2">
+          <div className="flex items-center justify-center text-sm font-medium">
+            Página {pagination.page} de {pagination.totalPages} (
+            {pagination.total} elementos)
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => handlePageChange(pagination.page - 1)}
+              disabled={!pagination.hasPrev || isLoading}
+            >
+              <ChevronLeft className="h-4 w-4" />
+              Anterior
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => handlePageChange(pagination.page + 1)}
+              disabled={!pagination.hasNext || isLoading}
+            >
+              Siguiente
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

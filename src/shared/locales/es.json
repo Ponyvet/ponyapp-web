@@ -18,7 +18,8 @@
       "vaccineId": "Vacuna",
       "nextDueDate": "Próxima fecha",
       "status": "Estado",
-      "veterinarianId": "Veterinario"
+      "veterinarianId": "Veterinario",
+      "birthDate": "Fecha de nacimiento"
     }
   },
   "breadcrumbs": {
