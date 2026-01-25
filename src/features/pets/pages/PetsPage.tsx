@@ -2,6 +2,7 @@ import { useState } from 'react'
 import useGetAllPets from '../queries/useGetAllPets'
 import PetsTable from '../components/pets/PetsTable'
 import type { ServerSideState } from '@/shared/components/ServerDataTable'
+import type { PetsParams } from '../models/PetsParams'
 
 const PetsPage = () => {
   const [serverState, setServerState] = useState<ServerSideState>({
@@ -19,26 +20,20 @@ const PetsPage = () => {
     params: {
       page: serverState.page,
       limit: serverState.limit,
-      sortBy:
-        (serverState.sortBy as
-          | 'name'
-          | 'species'
-          | 'birthDate'
-          | 'createdAt'
-          | 'updatedAt') || 'name',
+      sortBy: serverState.sortBy as PetsParams['sortBy'],
       sortOrder: serverState.sortOrder || 'asc',
       ...serverState.filters,
     },
   })
 
-  if (!isSuccess && !isLoading) {
+  if (!isSuccess) {
     return <div>Error al cargar las cartillas</div>
   }
 
   return (
     <PetsTable
-      pets={petsData?.data || []}
-      pagination={petsData?.pagination}
+      pets={petsData.data}
+      pagination={petsData.pagination}
       isLoading={isLoading}
       onStateChange={setServerState}
     />
