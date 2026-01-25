@@ -27,8 +27,8 @@ import EmptyTable from '@/shared/components/EmptyTable'
 const ClientDetailsPage = () => {
   const navigate = useNavigate()
   const params = useParams()
-  const { data: client, isSuccess } = useGetSingleClient(params.id)
-  const { data: pets = [] } = useGetPets(params.id)
+  const { data: client, isSuccess } = useGetSingleClient(params.clientId)
+  const { data: pets = [] } = useGetPets(params.clientId)
 
   if (!isSuccess) {
     return null

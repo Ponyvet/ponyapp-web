@@ -3,5 +3,42 @@
     "title": "PonyVet App",
     "subtitle": "Panel de control",
     "menus": "Menús"
+  },
+  "table": {
+    "columns": {
+      "name": "Nombre",
+      "address": "Dirección",
+      "phone": "Teléfono",
+      "species": "Especies",
+      "type": "Tipo",
+      "intervalDays": "Días de intervalo",
+      "breed": "Raza",
+      "sex": "Sexo",
+      "appliedAt": "Fecha de aplicación",
+      "vaccineId": "Vacuna",
+      "nextDueDate": "Próxima fecha",
+      "status": "Estado",
+      "veterinarianId": "Veterinario"
+    }
+  },
+  "breadcrumbs": {
+    "home": "Inicio",
+    "clients": {
+      "root": "Clientes",
+      "add": "Agregar Cliente",
+      "pets": "Mascotas"
+    },
+    "pets": {
+      "root": "Mascotas",
+      "add": "Agregar Mascota"
+    },
+    "vaccination": {
+      "root": "Vacunaciones",
+      "add": "Agregar Vacunación"
+    },
+    "vaccines": {
+      "root": "Vacunas",
+      "add": "Agregar Vacuna"
+    }
   }
 }

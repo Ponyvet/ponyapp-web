@@ -43,7 +43,7 @@ const CreateClientPage = () => {
 
   return (
     <form onSubmit={handleSubmit(handleOnSubmit)}>
-      <h1 className="text-xl font-bold mb-4">Crear Nuevo Cliente</h1>
+      <h1 className="text-xl font-bold mb-4">Agregar Nuevo Cliente</h1>
       <FieldGroup className="gap-2">
         <ControlledInput
           control={control}

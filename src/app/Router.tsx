@@ -22,9 +22,13 @@ const Router = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/clients" element={<ClientPage />} />
           <Route path="/clients/add" element={<CreateClientPage />} />
-          <Route path="/clients/:id" element={<ClientDetailsPage />} />
+          <Route path="/clients/:clientId" element={<ClientDetailsPage />} />
           <Route path="/pets/add" element={<CreatePetPage />} />
-          <Route path="/pets/:id" element={<PetDetailsPage />} />
+          <Route
+            path="/clients/:clientId/pets/:petId"
+            element={<PetDetailsPage />}
+          />
+          <Route path="/pets/:petId" element={<PetDetailsPage />} />
           <Route path="/vaccines" element={<VaccinesPage />} />
           <Route path="/vaccines/add" element={<CreateVaccinePage />} />
           <Route path="/vaccination/add" element={<CreateVaccinationPage />} />

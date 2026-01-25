@@ -20,8 +20,8 @@ import EmptyTable from '@/shared/components/EmptyTable'
 const PetDetailsPage = () => {
   const navigate = useNavigate()
   const params = useParams()
-  const { data: pet, isSuccess } = useGetSinglePet(params.id)
-  const { data: vaccinations = [] } = useGetPetVaccinations(params.id)
+  const { data: pet, isSuccess } = useGetSinglePet(params.petId)
+  const { data: vaccinations = [] } = useGetPetVaccinations(params.petId)
 
   if (!isSuccess) {
     return null
