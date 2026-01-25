@@ -9,14 +9,6 @@ import SortableColumn from '@/shared/components/SortableColumn'
 export const useColumns = () => {
   const columns: ColumnDef<Pet>[] = [
     {
-      accessorKey: 'clientId',
-      header: ({ column }) => (
-        <SortableColumn column={column}>ID Cliente</SortableColumn>
-      ),
-      enableSorting: true,
-      cell: ({ row }) => row.original.client?.name ?? '',
-    },
-    {
       accessorKey: 'name',
       header: ({ column }) => (
         <SortableColumn column={column}>Nombre</SortableColumn>

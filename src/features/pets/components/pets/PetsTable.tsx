@@ -34,7 +34,7 @@ const PetsTable = ({
   onStateChange,
 }: PetsTableProps) => {
   const navigate = useNavigate()
-  const columns = useColumns({ showClientName: true })
+  const columns = useColumns()
 
   // If we don't have pagination info, show empty state or simple table
   const showEmptyState = !isLoading && pets.length === 0

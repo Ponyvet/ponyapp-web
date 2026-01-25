@@ -25,7 +25,7 @@ import { Separator } from '@radix-ui/react-separator'
 import { formatPhoneNumber } from '@/shared/utils/helpers'
 import EmptyTable from '@/shared/components/EmptyTable'
 import { DataTable } from '@/shared/components/DataTable'
-import { useColumns } from '@/features/pets/components/pets/Columns'
+import { useColumns } from '@/features/pets/components/pets/SimpleColumns'
 import { useConfirm } from '@/hooks/use-confirm'
 import { ConfirmDialog } from '@/shared/components/ConfirmDialog'
 
@@ -35,7 +35,7 @@ const ClientDetailsPage = () => {
   const { data: client, isSuccess } = useGetSingleClient(params.clientId)
   const { data: pets = [] } = useGetPets(params.clientId)
   const deleteClientMutation = useDeleteClient(() => navigate('/clients'))
-  const columns = useColumns({ showClientName: false })
+  const columns = useColumns()
   const { confirm, isOpen, options, handleConfirm, handleCancel } = useConfirm()
 
   const handleDeleteClient = async () => {
