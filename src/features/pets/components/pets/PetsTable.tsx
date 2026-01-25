@@ -99,6 +99,7 @@ const PetsTable = ({
             pagination={pagination}
             isLoading={isLoading}
             onStateChange={onStateChange}
+            initialColumnVisibility={{ createdAt: false }}
             filterConfig={{
               searchPlaceholder: 'Buscar por nombre de mascota...',
               searchBy: 'name',

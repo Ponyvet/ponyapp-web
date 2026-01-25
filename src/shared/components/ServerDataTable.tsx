@@ -73,6 +73,7 @@ interface ServerDataTableProps<TData, TValue> {
   pagination: PaginationInfo
   isLoading?: boolean
   onStateChange: (state: ServerSideState) => void
+  initialColumnVisibility?: VisibilityState
   filterConfig?: {
     searchPlaceholder?: string
     searchBy?: string
@@ -92,11 +93,14 @@ export function ServerDataTable<TData, TValue>({
   pagination,
   isLoading = false,
   onStateChange,
+  initialColumnVisibility = {},
   filterConfig,
   pageSizeOptions = [10, 20, 50, 100],
 }: ServerDataTableProps<TData, TValue>) {
   const { t } = useTranslation('shared')
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(
+    initialColumnVisibility,
+  )
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [searchValue, setSearchValue] = useState('')

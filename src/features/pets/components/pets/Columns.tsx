@@ -28,7 +28,7 @@ export const useColumns = () => {
     {
       accessorKey: 'name',
       header: ({ column }) => (
-        <SortableColumn column={column}>Nombre</SortableColumn>
+        <SortableColumn column={column}>Nombre Mascota</SortableColumn>
       ),
       enableSorting: true,
     },
