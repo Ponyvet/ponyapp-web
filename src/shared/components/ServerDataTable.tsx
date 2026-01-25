@@ -38,6 +38,17 @@ import {
 import { useTranslation } from 'react-i18next'
 import { useDebounce } from '../../hooks/use-debounce'
 import TablePagination from './TablePagination'
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import { Field, FieldLabel } from '@/components/ui/field'
 
 export interface ServerSideState {
   page: number
@@ -182,93 +193,137 @@ export function ServerDataTable<TData, TValue>({
   return (
     <div className="w-full">
       <div className="flex items-center justify-between py-4">
-        <div className="flex items-center space-x-2">
-          {/* Search Input */}
-          {filterConfig?.searchBy && (
-            <Input
-              placeholder={filterConfig.searchPlaceholder || 'Buscar...'}
-              value={searchValue}
-              onChange={(event) => setSearchValue(event.target.value)}
-              className="max-w-sm"
-              disabled={isLoading}
-            />
+        {filterConfig?.searchBy && (
+          <Input
+            placeholder={filterConfig.searchPlaceholder || 'Buscar...'}
+            value={searchValue}
+            onChange={(event) => setSearchValue(event.target.value)}
+            className="max-w-sm"
+            disabled={isLoading}
+          />
+        )}
+
+        <div className="flex items-center gap-2">
+          {filterConfig?.filters && filterConfig.filters.length > 0 && (
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="outline" disabled={isLoading} type="button">
+                  Filtros
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Configuración de Filtros</DialogTitle>
+                  <DialogDescription>
+                    Ajusta los filtros para refinar los datos mostrados en la
+                    tabla.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="grid grid-cols-2 gap-4">
+                  {filterConfig.filters.map((filter) => (
+                    <Field key={filter.key}>
+                      <FieldLabel
+                        className="text-sm font-medium"
+                        htmlFor={filter.key}
+                      >
+                        {filter.label}:
+                      </FieldLabel>
+                      {filter.type === 'select' && filter.options ? (
+                        <Select
+                          value={
+                            (table
+                              .getColumn(filter.key)
+                              ?.getFilterValue() as string) ?? ''
+                          }
+                          onValueChange={(value) => {
+                            table
+                              .getColumn(filter.key)
+                              ?.setFilterValue(value === 'all' ? '' : value)
+                          }}
+                          disabled={isLoading}
+                          name={filter.key}
+                        >
+                          <SelectTrigger className="w-35">
+                            <SelectValue placeholder="Todos" />
+                          </SelectTrigger>
+                          <SelectContent id={filter.key}>
+                            <SelectItem value="all">Todos</SelectItem>
+                            {filter.options.map((option) => (
+                              <SelectItem
+                                key={option.value}
+                                value={option.value}
+                              >
+                                {option.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      ) : (
+                        <Input
+                          id={filter.key}
+                          placeholder={`Filtrar por ${filter.label.toLowerCase()}`}
+                          value={
+                            (table
+                              .getColumn(filter.key)
+                              ?.getFilterValue() as string) ?? ''
+                          }
+                          onChange={(event) =>
+                            table
+                              .getColumn(filter.key)
+                              ?.setFilterValue(event.target.value)
+                          }
+                          className="max-w-xs"
+                          disabled={isLoading}
+                        />
+                      )}
+                    </Field>
+                  ))}
+                </div>
+                <DialogFooter>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => {
+                      table.resetColumnFilters()
+                    }}
+                  >
+                    Limpiar
+                  </Button>
+                  <DialogClose>
+                    <Button type="button">Aceptar</Button>
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           )}
 
-          {/* Additional Filters */}
-          {filterConfig?.filters?.map((filter) => (
-            <div key={filter.key} className="flex items-center space-x-2">
-              <label className="text-sm font-medium">{filter.label}:</label>
-              {filter.type === 'select' && filter.options ? (
-                <Select
-                  value={
-                    (table.getColumn(filter.key)?.getFilterValue() as string) ??
-                    ''
-                  }
-                  onValueChange={(value) => {
-                    table
-                      .getColumn(filter.key)
-                      ?.setFilterValue(value === 'all' ? '' : value)
-                  }}
-                  disabled={isLoading}
-                >
-                  <SelectTrigger className="w-35">
-                    <SelectValue placeholder="Todos" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Todos</SelectItem>
-                    {filter.options.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              ) : (
-                <Input
-                  placeholder={`Filtrar por ${filter.label.toLowerCase()}`}
-                  value={
-                    (table.getColumn(filter.key)?.getFilterValue() as string) ??
-                    ''
-                  }
-                  onChange={(event) =>
-                    table
-                      .getColumn(filter.key)
-                      ?.setFilterValue(event.target.value)
-                  }
-                  className="max-w-xs"
-                  disabled={isLoading}
-                />
-              )}
-            </div>
-          ))}
+          {/* Column Visibility */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" disabled={isLoading}>
+                Columnas <ChevronDown />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuGroup>
+                {table
+                  .getAllColumns()
+                  .filter((column) => column.getCanHide())
+                  .map((column) => (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) =>
+                        column.toggleVisibility(!!value)
+                      }
+                    >
+                      {t(`table.columns.${column.id}`)}
+                    </DropdownMenuCheckboxItem>
+                  ))}
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
-
-        {/* Column Visibility */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" disabled={isLoading}>
-              Columnas <ChevronDown />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuGroup>
-              {table
-                .getAllColumns()
-                .filter((column) => column.getCanHide())
-                .map((column) => (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {t(`table.columns.${column.id}`)}
-                  </DropdownMenuCheckboxItem>
-                ))}
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
       </div>
 
       <div className="overflow-hidden rounded-md border">
