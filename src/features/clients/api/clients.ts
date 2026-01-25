@@ -12,6 +12,14 @@ export const createClient = async (data: CreateClient): Promise<Client> => {
   return clientSchema.parse(res.data)
 }
 
+export const updateClient = async (
+  id: string,
+  data: CreateClient,
+): Promise<Client> => {
+  const res = await api.put(`/clients/${id}`, data)
+  return clientSchema.parse(res.data)
+}
+
 export const getSingleClient = async (id: string): Promise<Client> => {
   const res = await api.get(`/clients/${id}`)
   return clientSchema.parse(res.data)

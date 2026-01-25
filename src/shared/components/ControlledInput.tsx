@@ -38,6 +38,7 @@ const ControlledInput = <T extends FieldValues>({
             id={field.name}
             placeholder={placeholder}
             name={field.name}
+            value={field.value || ''}
             onChange={field.onChange}
           />
           {fieldDescription && !fieldState.invalid && (

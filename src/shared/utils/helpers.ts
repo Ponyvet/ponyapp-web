@@ -36,11 +36,12 @@ export const calculateAge = (birthDate: Date | null) => {
 }
 
 export const formatPhoneNumber = (phoneNumber: string) => {
-  if (phoneNumber.length < 3) return phoneNumber
-  const countryCode = phoneNumber.slice(0, 2)
-  const number = phoneNumber.slice(2)
-  const formattedNumber = number.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3')
-  return `(+${countryCode}) ${formattedNumber}`
+  if (phoneNumber.length < 10) return phoneNumber
+  const formattedNumber = phoneNumber.replace(
+    /(\d{3})(\d{3})(\d{4})/,
+    '$1-$2-$3',
+  )
+  return `${formattedNumber}`
 }
 
 const formatUuidRoute = (key: string) => {

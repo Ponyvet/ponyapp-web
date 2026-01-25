@@ -6,6 +6,7 @@ import AppFrame from '@/shared/components/AppFrame'
 import PrivateRoute from '@/shared/components/PrivateRoute'
 import HomePage from '@/shared/page/HomePage'
 import CreateClientPage from '@/features/clients/pages/CreateClientPage'
+import EditClientPage from '@/features/clients/pages/EditClientPage'
 import ClientDetailsPage from '@/features/clients/pages/ClientDetailsPage'
 import CreatePetPage from '@/features/pets/pages/CreatePetPage'
 import VaccinesPage from '@/features/vaccines/pages/VaccinesPage'
@@ -22,6 +23,7 @@ const Router = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/clients" element={<ClientPage />} />
           <Route path="/clients/add" element={<CreateClientPage />} />
+          <Route path="/clients/:clientId/edit" element={<EditClientPage />} />
           <Route path="/clients/:clientId" element={<ClientDetailsPage />} />
           <Route path="/pets/add" element={<CreatePetPage />} />
           <Route

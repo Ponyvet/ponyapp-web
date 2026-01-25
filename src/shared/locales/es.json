@@ -26,7 +26,8 @@
     "clients": {
       "root": "Clientes",
       "add": "Agregar Cliente",
-      "pets": "Mascotas"
+      "pets": "Mascotas",
+      "edit": "Editar"
     },
     "pets": {
       "root": "Mascotas",

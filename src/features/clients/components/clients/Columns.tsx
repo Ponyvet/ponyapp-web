@@ -1,6 +1,7 @@
 import type { Client } from '@/features/clients/models/Client'
 import type { ColumnDef } from '@tanstack/react-table'
 import DetailsButton from './DetailsButton'
+import EditButton from './EditButton'
 import { formatPhoneNumber } from '@/shared/utils/helpers'
 import SortableColumn from '@/shared/components/SortableColumn'
 
@@ -23,9 +24,14 @@ export const columns: ColumnDef<Client>[] = [
     cell: ({ row }) => formatPhoneNumber(row.original.phone),
   },
   {
-    accessorKey: 'details',
+    accessorKey: 'actions',
     header: '',
-    cell: ({ row }) => <DetailsButton client={row.original} />,
+    cell: ({ row }) => (
+      <div className="flex gap-1">
+        <EditButton client={row.original} />
+        <DetailsButton client={row.original} />
+      </div>
+    ),
     enableHiding: false,
   },
 ]
