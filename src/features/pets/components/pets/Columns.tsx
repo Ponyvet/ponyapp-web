@@ -1,6 +1,6 @@
 import type { ColumnDef } from '@tanstack/react-table'
 
-import DetailsButton from './DetailsButton'
+import ActionsButtons from './ActionsButtons'
 import type { Pet } from '../../models/Pet'
 import { getLabelFromCatalog } from '@/shared/utils/helpers'
 import { SEX_CATALOG, SPECIES_CATALOG } from '../../utils/catalogs'
@@ -63,9 +63,9 @@ export const useColumns = () => {
       enableSorting: true,
     },
     {
-      accessorKey: 'details',
-      header: '',
-      cell: ({ row }) => <DetailsButton pet={row.original} />,
+      accessorKey: 'actions',
+      header: 'Acciones',
+      cell: ({ row }) => <ActionsButtons pet={row.original} />,
       enableSorting: false,
       enableHiding: false,
     },
