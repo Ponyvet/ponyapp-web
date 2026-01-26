@@ -32,6 +32,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/button'
 import { useTranslation } from 'react-i18next'
+import TablePagination from './TablePagination'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -163,6 +164,24 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
+      <TablePagination
+        pagination={{
+          hasNext: table.getCanNextPage(),
+          hasPrev: table.getCanPreviousPage(),
+          page: table.getState().pagination.pageIndex + 1,
+          limit: table.getState().pagination.pageSize,
+          total: table.getFilteredRowModel().rows.length,
+          totalPages: table.getPageCount(),
+        }}
+        pageSizeOptions={[5, 10, 20, 50]}
+        isLoading={false}
+        onPageChange={(page) => {
+          table.setPageIndex(page - 1)
+        }}
+        onPageSizeChange={(size) => {
+          table.setPageSize(Number(size))
+        }}
+      />
     </div>
   )
 }
