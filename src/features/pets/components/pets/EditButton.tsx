@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button'
-import { EditIcon } from 'lucide-react'
+import { PencilIcon } from 'lucide-react'
 import { useNavigate } from 'react-router'
 import type { Pet } from '../../models/Pet'
 
@@ -16,7 +16,7 @@ const EditButton = ({ pet }: EditButtonProps) => {
       size="sm"
       onClick={() => navigate(`/pets/${pet.id}/edit`)}
     >
-      <EditIcon />
+      <PencilIcon />
     </Button>
   )
 }
