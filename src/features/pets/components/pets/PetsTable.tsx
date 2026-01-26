@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router'
 import type { Pet } from '../../models/Pet'
 import { useColumns } from './Columns'
 import { Species, Sex } from '../../utils/enum'
+import useClients from '@/features/clients/hooks/useClients'
 
 interface PetsTableProps {
   clientId?: string
@@ -35,44 +36,10 @@ const PetsTable = ({
 }: PetsTableProps) => {
   const navigate = useNavigate()
   const columns = useColumns()
+  const { clients } = useClients()
 
   // If we don't have pagination info, show empty state or simple table
   const showEmptyState = !isLoading && pets.length === 0
-
-  if (showEmptyState && !pagination) {
-    return (
-      <Card className="border-none shadow-none">
-        <CardHeader>
-          <CardTitle>
-            <h2 className="text-xl font-bold">Mascotas</h2>
-          </CardTitle>
-          <CardAction>
-            <Button
-              size="sm"
-              onClick={() => navigate('/pets/add', { state: { clientId } })}
-            >
-              <PlusIcon />
-              Agregar Cartilla
-            </Button>
-          </CardAction>
-        </CardHeader>
-        <CardContent>
-          <EmptyTable
-            icon={<DogIcon />}
-            title="No hay mascotas registradas"
-            description="Agrega una nueva cartilla para este cliente."
-            buttonText={
-              <>
-                <PlusIcon className="mr-2" />
-                Agregar primera cartilla
-              </>
-            }
-            onclick={() => navigate('/pets/add', { state: { clientId } })}
-          />
-        </CardContent>
-      </Card>
-    )
-  }
 
   return (
     <Card className="border-none shadow-none">
@@ -123,9 +90,13 @@ const PetsTable = ({
                   ],
                 },
                 {
-                  key: 'breed',
-                  label: 'Raza',
-                  type: 'input',
+                  key: 'clientId',
+                  label: 'Cliente',
+                  type: 'select',
+                  options: clients.map((client) => ({
+                    label: client.name,
+                    value: client.id,
+                  })),
                 },
               ],
             }}

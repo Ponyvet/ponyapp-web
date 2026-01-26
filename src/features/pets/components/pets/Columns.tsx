@@ -13,9 +13,7 @@ export const useColumns = () => {
   const columns: ColumnDef<Pet>[] = [
     {
       accessorKey: 'clientId',
-      header: ({ column }) => (
-        <SortableColumn column={column}>Cliente</SortableColumn>
-      ),
+      header: 'Cliente',
       enableSorting: true,
       cell: ({ row }) => (
         <Button variant="link" className="p-0">

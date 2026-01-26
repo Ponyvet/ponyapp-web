@@ -78,7 +78,7 @@ interface ServerDataTableProps<TData, TValue> {
     searchPlaceholder?: string
     searchBy?: string
     filters?: Array<{
-      key: string
+      key: keyof TData extends string ? keyof TData : string
       label: string
       type: 'select' | 'input'
       options?: Array<{ label: string; value: string }>
