@@ -10,6 +10,8 @@ export const createClientSchema = z.object({
       return phoneRegex.test(val)
     }, 'El número de teléfono debe ser de 10 dígitos'),
   address: z.string().nonempty('La dirección es obligatoria'),
+  latitude: z.number().nullish(),
+  longitude: z.number().nullish(),
   notes: z
     .string()
     .max(500, 'Las notas no pueden exceder 500 caracteres')

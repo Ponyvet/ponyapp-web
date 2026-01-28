@@ -7,6 +7,7 @@ import { FieldGroup } from '@/components/ui/field'
 import { createClientSchema, type CreateClient } from '../models/CreateClient'
 import ControlledInput from '@/shared/components/ControlledInput'
 import ControlledTextarea from '@/shared/components/ControlledTextarea'
+import Map from '@/components/Map'
 import type { Client } from '../models/Client'
 
 const defaultValues: CreateClient = {
@@ -64,6 +65,7 @@ const ClientForm = ({
           label="Dirección"
           placeholder="Ej. Calle Durango 123"
         />
+        <Map defaultZoom={13} defaultCenter={{ lat: 19.4326, lng: -99.1332 }} />
         <ControlledInput
           control={control}
           name="phone"
