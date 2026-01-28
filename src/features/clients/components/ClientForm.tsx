@@ -1,12 +1,14 @@
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useNavigate } from 'react-router'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { FieldGroup } from '@/components/ui/field'
 import { createClientSchema, type CreateClient } from '../models/CreateClient'
 import ControlledInput from '@/shared/components/ControlledInput'
 import ControlledTextarea from '@/shared/components/ControlledTextarea'
+import ControlledPlaceAutocomplete from '@/shared/components/ControlledPlaceAutocomplete'
 import Map from '@/components/Map'
 import type { Client } from '../models/Client'
 
@@ -33,6 +35,11 @@ const ClientForm = ({
   submitText,
 }: Props) => {
   const navigate = useNavigate()
+  const [markerPosition, setMarkerPosition] = useState<{
+    lat: number
+    lng: number
+  } | null>(null)
+
   const { handleSubmit, control } = useForm({
     defaultValues: client
       ? {
@@ -49,6 +56,21 @@ const ClientForm = ({
     onSubmit(data)
   }
 
+  const handlePlaceSelect = (place: google.maps.places.PlaceResult) => {
+    if (place.geometry?.location) {
+      const lat = place.geometry.location.lat()
+      const lng = place.geometry.location.lng()
+      setMarkerPosition({ lat, lng })
+    }
+  }
+
+  const handleMarkerPositionChange = (position: {
+    lat: number
+    lng: number
+  }) => {
+    setMarkerPosition(position)
+  }
+
   return (
     <form onSubmit={handleSubmit(handleOnSubmit)}>
       <h1 className="text-xl font-bold mb-4">{title}</h1>
@@ -59,13 +81,19 @@ const ClientForm = ({
           label="Nombre completo"
           placeholder="Ej. Juan Pérez"
         />
-        <ControlledInput
+        <ControlledPlaceAutocomplete
           control={control}
           name="address"
           label="Dirección"
           placeholder="Ej. Calle Durango 123"
+          onPlaceSelect={handlePlaceSelect}
         />
-        <Map defaultZoom={13} defaultCenter={{ lat: 19.4326, lng: -99.1332 }} />
+        <Map
+          defaultZoom={13}
+          defaultCenter={{ lat: 20.229, lng: -98.9984 }}
+          markerPosition={markerPosition}
+          onMarkerPositionChange={handleMarkerPositionChange}
+        />
         <ControlledInput
           control={control}
           name="phone"

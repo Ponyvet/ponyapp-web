@@ -20,7 +20,8 @@ export default defineConfig([
       globals: globals.browser,
     },
     rules: {
-      'no-console': 'error'
+      'no-console': 'error',
+      'react-hooks/set-state-in-effect': 'warn',
     }
   },
 ])
