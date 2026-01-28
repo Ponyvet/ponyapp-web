@@ -1,10 +1,10 @@
 import type { ColumnDef } from '@tanstack/react-table'
 
-import DetailsButton from './DetailsButton'
 import type { Pet } from '../../models/Pet'
 import { getLabelFromCatalog } from '@/shared/utils/helpers'
 import { SEX_CATALOG, SPECIES_CATALOG } from '../../utils/catalogs'
 import SortableColumn from '@/shared/components/SortableColumn'
+import ActionsButtons from './ActionsButtons'
 
 export const useColumns = () => {
   const columns: ColumnDef<Pet>[] = [
@@ -40,9 +40,9 @@ export const useColumns = () => {
       enableSorting: true,
     },
     {
-      accessorKey: 'details',
-      header: '',
-      cell: ({ row }) => <DetailsButton pet={row.original} />,
+      accessorKey: 'actions',
+      header: 'Acciones',
+      cell: ({ row }) => <ActionsButtons pet={row.original} petsPage={false} />,
       enableSorting: false,
       enableHiding: false,
     },

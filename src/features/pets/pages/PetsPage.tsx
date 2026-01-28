@@ -26,18 +26,18 @@ const PetsPage = () => {
     },
   })
 
-  if (!isSuccess) {
-    return <div>Error al cargar las cartillas</div>
+  if (isSuccess) {
+    return (
+      <PetsTable
+        pets={petsData.data}
+        pagination={petsData.pagination}
+        isLoading={isLoading}
+        onStateChange={setServerState}
+      />
+    )
   }
 
-  return (
-    <PetsTable
-      pets={petsData.data}
-      pagination={petsData.pagination}
-      isLoading={isLoading}
-      onStateChange={setServerState}
-    />
-  )
+  return null
 }
 
 export default PetsPage

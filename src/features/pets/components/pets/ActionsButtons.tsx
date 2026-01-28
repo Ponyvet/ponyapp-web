@@ -5,12 +5,13 @@ import DeleteButton from './DeleteButton'
 
 interface ActionsButtonsProps {
   pet: Pet
+  petsPage: boolean
 }
 
-const ActionsButtons = ({ pet }: ActionsButtonsProps) => {
+const ActionsButtons = ({ pet, petsPage }: ActionsButtonsProps) => {
   return (
     <div className="flex items-center gap-1">
-      <DetailsButton pet={pet} />
+      <DetailsButton pet={pet} petsPage={petsPage} />
       <EditButton pet={pet} />
       <DeleteButton pet={pet} />
     </div>

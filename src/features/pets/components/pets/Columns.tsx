@@ -65,7 +65,7 @@ export const useColumns = () => {
     {
       accessorKey: 'actions',
       header: 'Acciones',
-      cell: ({ row }) => <ActionsButtons pet={row.original} />,
+      cell: ({ row }) => <ActionsButtons pet={row.original} petsPage={true} />,
       enableSorting: false,
       enableHiding: false,
     },
