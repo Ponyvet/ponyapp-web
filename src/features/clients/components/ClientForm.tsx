@@ -1,7 +1,8 @@
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useNavigate } from 'react-router'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
+import { useMapsLibrary } from '@vis.gl/react-google-maps'
 
 import { Button } from '@/components/ui/button'
 import { FieldGroup } from '@/components/ui/field'
@@ -40,7 +41,10 @@ const ClientForm = ({
     lng: number
   } | null>(null)
 
-  const { handleSubmit, control } = useForm({
+  const geocoding = useMapsLibrary('geocoding')
+  const geocoder = useRef<google.maps.Geocoder | null>(null)
+
+  const { handleSubmit, control, setValue } = useForm({
     defaultValues: client
       ? {
           name: client.name,
@@ -51,9 +55,31 @@ const ClientForm = ({
       : defaultValues,
     resolver: zodResolver(createClientSchema),
   })
-
+  useEffect(() => {
+    if (geocoding && !geocoder.current) {
+      geocoder.current = new geocoding.Geocoder()
+    }
+  }, [geocoding])
   const handleOnSubmit: SubmitHandler<CreateClient> = (data) => {
     onSubmit(data)
+  }
+
+  const reverseGeocode = async (lat: number, lng: number) => {
+    if (!geocoder.current) return
+
+    try {
+      const response = await geocoder.current.geocode({
+        location: { lat, lng },
+      })
+
+      if (response.results && response.results.length > 0) {
+        const address = response.results[0].formatted_address
+        setValue('address', address)
+      }
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error en reverse geocoding:', error)
+    }
   }
 
   const handlePlaceSelect = (place: google.maps.places.PlaceResult) => {
@@ -69,6 +95,7 @@ const ClientForm = ({
     lng: number
   }) => {
     setMarkerPosition(position)
+    reverseGeocode(position.lat, position.lng)
   }
 
   return (
