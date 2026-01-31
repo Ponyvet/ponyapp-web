@@ -18,6 +18,8 @@ const defaultValues: CreateClient = {
   phone: '',
   address: '',
   notes: '',
+  latitude: null,
+  longitude: null,
 }
 
 interface Props {
@@ -55,6 +57,8 @@ const ClientForm = ({
           address: client.address,
           phone: client.phone,
           notes: client.notes ?? '',
+          latitude: client.latitude ?? null,
+          longitude: client.longitude ?? null,
         }
       : defaultValues,
     resolver: zodResolver(createClientSchema),
@@ -91,6 +95,8 @@ const ClientForm = ({
       const lat = place.geometry.location.lat()
       const lng = place.geometry.location.lng()
       setMarkerPosition({ lat, lng })
+      setValue('latitude', lat)
+      setValue('longitude', lng)
     }
   }
 
@@ -99,6 +105,8 @@ const ClientForm = ({
     lng: number
   }) => {
     setMarkerPosition(position)
+    setValue('latitude', position.lat)
+    setValue('longitude', position.lng)
     reverseGeocode(position.lat, position.lng)
   }
 
