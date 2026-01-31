@@ -39,7 +39,11 @@ const ClientForm = ({
   const [markerPosition, setMarkerPosition] = useState<{
     lat: number
     lng: number
-  } | null>(null)
+  } | null>(
+    client && client.latitude && client.longitude
+      ? { lat: client.latitude, lng: client.longitude }
+      : null,
+  )
 
   const geocoding = useMapsLibrary('geocoding')
   const geocoder = useRef<google.maps.Geocoder | null>(null)
@@ -117,7 +121,11 @@ const ClientForm = ({
         />
         <Map
           defaultZoom={13}
-          defaultCenter={{ lat: 20.229, lng: -98.9984 }}
+          defaultCenter={
+            client?.latitude && client?.longitude
+              ? { lat: client.latitude, lng: client.longitude }
+              : { lat: 20.229, lng: -98.9984 }
+          }
           markerPosition={markerPosition}
           onMarkerPositionChange={handleMarkerPositionChange}
         />
