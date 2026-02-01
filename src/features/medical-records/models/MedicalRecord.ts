@@ -1,3 +1,4 @@
+import { clientSchema } from '@/features/clients/models/Client'
 import z from 'zod'
 
 export const medicalRecordSchema = z.object({
@@ -9,6 +10,11 @@ export const medicalRecordSchema = z.object({
   isActive: z.boolean(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
+  client: clientSchema.pick({
+    id: true,
+    name: true,
+    phone: true,
+  }),
 })
 
 export type MedicalRecord = z.infer<typeof medicalRecordSchema>

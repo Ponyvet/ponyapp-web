@@ -5,7 +5,6 @@ import type { MedicalRecord } from '../../models/MedicalRecord'
 import DetailsButton from './DetailsButton'
 import EditButton from './EditButton'
 import DeleteButton from './DeleteButton'
-import ClientName from './ClientName'
 import SortableColumn from '@/shared/components/SortableColumn'
 import { Badge } from '@/components/ui/badge'
 
@@ -28,7 +27,7 @@ export const columns: ColumnDef<MedicalRecord>[] = [
   {
     accessorKey: 'clientId',
     header: 'Cliente',
-    cell: ({ row }) => <ClientName clientId={row.original.clientId} />,
+    cell: ({ row }) => row.original.client.name,
   },
   {
     accessorKey: 'createdAt',
