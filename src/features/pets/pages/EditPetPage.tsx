@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from 'react-router'
 import { toast } from 'sonner'
 
-import useGetClients from '@/features/clients/queries/useGetClients'
 import useGetSinglePet from '../queries/useGetSinglePet'
 import useUpdatePet from '../queries/useUpdatePet'
 import PetForm from '../components/PetForm'
@@ -10,7 +9,6 @@ import type { CreatePet } from '../models/CreatePet'
 const EditPetPage = () => {
   const navigate = useNavigate()
   const { petId } = useParams()
-  const { data: clients = [] } = useGetClients()
   const { data: pet, isSuccess } = useGetSinglePet(petId!)
   const { mutate, isPending } = useUpdatePet()
 
@@ -20,7 +18,7 @@ const EditPetPage = () => {
       {
         onSuccess: () => {
           navigate(-1)
-          toast.success('Cartilla actualizada exitosamente')
+          toast.success('Mascota actualizada exitosamente')
         },
       },
     )
@@ -39,10 +37,10 @@ const EditPetPage = () => {
       onSubmit={handleSubmit}
       isLoading={isPending}
       onCancel={handleCancel}
-      clients={clients}
+      recordId={pet.recordId}
       pet={pet}
       submitButtonText="Actualizar"
-      title="Editar Cartilla"
+      title="Editar Mascota"
     />
   )
 }

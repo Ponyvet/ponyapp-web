@@ -27,12 +27,11 @@ import {
 } from '@/components/ui/popover'
 import { Calendar } from '@/components/ui/calendar'
 import { Textarea } from '@/components/ui/textarea'
-import ControlledSelect from '@/shared/components/ControlledSelect'
 import type { Pet } from '../models/Pet'
 
 const defaultValues: CreatePet = {
   name: '',
-  clientId: '',
+  recordId: '',
   sex: Sex.MALE,
   species: Species.DOG,
 }
@@ -41,8 +40,7 @@ interface PetFormProps {
   onSubmit: (data: CreatePet) => void
   isLoading: boolean
   onCancel: () => void
-  clients: Array<{ id: string; name: string }>
-  initialClientId?: string
+  recordId: string
   pet?: Pet
   submitButtonText?: string
   title?: string
@@ -52,11 +50,10 @@ const PetForm = ({
   onSubmit,
   isLoading,
   onCancel,
-  clients,
-  initialClientId,
+  recordId,
   pet,
   submitButtonText = 'Guardar',
-  title = 'Crear Cartilla',
+  title = 'Datos de la Mascota',
 }: PetFormProps) => {
   const [open, setOpen] = useState(false)
 
@@ -65,19 +62,18 @@ const PetForm = ({
     resolver: zodResolver(createPetSchema),
   })
 
-  // Set initial client ID when provided
+  // Set recordId when provided
   useEffect(() => {
-    if (initialClientId && clients.length > 0) {
-      setValue('clientId', initialClientId)
+    if (recordId) {
+      setValue('recordId', recordId)
     }
-  }, [initialClientId, setValue, clients])
+  }, [recordId, setValue])
 
   // Populate form when editing existing pet
   useEffect(() => {
     if (pet) {
       reset({
-        name: pet.name,
-        clientId: pet.clientId,
+        recordId: pet.recordId,
         sex: pet.sex,
         species: pet.species,
         breed: pet.breed || '',
@@ -98,15 +94,6 @@ const PetForm = ({
         <FieldSet>
           <FieldLegend>{title}</FieldLegend>
           <FieldGroup className="gap-3">
-            <ControlledSelect
-              label="Cliente"
-              control={control}
-              name="clientId"
-              options={clients.map((client) => ({
-                label: client.name,
-                value: client.id,
-              }))}
-            />
             <Controller
               name="species"
               control={control}

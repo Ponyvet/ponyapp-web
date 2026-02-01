@@ -2,7 +2,6 @@ import * as React from 'react'
 import {
   ContactRound,
   Hospital,
-  BookOpen,
   ClipboardList,
   Settings,
 } from 'lucide-react'
@@ -28,11 +27,6 @@ const data = {
       name: 'Clientes',
       url: '/clients',
       icon: ContactRound,
-    },
-    {
-      name: 'Cartillas',
-      url: '/pets',
-      icon: BookOpen,
     },
     {
       name: 'Cartillas Médicas',

@@ -5,7 +5,7 @@ export const createPetSchema = z.object({
   name: z.string().nonempty(),
   species: z.enum(Species),
   sex: z.enum(Sex),
-  clientId: z.string().nonempty('Debe seleccionar un cliente'),
+  recordId: z.string().nonempty('Debe existir una cartilla médica'),
   breed: z.string().optional(),
   birthDate: z.date().optional(),
   color: z.string().optional(),

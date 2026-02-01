@@ -27,7 +27,6 @@ import {
 } from '../models/CreateVaccination'
 import { VaccinationStatus } from '../utils/enum'
 import { createVaccination } from '../api/vaccinations'
-import useGetPets from '@/features/pets/queries/useGetPets'
 import useClients from '@/features/clients/hooks/useClients'
 import useMedications from '@/features/medications/hooks/useMedications'
 import DatePicker from '@/shared/components/DatePicker'
@@ -49,8 +48,7 @@ const CreateVaccinationPage = () => {
   const { state } = useLocation()
   const [clientId, setClientId] = useState<string>(state?.clientId ?? '')
   const navigate = useNavigate()
-  const petId = state?.petId as string | undefined
-  const { data: pets = [] } = useGetPets(clientId)
+  // const petId = state?.petId as string | undefined
   const { clients } = useClients()
   const { getUsersAsOptions, users } = useUsers()
   const { getMedicationOptions } = useMedications()
@@ -72,12 +70,12 @@ const CreateVaccinationPage = () => {
     resolver: zodResolver(createVaccinationSchema),
   })
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (petId && pets.length > 0 && clientId) {
       setValue('petId', petId)
     }
   }, [petId, setValue, pets, clientId])
-
+ */
   useEffect(() => {
     if (users.length > 0 && session?.id) {
       setValue('veterinarianId', session.id)
@@ -120,10 +118,7 @@ const CreateVaccinationPage = () => {
               control={control}
               name="petId"
               label="Mascota"
-              options={pets.map((pet) => ({
-                value: pet.id,
-                label: `${pet.name} (${pet.species})`,
-              }))}
+              options={[]}
               fieldDescription="Selecciona la mascota a vacunar"
             />
             <DatePicker

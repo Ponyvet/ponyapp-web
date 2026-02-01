@@ -5,6 +5,8 @@ import {
   CalendarIcon,
   EditIcon,
   NotebookIcon,
+  PawPrintIcon,
+  PlusIcon,
   TrashIcon,
 } from 'lucide-react'
 
@@ -120,6 +122,28 @@ const MedicalRecordDetailsPage = () => {
           clientId={record.clientId}
           client={record.client}
         />
+      )}
+      {/* Mostrar opción para agregar mascota si es tipo PET pero no tiene pet */}
+      {record.type === 'PET' && record.pet === null && (
+        <Card>
+          <CardContent className="flex flex-col items-center justify-center py-8 gap-4">
+            <PawPrintIcon className="h-12 w-12 text-muted-foreground" />
+            <div className="text-center">
+              <h3 className="font-semibold">Sin datos de mascota</h3>
+              <p className="text-sm text-muted-foreground">
+                Esta cartilla aún no tiene los datos de la mascota registrados.
+              </p>
+            </div>
+            <Button
+              onClick={() =>
+                navigate('/pets/add', { state: { recordId: record.id } })
+              }
+            >
+              <PlusIcon />
+              Agregar Mascota
+            </Button>
+          </CardContent>
+        </Card>
       )}
       <AnimalGroupInfo record={record} />
       <ConfirmDialog

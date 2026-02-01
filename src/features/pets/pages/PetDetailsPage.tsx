@@ -2,6 +2,7 @@ import { useNavigate, useParams } from 'react-router'
 import { PlusIcon, HeartIcon } from 'lucide-react'
 
 import useGetSinglePet from '../queries/useGetSinglePet'
+import useGetSingleMedicalRecord from '@/features/medical-records/queries/useGetSingleMedicalRecord'
 import {
   Card,
   CardAction,
@@ -20,20 +21,25 @@ import EmptyTable from '@/shared/components/EmptyTable'
 const PetDetailsPage = () => {
   const navigate = useNavigate()
   const params = useParams()
-  const { data: pet, isSuccess } = useGetSinglePet(params.petId)
+  const { data: pet, isSuccess: isPetSuccess } = useGetSinglePet(params.petId)
+  const { data: record, isSuccess: isRecordSuccess } = useGetSingleMedicalRecord(pet?.recordId)
   const { data: vaccinations = [] } = useGetPetVaccinations(params.petId)
 
-  if (!isSuccess) {
+  if (!isPetSuccess || !pet) {
     return null
   }
 
+  // Obtener cliente del MedicalRecord
+  const client = isRecordSuccess && record ? record.client : { id: '', name: 'Cargando...' }
+  const clientId = isRecordSuccess && record ? record.clientId : ''
+
   return (
     <div className="space-y-6">
-      <PetInfo 
-        pet={pet} 
+      <PetInfo
+        pet={pet}
         name={pet.name}
-        clientId={pet.clientId}
-        client={pet.client || { id: pet.clientId, name: 'Cliente' }}
+        clientId={clientId}
+        client={client}
       />
       <Separator />
       <Card>
@@ -45,7 +51,7 @@ const PetDetailsPage = () => {
               size="sm"
               onClick={() =>
                 navigate('/vaccination/add', {
-                  state: { petId: pet.id, clientId: pet.clientId },
+                  state: { petId: pet.id, recordId: pet.recordId },
                 })
               }
             >
@@ -70,7 +76,7 @@ const PetDetailsPage = () => {
               }
               onclick={() =>
                 navigate('/vaccination/add', {
-                  state: { petId: pet.id, clientId: pet.clientId },
+                  state: { petId: pet.id, recordId: pet.recordId },
                 })
               }
             />
