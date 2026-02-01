@@ -145,15 +145,14 @@ const MedicationsPage = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold">Medicamentos</h1>
-        <Button onClick={() => navigate('/medications/add')}>
-          <PlusIcon className="mr-2 h-4 w-4" />
+        <Button size="sm" onClick={() => navigate('/medications/add')}>
+          <PlusIcon />
           Agregar
         </Button>
       </div>
-
       <ServerDataTable
         columns={columns}
         data={medications}

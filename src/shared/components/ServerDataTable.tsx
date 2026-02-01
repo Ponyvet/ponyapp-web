@@ -51,6 +51,7 @@ import {
   DialogTrigger,
 } from '@/shared/components/ui/dialog'
 import { Field, FieldLabel } from '@/shared/components/ui/field'
+import { Skeleton } from './ui/skeleton'
 
 export interface ServerSideState {
   page: number
@@ -356,7 +357,7 @@ export function ServerDataTable<TData, TValue>({
                 <TableRow key={index}>
                   {columns.map((_, cellIndex) => (
                     <TableCell key={cellIndex}>
-                      <div className="h-6 bg-gray-200 animate-pulse rounded" />
+                      <Skeleton className="h-4 w-full" />
                     </TableCell>
                   ))}
                 </TableRow>

@@ -34,17 +34,20 @@ import {
 import { Button } from '@/shared/components/ui/button'
 import { useTranslation } from 'react-i18next'
 import TablePagination from './TablePagination'
+import { Skeleton } from './ui/skeleton'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   filterBy?: keyof TData
+  isLoading?: boolean
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   filterBy,
+  isLoading = false,
 }: DataTableProps<TData, TValue>) {
   const { t } = useTranslation('shared')
   const [sorting, setSorting] = useState<SortingState>([])
@@ -141,7 +144,17 @@ export function DataTable<TData, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {isLoading ? (
+              Array.from({ length: DEFAULT_PAGE_SIZE }).map((_, index) => (
+                <TableRow key={index}>
+                  {columns.map((_, cellIndex) => (
+                    <TableCell key={cellIndex}>
+                      <Skeleton className="h-4 w-full" />
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}

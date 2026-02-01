@@ -1,63 +1,47 @@
-import useGetClients from '../queries/useGetClients'
+import { DogIcon, PlusIcon } from 'lucide-react'
+import { useNavigate } from 'react-router'
 
 import { columns } from '@/features/clients/components/clients/Columns'
 import { DataTable } from '@/shared/components/DataTable'
 import { Button } from '@/shared/components/ui/button'
-import { DogIcon, Loader, PlusIcon } from 'lucide-react'
-import { useNavigate } from 'react-router'
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/shared/components/ui/card'
 import EmptyTable from '@/shared/components/EmptyTable'
+
+import useGetClients from '../queries/useGetClients'
 
 const ClientPage = () => {
   const navigate = useNavigate()
-  const { data: clients = [], isPending } = useGetClients()
-
-  if (isPending) {
-    return <Loader />
-  }
+  const { data: clients = [], isLoading } = useGetClients()
 
   return (
-    <Card className="border-none shadow-none">
-      <CardHeader>
-        <CardTitle>
-          <h2 className="text-xl font-bold">Lista de clientes</h2>
-        </CardTitle>
-        <CardAction>
-          <Button
-            variant="default"
-            size="sm"
-            onClick={() => navigate('/clients/add')}
-          >
-            <PlusIcon />
-            Agregar Cliente
-          </Button>
-        </CardAction>
-      </CardHeader>
-      <CardContent>
-        {clients.length > 0 ? (
-          <DataTable columns={columns} data={clients} filterBy="name" />
-        ) : (
-          <EmptyTable
-            icon={<DogIcon />}
-            title="No hay clientes aún"
-            description="Agrega tu primer cliente para comenzar a gestionar sus cartillas."
-            buttonText={
-              <>
-                <PlusIcon className="mr-2" />
-                Agregar primer cliente
-              </>
-            }
-            onclick={() => navigate('/clients/add')}
-          />
-        )}
-      </CardContent>
-    </Card>
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold">Clientes</h2>
+        <Button
+          variant="default"
+          size="sm"
+          onClick={() => navigate('/clients/add')}
+        >
+          <PlusIcon />
+          Agregar
+        </Button>
+      </div>
+      {clients.length === 0 && !isLoading ? (
+        <EmptyTable
+          icon={<DogIcon />}
+          title="No hay clientes aún"
+          description="Agrega tu primer cliente para comenzar a gestionar sus cartillas."
+          buttonText={
+            <>
+              <PlusIcon className="mr-2" />
+              Agregar primer cliente
+            </>
+          }
+          onclick={() => navigate('/clients/add')}
+        />
+      ) : (
+        <DataTable columns={columns} data={clients} isLoading={isLoading} />
+      )}
+    </div>
   )
 }
 
