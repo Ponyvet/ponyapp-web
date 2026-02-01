@@ -10,6 +10,7 @@ export const consultationSchema = z.object({
   recordId: z.string(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional(),
+  visitId: z.string(),
   record: z.object({
     id: z.string(),
     name: z.string(),

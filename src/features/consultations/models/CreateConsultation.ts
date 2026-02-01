@@ -1,6 +1,7 @@
 import z from 'zod'
 
 export const createConsultationSchema = z.object({
+  visitId: z.string(),
   reason: z.string().optional(),
   diagnosis: z.string().optional(),
   treatment: z.string().optional(),

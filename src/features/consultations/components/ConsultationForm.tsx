@@ -27,6 +27,7 @@ import useClients from '@/features/clients/hooks/useClients'
 import useGetMedicalRecordsByClient from '@/features/medical-records/queries/useGetMedicalRecordsByClient'
 import { getLabelFromCatalog } from '@/shared/utils/helpers'
 import { SPECIES_CATALOG } from '@/features/pets/utils/catalogs'
+import useGetVisitsByClient from '@/features/visits/queries/useGetVisitsByClient'
 
 const defaultValues: CreateConsultation = {
   reason: '',
@@ -34,6 +35,7 @@ const defaultValues: CreateConsultation = {
   treatment: '',
   notes: '',
   recordId: '',
+  visitId: '',
 }
 
 interface ConsultationFormProps {
@@ -45,6 +47,7 @@ interface ConsultationFormProps {
   title?: string
   initialClientId?: string
   medicalRecordId?: string
+  initialVisitId?: string
 }
 
 const ConsultationForm = ({
@@ -56,15 +59,30 @@ const ConsultationForm = ({
   title = 'Nueva Consulta',
   initialClientId,
   medicalRecordId,
+  initialVisitId,
 }: ConsultationFormProps) => {
   const [clientId, setClientId] = useState<string | undefined>(initialClientId)
   const { clients } = useClients()
   const { data: records = [] } = useGetMedicalRecordsByClient(clientId)
+  const { data: visits = [] } = useGetVisitsByClient(clientId)
+  const visitsOptions = visits.map((visit) => ({
+    value: visit.id,
+    label: `${visit.date.toLocaleDateString()} - ${visit.veterinarian.name}`,
+  }))
 
   const { handleSubmit, control, setValue, reset } = useForm({
     defaultValues,
     resolver: zodResolver(createConsultationSchema),
   })
+
+  useEffect(() => {
+    if (
+      initialVisitId &&
+      visitsOptions.some((r) => r.value === initialVisitId)
+    ) {
+      setValue('visitId', initialVisitId)
+    }
+  }, [initialVisitId, setValue, visitsOptions])
 
   useEffect(() => {
     if (medicalRecordId && records.some((r) => r.id === medicalRecordId)) {
@@ -80,6 +98,7 @@ const ConsultationForm = ({
         treatment: consultation.treatment ?? '',
         notes: consultation.notes ?? '',
         recordId: consultation.record.id,
+        visitId: consultation.visitId,
       })
     }
   }, [consultation, reset])
@@ -110,6 +129,12 @@ const ConsultationForm = ({
             Selecciona el cliente propietario de la mascota
           </FieldDescription>
         </Field>
+        <ControlledSelect
+          control={control}
+          name="visitId"
+          label="Visita"
+          options={visitsOptions}
+        />
         <ControlledSelect
           control={control}
           name="recordId"

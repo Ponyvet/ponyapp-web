@@ -22,6 +22,7 @@ const CreateConsultationPage = () => {
       title="Crear Consulta"
       initialClientId={state?.clientId}
       medicalRecordId={state?.medicalRecordId}
+      initialVisitId={state?.visitId}
     />
   )
 }
