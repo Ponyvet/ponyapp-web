@@ -4,7 +4,8 @@
       "Bash(pnpm run typecheck:*)",
       "Bash(pnpm run build:*)",
       "Bash(pnpm lint:*)",
-      "Bash(pnpm typecheck:*)"
+      "Bash(pnpm typecheck:*)",
+      "Bash(pnpm checks:*)"
     ]
   }
 }

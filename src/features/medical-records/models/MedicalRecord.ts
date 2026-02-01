@@ -2,10 +2,11 @@ import { clientSchema } from '@/features/clients/models/Client'
 import { petSchema } from '@/features/pets/models/Pet'
 import { animalGroupSchema } from './AnimalGroup'
 import z from 'zod'
+import { MedicalRecordTypes } from '../utils/enum'
 
 export const medicalRecordSchema = z.object({
   id: z.string(),
-  type: z.enum(['PET', 'GROUP']),
+  type: z.enum(MedicalRecordTypes),
   name: z.string(),
   notes: z.string().nullable(),
   clientId: z.string(),

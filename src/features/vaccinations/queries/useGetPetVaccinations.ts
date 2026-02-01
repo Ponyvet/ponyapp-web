@@ -1,12 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
-import { getPetVaccinations } from '../api/vaccinations'
+import { getRecordVaccinations } from '../api/vaccinations'
+import type { MedicalRecord } from '@/features/medical-records/models/MedicalRecord'
 
-const useGetPetVaccinations = (petId?: string) => {
+const useGetRecordVaccinations = (recordId?: MedicalRecord['id']) => {
   return useQuery({
-    enabled: !!petId,
-    queryKey: ['vaccinations', petId],
-    queryFn: () => getPetVaccinations(petId!),
+    enabled: !!recordId,
+    queryKey: ['record-vaccinations', recordId],
+    queryFn: () => getRecordVaccinations(recordId!),
   })
 }
 
-export default useGetPetVaccinations
+export default useGetRecordVaccinations

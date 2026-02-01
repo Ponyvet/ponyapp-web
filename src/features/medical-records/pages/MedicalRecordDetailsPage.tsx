@@ -28,6 +28,7 @@ import { isPetRecord } from '../utils/formatters'
 import PetInfo from '@/shared/components/PetInfo'
 import AnimalGroupInfo from '../components/AnimalGroupInfo'
 import { Separator } from '@/shared/components/ui/separator'
+import VaccinationsCard from '@/features/vaccinations/components/VaccinationsCard'
 
 const MedicalRecordDetailsPage = () => {
   const navigate = useNavigate()
@@ -116,14 +117,21 @@ const MedicalRecordDetailsPage = () => {
       </Card>
       {/* Información específica de mascota o grupo */}
       {isPetRecord(record) && (
-        <PetInfo
-          pet={record.pet}
-          name={record.name}
-          clientId={record.clientId}
-          client={record.client}
-          showEditButton={true}
-          recordId={record.id}
-        />
+        <>
+          <PetInfo
+            pet={record.pet}
+            name={record.name}
+            clientId={record.clientId}
+            client={record.client}
+            showEditButton={true}
+            recordId={record.id}
+          />
+          <VaccinationsCard
+            recordId={record.id}
+            medicalRecordId={record.id}
+            clientId={record.clientId}
+          />
+        </>
       )}
       {/* Mostrar opción para agregar mascota si es tipo PET pero no tiene pet */}
       {record.type === 'PET' && record.pet === null && (

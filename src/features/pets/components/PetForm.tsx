@@ -9,9 +9,9 @@ import { Sex, Species } from '../utils/enum'
 import type { Pet } from '../models/Pet'
 import ControlledInput from '@/shared/components/ControlledInput'
 import ControlledSelect from '@/shared/components/ControlledSelect'
-import ControlledDatePicker from '@/shared/components/ControlledDatePicker'
 import ControlledTextarea from '@/shared/components/ControlledTextarea'
 import ControlledRadioGroup from '@/shared/components/ControlledRadioGroup'
+import DatePicker from '@/shared/components/DatePicker'
 
 const defaultValues: CreatePet = {
   recordId: '',
@@ -109,7 +109,7 @@ const PetForm = ({
             { label: 'Hembra', value: Sex.FEMALE },
           ]}
         />
-        <ControlledDatePicker
+        <DatePicker
           control={control}
           name="birthDate"
           label="Fecha de nacimiento"

@@ -1,23 +1,23 @@
+import { useCallback } from 'react'
+import type { MedicationsParams } from '../models/MedicationsParams'
 import useGetMedications from '../queries/useGetMedications'
 
-const useMedications = () => {
-  const { data: medications = [] } = useGetMedications()
+const useMedications = (category: MedicationsParams['category']) => {
+  const { data } = useGetMedications({
+    limit: 100,
+    page: 1,
+    category,
+  })
 
-  const getMedicationName = (medicationId: string): string => {
-    const medication = medications.find((m) => m.id === medicationId)
-    return medication ? medication.name : ''
-  }
-
-  const getMedicationOptions = () => {
+  const getMedicationOptions = useCallback(() => {
+    const medications = data?.data ?? []
     return medications.map((medication) => ({
       value: medication.id,
       label: medication.name,
     }))
-  }
+  }, [data])
 
   return {
-    medications,
-    getMedicationName,
     getMedicationOptions,
   }
 }

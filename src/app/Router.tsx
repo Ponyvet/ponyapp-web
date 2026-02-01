@@ -13,7 +13,10 @@ import EditPetPage from '@/features/pets/pages/EditPetPage'
 import PetDetailsPage from '@/features/pets/pages/PetDetailsPage'
 import NotFound from '@/shared/page/NotFound'
 import SettingsPage from '@/shared/page/SettingsPage'
+import VaccinationsPage from '@/features/vaccinations/pages/VaccinationsPage'
 import CreateVaccinationPage from '@/features/vaccinations/pages/CreateVaccinationPage'
+import EditVaccinationPage from '@/features/vaccinations/pages/EditVaccinationPage'
+import VaccinationDetailsPage from '@/features/vaccinations/pages/VaccinationDetailsPage'
 import MedicalRecordsPage from '@/features/medical-records/pages/MedicalRecordsPage'
 import CreateMedicalRecordPage from '@/features/medical-records/pages/CreateMedicalRecordPage'
 import EditMedicalRecordPage from '@/features/medical-records/pages/EditMedicalRecordPage'
@@ -49,7 +52,16 @@ const Router = () => {
             path="/medical-records/:recordId"
             element={<MedicalRecordDetailsPage />}
           />
-          <Route path="/vaccination/add" element={<CreateVaccinationPage />} />
+          <Route path="/vaccinations" element={<VaccinationsPage />} />
+          <Route path="/vaccinations/add" element={<CreateVaccinationPage />} />
+          <Route
+            path="/vaccinations/:vaccinationId/edit"
+            element={<EditVaccinationPage />}
+          />
+          <Route
+            path="/vaccinations/:vaccinationId"
+            element={<VaccinationDetailsPage />}
+          />
           <Route path="/medications" element={<MedicationsPage />} />
           <Route path="/medications/add" element={<CreateMedicationPage />} />
           <Route

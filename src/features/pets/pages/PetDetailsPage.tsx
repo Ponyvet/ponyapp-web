@@ -12,7 +12,7 @@ import {
 } from '@/shared/components/ui/card'
 import { DataTable } from '@/shared/components/DataTable'
 import { columns } from '@/features/vaccinations/components/vaccinations/Columns'
-import useGetPetVaccinations from '@/features/vaccinations/queries/useGetPetVaccinations'
+import useGetRecordVaccinations from '@/features/vaccinations/queries/useGetPetVaccinations'
 import { Separator } from '@/shared/components/ui/separator'
 import { Button } from '@/shared/components/ui/button'
 import PetInfo from '@/shared/components/PetInfo'
@@ -24,7 +24,7 @@ const PetDetailsPage = () => {
   const { data: pet, isSuccess: isPetSuccess } = useGetSinglePet(params.petId)
   const { data: record, isSuccess: isRecordSuccess } =
     useGetSingleMedicalRecord(pet?.recordId)
-  const { data: vaccinations = [] } = useGetPetVaccinations(params.petId)
+  const { data: vaccinations = [] } = useGetRecordVaccinations(params.petId)
 
   if (!isPetSuccess || !pet) {
     return null

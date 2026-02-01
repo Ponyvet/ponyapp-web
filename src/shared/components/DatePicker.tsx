@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type ComponentProps } from 'react'
 
 import { Button } from '@/shared/components/ui/button'
 import {
@@ -26,6 +26,8 @@ interface DatePickerProps<T extends FieldValues> {
   name: Path<T>
   label: string
   fieldDescription?: string
+  minDate?: Date
+  maxDate?: Date
 }
 
 const DatePicker = <T extends FieldValues>({
@@ -33,7 +35,9 @@ const DatePicker = <T extends FieldValues>({
   name,
   label,
   fieldDescription,
-}: DatePickerProps<T>) => {
+  ...props
+}: DatePickerProps<T> &
+  Omit<ComponentProps<typeof Calendar>, 'selected' | 'onSelect' | 'mode'>) => {
   const [open, setOpen] = useState(false)
 
   return (
@@ -61,13 +65,14 @@ const DatePicker = <T extends FieldValues>({
               align="start"
             >
               <Calendar
+                {...props}
                 mode="single"
                 selected={field.value}
-                captionLayout="dropdown"
                 onSelect={(date) => {
                   field.onChange(date)
                   setOpen(false)
                 }}
+                captionLayout="dropdown"
               />
             </PopoverContent>
           </Popover>

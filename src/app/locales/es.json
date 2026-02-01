@@ -38,6 +38,11 @@
           "edit": "Editar"
         }
       },
+      "vaccinations": {
+        "root": "Vacunaciones",
+        "add": "Agregar",
+        "edit": "Editar"
+      },
       "pets": {
         "root": "Mascotas",
         "add": "Agregar Mascota"

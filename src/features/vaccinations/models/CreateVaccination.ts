@@ -1,13 +1,11 @@
 import z from 'zod'
-import { VaccinationStatus } from '../utils/enum'
 
 export const createVaccinationSchema = z
   .object({
     appliedAt: z.date().nullable(),
     nextDueDate: z.date().nullable(),
-    status: z.enum(VaccinationStatus),
-    petId: z.string().nonempty('La mascota es obligatoria'),
-    vaccineId: z.string().nonempty('La vacuna es obligatoria'),
+    recordId: z.string().nonempty('La mascota es obligatoria'),
+    medicationId: z.string().nonempty('La vacuna es obligatoria'),
     veterinarianId: z.string().nonempty('El veterinario es obligatorio'),
   })
   .superRefine((data, ctx) => {
