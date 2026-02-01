@@ -5,7 +5,8 @@
       "Bash(pnpm run build:*)",
       "Bash(pnpm lint:*)",
       "Bash(pnpm typecheck:*)",
-      "Bash(pnpm checks:*)"
+      "Bash(pnpm checks:*)",
+      "Bash(npx tsc:*)"
     ]
   }
 }

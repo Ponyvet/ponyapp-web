@@ -25,6 +25,10 @@ import MedicationsPage from '@/features/medications/pages/MedicationsPage'
 import CreateMedicationPage from '@/features/medications/pages/CreateMedicationPage'
 import EditMedicationPage from '@/features/medications/pages/EditMedicationPage'
 import MedicationDetailsPage from '@/features/medications/pages/MedicationDetailsPage'
+import ConsultationsPage from '@/features/consultations/pages/ConsultationsPage'
+import CreateConsultationPage from '@/features/consultations/pages/CreateConsultationPage'
+import EditConsultationPage from '@/features/consultations/pages/EditConsultationPage'
+import ConsultationDetailsPage from '@/features/consultations/pages/ConsultationDetailsPage'
 
 const Router = () => {
   return (
@@ -71,6 +75,16 @@ const Router = () => {
           <Route
             path="/medications/:medicationId"
             element={<MedicationDetailsPage />}
+          />
+          <Route path="/consultations" element={<ConsultationsPage />} />
+          <Route path="/consultations/add" element={<CreateConsultationPage />} />
+          <Route
+            path="/consultations/:consultationId/edit"
+            element={<EditConsultationPage />}
+          />
+          <Route
+            path="/consultations/:consultationId"
+            element={<ConsultationDetailsPage />}
           />
           <Route path="/settings" element={<SettingsPage />} />
         </Route>
