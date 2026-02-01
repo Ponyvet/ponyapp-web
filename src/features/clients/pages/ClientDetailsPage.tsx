@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from 'react-router'
 import useGetSingleClient from '../queries/useGetSingleClient'
 import useDeleteClient from '../queries/useDeleteClient'
-import useGetPets from '@/features/pets/queries/useGetPets'
 import {
   Card,
   CardAction,
@@ -25,17 +24,17 @@ import { Separator } from '@radix-ui/react-separator'
 import { formatPhoneNumber } from '@/shared/utils/helpers'
 import EmptyTable from '@/shared/components/EmptyTable'
 import { DataTable } from '@/shared/components/DataTable'
-import { useColumns } from '@/features/pets/components/pets/SimpleColumns'
 import { useConfirm } from '@/hooks/use-confirm'
 import { ConfirmDialog } from '@/shared/components/ConfirmDialog'
+import useGetMedicalRecordsByClient from '@/features/medical-records/queries/useGetMedicalRecordsByClient'
+import { columns } from '@/features/medical-records/components/medical-records/SimpleColumns'
 
 const ClientDetailsPage = () => {
   const navigate = useNavigate()
   const params = useParams()
   const { data: client, isSuccess } = useGetSingleClient(params.clientId)
-  const { data: pets = [] } = useGetPets(params.clientId)
+  const { data: records = [] } = useGetMedicalRecordsByClient(params.clientId)
   const deleteClientMutation = useDeleteClient(() => navigate('/clients'))
-  const columns = useColumns()
   const { confirm, isOpen, options, handleConfirm, handleCancel } = useConfirm()
 
   const handleDeleteClient = async () => {
@@ -138,8 +137,8 @@ const ClientDetailsPage = () => {
           </CardAction>
         </CardHeader>
         <CardContent>
-          {pets.length > 0 ? (
-            <DataTable columns={columns} data={pets} filterBy="name" />
+          {records.length > 0 ? (
+            <DataTable columns={columns} data={records} filterBy="name" />
           ) : (
             <EmptyTable
               icon={<DogIcon />}

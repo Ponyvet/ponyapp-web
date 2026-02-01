@@ -23,7 +23,7 @@ export const getMedicalRecordsByClient = async (
   clientId: string,
 ): Promise<MedicalRecord[]> => {
   const res = await api.get(`/medical-records/client/${clientId}`)
-  return medicalRecordSchema.array().parse(res.data.data)
+  return medicalRecordSchema.array().parse(res.data)
 }
 
 export const getSingleMedicalRecord = async (
