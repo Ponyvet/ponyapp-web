@@ -1,36 +1,19 @@
-import { Controller, useForm, type SubmitHandler } from 'react-hook-form'
-import { useEffect, useState } from 'react'
-import { ChevronDownIcon } from 'lucide-react'
+import { useForm, type SubmitHandler } from 'react-hook-form'
+import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { Button } from '@/shared/components/ui/button'
-import {
-  Field,
-  FieldContent,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-  FieldLegend,
-  FieldSet,
-  FieldTitle,
-} from '@/shared/components/ui/field'
-import { Input } from '@/shared/components/ui/input'
+import { FieldGroup } from '@/shared/components/ui/field'
 import { createPetSchema, type CreatePet } from '../models/CreatePet'
 import { Sex, Species } from '../utils/enum'
-import { RadioGroup, RadioGroupItem } from '@/shared/components/ui/radio-group'
-import { Label } from '@/shared/components/ui/label'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/shared/components/ui/popover'
-import { Calendar } from '@/shared/components/ui/calendar'
-import { Textarea } from '@/shared/components/ui/textarea'
 import type { Pet } from '../models/Pet'
+import ControlledInput from '@/shared/components/ControlledInput'
+import ControlledSelect from '@/shared/components/ControlledSelect'
+import ControlledDatePicker from '@/shared/components/ControlledDatePicker'
+import ControlledTextarea from '@/shared/components/ControlledTextarea'
+import ControlledRadioGroup from '@/shared/components/ControlledRadioGroup'
 
 const defaultValues: CreatePet = {
-  name: '',
   recordId: '',
   sex: Sex.MALE,
   species: Species.DOG,
@@ -55,21 +38,17 @@ const PetForm = ({
   submitButtonText = 'Guardar',
   title = 'Datos de la Mascota',
 }: PetFormProps) => {
-  const [open, setOpen] = useState(false)
-
-  const { handleSubmit, register, control, setValue, reset } = useForm({
+  const { handleSubmit, control, setValue, reset } = useForm({
     defaultValues,
     resolver: zodResolver(createPetSchema),
   })
 
-  // Set recordId when provided
   useEffect(() => {
     if (recordId) {
       setValue('recordId', recordId)
     }
   }, [recordId, setValue])
 
-  // Populate form when editing existing pet
   useEffect(() => {
     if (pet) {
       reset({
@@ -90,156 +69,71 @@ const PetForm = ({
 
   return (
     <form onSubmit={handleSubmit(handleOnSubmit)}>
-      <FieldGroup>
-        <FieldSet>
-          <FieldLegend>{title}</FieldLegend>
-          <FieldGroup className="gap-3">
-            <Controller
-              name="species"
-              control={control}
-              render={({ field, fieldState }) => {
-                const isInvalid = fieldState.invalid
-                return (
-                  <FieldSet data-invalid={isInvalid}>
-                    <FieldLegend variant="label">Tipo de mascota</FieldLegend>
-                    <FieldDescription>
-                      Selecciona la especie de la mascota
-                    </FieldDescription>
-                    <RadioGroup
-                      name={field.name}
-                      value={field.value}
-                      onValueChange={field.onChange}
-                      aria-invalid={isInvalid}
-                    >
-                      <FieldLabel htmlFor="species-dog">
-                        <Field orientation="horizontal">
-                          <FieldContent>
-                            <FieldTitle>Perro</FieldTitle>
-                            <FieldDescription>
-                              Perros y cachorros
-                            </FieldDescription>
-                          </FieldContent>
-                          <RadioGroupItem
-                            value={Species.DOG}
-                            id="species-dog"
-                          />
-                        </Field>
-                      </FieldLabel>
-                      <FieldLabel htmlFor="species-cat">
-                        <Field orientation="horizontal">
-                          <FieldContent>
-                            <FieldTitle>Gato</FieldTitle>
-                            <FieldDescription>Gatos y gatitos</FieldDescription>
-                          </FieldContent>
-                          <RadioGroupItem
-                            value={Species.CAT}
-                            id="species-cat"
-                          />
-                        </Field>
-                      </FieldLabel>
-                    </RadioGroup>
-                    {isInvalid && <FieldError errors={[fieldState.error]} />}
-                  </FieldSet>
-                )
-              }}
-            />
-            <Field>
-              <FieldLabel htmlFor="breed">Raza</FieldLabel>
-              <Input
-                id="breed"
-                placeholder="Labrador Retriever"
-                {...register('breed')}
-              />
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="color">Color</FieldLabel>
-              <Input id="color" placeholder="Negro" {...register('color')} />
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="sex">Sexo</FieldLabel>
-              <Controller
-                name="sex"
-                control={control}
-                render={({ field }) => (
-                  <RadioGroup
-                    id="sex"
-                    value={field.value}
-                    onValueChange={field.onChange}
-                  >
-                    <div className="flex items-center gap-3">
-                      <RadioGroupItem value={Sex.MALE} id="r2" />
-                      <Label htmlFor="r2">Macho</Label>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <RadioGroupItem value={Sex.FEMALE} id="r3" />
-                      <Label htmlFor="r3">Hembra</Label>
-                    </div>
-                  </RadioGroup>
-                )}
-              />
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="birthDate">Fecha de nacimiento</FieldLabel>
-              <Controller
-                name="birthDate"
-                control={control}
-                render={({ field }) => (
-                  <Popover open={open} onOpenChange={setOpen}>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant="outline"
-                        id="date"
-                        className="w-48 justify-between font-normal"
-                      >
-                        {field.value
-                          ? new Date(field.value).toLocaleDateString()
-                          : 'Select date'}
-                        <ChevronDownIcon />
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent
-                      className="w-auto overflow-hidden p-0"
-                      align="start"
-                    >
-                      <Calendar
-                        mode="single"
-                        selected={field.value}
-                        captionLayout="dropdown"
-                        onSelect={(date) => {
-                          field.onChange(date)
-                          setOpen(false)
-                        }}
-                      />
-                    </PopoverContent>
-                  </Popover>
-                )}
-              />
-            </Field>
-          </FieldGroup>
-          <Field>
-            <FieldLabel htmlFor="notes">Notas</FieldLabel>
-            <Textarea
-              id="notes"
-              placeholder="Agrega cualquier comentario adicional"
-              className="resize-none"
-              {...register('notes')}
-            />
-          </Field>
-        </FieldSet>
-        <Field orientation="horizontal">
-          <Button type="submit" disabled={isLoading}>
-            {submitButtonText}
-          </Button>
-          <Button
-            variant="outline"
-            type="button"
-            onClick={onCancel}
-            disabled={isLoading}
-          >
-            Cancelar
-          </Button>
-        </Field>
+      <h1 className="text-xl font-bold mb-4">{title}</h1>
+      <FieldGroup className="gap-3">
+        <ControlledRadioGroup
+          control={control}
+          name="species"
+          label="Tipo de mascota"
+          options={[
+            {
+              label: 'Perro',
+              value: Species.DOG,
+              description: 'Perros y cachorros',
+            },
+            {
+              label: 'Gato',
+              value: Species.CAT,
+              description: 'Gatos y gatitos',
+            },
+          ]}
+        />
+        <ControlledInput
+          control={control}
+          name="breed"
+          placeholder="Labrador Retriever"
+          label="Raza"
+        />
+        <ControlledInput
+          control={control}
+          name="color"
+          placeholder="Negro"
+          label="Color"
+        />
+        <ControlledSelect
+          control={control}
+          name="sex"
+          label="Sexo"
+          options={[
+            { label: 'Macho', value: Sex.MALE },
+            { label: 'Hembra', value: Sex.FEMALE },
+          ]}
+        />
+        <ControlledDatePicker
+          control={control}
+          name="birthDate"
+          label="Fecha de nacimiento"
+        />
+        <ControlledTextarea
+          control={control}
+          name="notes"
+          label="Notas"
+          placeholder="Agrega cualquier comentario adicional"
+        />
       </FieldGroup>
+      <div className="mt-6 flex gap-2 items-start">
+        <Button type="submit" disabled={isLoading}>
+          {submitButtonText}
+        </Button>
+        <Button
+          variant="outline"
+          type="button"
+          onClick={onCancel}
+          disabled={isLoading}
+        >
+          Cancelar
+        </Button>
+      </div>
     </form>
   )
 }

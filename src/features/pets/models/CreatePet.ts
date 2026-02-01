@@ -2,7 +2,6 @@ import z from 'zod'
 import { Sex, Species } from '../utils/enum'
 
 export const createPetSchema = z.object({
-  name: z.string().nonempty(),
   species: z.enum(Species),
   sex: z.enum(Sex),
   recordId: z.string().nonempty('Debe existir una cartilla médica'),

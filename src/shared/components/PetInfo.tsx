@@ -30,7 +30,6 @@ import WhatsAppLink from '@/shared/components/WhatsAppLink'
 import useClients from '@/features/clients/hooks/useClients'
 import { cn } from '../utils/utils'
 
-// Tipos para diferentes fuentes de datos de mascotas
 interface BasePetData {
   species: string
   sex?: string
@@ -82,25 +81,14 @@ const PetInfo = ({
   clientId,
   client,
   showEditButton = false,
-  editUrl,
-  recordId,
 }: PetInfoProps) => {
   const navigate = useNavigate()
   const { selectClientById } = useClients()
 
-  // Si client no viene completo, intentar obtenerlo del hook
   const owner = client || selectClientById(clientId)
 
   const handleEdit = () => {
-    if (editUrl) {
-      navigate(editUrl)
-    } else if ('name' in pet && pet.id) {
-      // Es un Pet completo, usar ruta de pets
-      navigate(`/pets/${pet.id}/edit`)
-    } else if (recordId) {
-      // Es un pet dentro de medical record
-      navigate(`/medical-records/${recordId}/edit`)
-    }
+    navigate(`/pets/${pet.id}/edit`)
   }
 
   const getSpeciesIcon = (species: string) => {
