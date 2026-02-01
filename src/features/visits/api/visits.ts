@@ -36,3 +36,8 @@ export const updateVisit = async (
 export const deleteVisit = async (id: Visit['id']): Promise<void> => {
   await api.delete(`/visits/${id}`)
 }
+
+export const getVisitsByClient = async (clientId: string): Promise<Visit[]> => {
+  const res = await api.get(`/visits/client/${clientId}`)
+  return visitSchema.array().parse(res.data)
+}

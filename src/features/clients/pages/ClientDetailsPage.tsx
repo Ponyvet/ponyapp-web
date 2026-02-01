@@ -10,6 +10,7 @@ import {
 } from '@/shared/components/ui/card'
 import { Button } from '@/shared/components/ui/button'
 import {
+  CalendarDaysIcon,
   DogIcon,
   EditIcon,
   MapIcon,
@@ -27,6 +28,8 @@ import { useConfirm } from '@/shared/hooks/use-confirm'
 import { ConfirmDialog } from '@/shared/components/ConfirmDialog'
 import useGetMedicalRecordsByClient from '@/features/medical-records/queries/useGetMedicalRecordsByClient'
 import { columns } from '@/features/medical-records/components/medical-records/SimpleColumns'
+import { columns as visitColumns } from '@/features/visits/components/visits/SimpleColumns'
+import useGetVisitsByClient from '@/features/visits/queries/useGetVisitsByClient'
 import Map from '@/shared/components/Map'
 import { Separator } from '@/shared/components/ui/separator'
 
@@ -35,6 +38,7 @@ const ClientDetailsPage = () => {
   const params = useParams()
   const { data: client, isSuccess } = useGetSingleClient(params.clientId)
   const { data: records = [] } = useGetMedicalRecordsByClient(params.clientId)
+  const { data: visits = [] } = useGetVisitsByClient(params.clientId)
   const deleteClientMutation = useDeleteClient(() => navigate('/clients'))
   const { confirm, isOpen, options, handleConfirm, handleCancel } = useConfirm()
 
@@ -176,6 +180,46 @@ const ClientDetailsPage = () => {
               }
               onclick={() =>
                 navigate('/pets/add', { state: { clientId: client.id } })
+              }
+            />
+          )}
+        </CardContent>
+      </Card>
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            <h2 className="text-xl font-bold">Visitas</h2>
+          </CardTitle>
+          <CardAction>
+            <Button
+              size="sm"
+              onClick={() =>
+                navigate('/visits/add', {
+                  state: { clientId: client.id },
+                })
+              }
+            >
+              <PlusIcon />
+              Agregar Visita
+            </Button>
+          </CardAction>
+        </CardHeader>
+        <CardContent>
+          {visits.length > 0 ? (
+            <DataTable columns={visitColumns} data={visits} filterBy="date" />
+          ) : (
+            <EmptyTable
+              icon={<CalendarDaysIcon />}
+              title="No hay visitas registradas"
+              description="Agrega una nueva visita para este cliente."
+              buttonText={
+                <>
+                  <PlusIcon className="mr-2" />
+                  Agregar primera visita
+                </>
+              }
+              onclick={() =>
+                navigate('/visits/add', { state: { clientId: client.id } })
               }
             />
           )}
