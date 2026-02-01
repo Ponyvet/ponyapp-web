@@ -29,7 +29,7 @@ import { VaccinationStatus } from '../utils/enum'
 import { createVaccination } from '../api/vaccinations'
 import useGetPets from '@/features/pets/queries/useGetPets'
 import useClients from '@/features/clients/hooks/useClients'
-import useVaccines from '@/features/vaccines/hooks/useVaccines'
+import useMedications from '@/features/medications/hooks/useMedications'
 import DatePicker from '@/shared/components/DatePicker'
 import ControlledSelect from '@/shared/components/ControlledSelect'
 import useUsers from '@/features/users/hooks/useUsers'
@@ -53,7 +53,7 @@ const CreateVaccinationPage = () => {
   const { data: pets = [] } = useGetPets(clientId)
   const { clients } = useClients()
   const { getUsersAsOptions, users } = useUsers()
-  const { getVaccineOptions } = useVaccines()
+  const { getMedicationOptions } = useMedications()
   const { data: session } = useProfile()
   const { mutate, isPending } = useMutation({
     mutationFn: createVaccination,
@@ -134,7 +134,7 @@ const CreateVaccinationPage = () => {
             <ControlledSelect
               control={control}
               name="vaccineId"
-              options={getVaccineOptions()}
+              options={getMedicationOptions()}
               label="Vacuna"
               fieldDescription="Selecciona la vacuna aplicada"
             />

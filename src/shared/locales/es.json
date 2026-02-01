@@ -39,10 +39,6 @@
     "vaccination": {
       "root": "Vacunaciones",
       "add": "Agregar Vacunación"
-    },
-    "vaccines": {
-      "root": "Vacunas",
-      "add": "Agregar Vacuna"
     }
   }
 }

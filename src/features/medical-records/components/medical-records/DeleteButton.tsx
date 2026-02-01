@@ -1,29 +1,29 @@
 import { TrashIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
-import type { Vaccine } from '@/features/vaccines/models/Vaccine'
-import useDeleteVaccine from '@/features/vaccines/queries/useDeleteVaccine'
+import type { MedicalRecord } from '../../models/MedicalRecord'
+import useDeleteMedicalRecord from '../../queries/useDeleteMedicalRecord'
 import { useConfirm } from '@/hooks/use-confirm'
 import { ConfirmDialog } from '@/shared/components/ConfirmDialog'
 
 interface DeleteButtonProps {
-  vaccine: Vaccine
+  record: MedicalRecord
 }
 
-const DeleteButton = ({ vaccine }: DeleteButtonProps) => {
-  const { mutate: deleteVaccine, isPending } = useDeleteVaccine()
+const DeleteButton = ({ record }: DeleteButtonProps) => {
+  const { mutate: deleteMedicalRecord, isPending } = useDeleteMedicalRecord()
   const { confirm, isOpen, options, handleConfirm, handleCancel } = useConfirm()
 
   const handleDelete = async () => {
     const confirmed = await confirm({
       title: '¿Estás absolutamente seguro?',
-      description: `¿Estás seguro de que deseas eliminar la vacuna "${vaccine.name}"? Esta acción no se puede deshacer.`,
+      description: `¿Estás seguro de que deseas eliminar la cartilla "${record.name}"? Esta acción no se puede deshacer.`,
       confirmText: 'Eliminar',
       cancelText: 'Cancelar',
     })
 
     if (confirmed) {
-      deleteVaccine(vaccine.id)
+      deleteMedicalRecord(record.id)
     }
   }
 

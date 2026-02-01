@@ -1,12 +1,12 @@
-import useVaccines from '@/features/vaccines/hooks/useVaccines'
+import useMedications from '@/features/medications/hooks/useMedications'
 
 interface VaccineNameProps {
   vaccineId: string
 }
 
 const VaccineName = ({ vaccineId }: VaccineNameProps) => {
-  const { getVaccineName } = useVaccines()
-  return <div>{getVaccineName(vaccineId)}</div>
+  const { getMedicationName } = useMedications()
+  return <div>{getMedicationName(vaccineId)}</div>
 }
 
 export default VaccineName
