@@ -36,3 +36,30 @@ export const formatPhoneNumber = (phoneNumber: string) => {
   )
   return `${formattedNumber}`
 }
+
+/**
+ * Generates an array of Option objects from a given array of items.
+ *
+ * @template T - The type of items in the input array
+ * @param items - Array of items to transform into options
+ * @param labelKey - The key from item T to use as the option label
+ * @param valueKey - The key from item T to use as the option value
+ * @returns An array of Option objects with string label and value properties
+ *
+ * @example
+ * ```typescript
+ * const users = [{ id: 1, name: 'John' }, { id: 2, name: 'Jane' }];
+ * const options = generateOptions(users, 'name', 'id');
+ * // Result: [{ label: 'John', value: '1' }, { label: 'Jane', value: '2' }]
+ * ```
+ */
+export const generateOptions = <T>(
+  items: T[],
+  labelKey: keyof T,
+  valueKey: keyof T,
+): Option[] => {
+  return items.map((item) => ({
+    label: String(item[labelKey]),
+    value: String(item[valueKey]),
+  }))
+}

@@ -29,7 +29,7 @@ import {
 import useClients from '@/features/clients/hooks/useClients'
 import useGetMedicalRecordsByClient from '@/features/medical-records/queries/useGetMedicalRecordsByClient'
 import { MedicalRecordTypes } from '@/features/medical-records/utils/enum'
-import { getLabelFromCatalog } from '@/shared/utils/helpers'
+import { generateOptions, getLabelFromCatalog } from '@/shared/utils/helpers'
 import { SPECIES_CATALOG } from '@/features/pets/utils/catalogs'
 
 const defaultValues: CreateVaccination = {
@@ -62,7 +62,7 @@ const VaccinationForm = ({
   medicalRecordId,
 }: VaccinationFormProps) => {
   const [clientId, setClientId] = useState<string | undefined>(initialClientId)
-  const { getUsersAsOptions, users } = useUsers()
+  const { users } = useUsers()
   const { getMedicationOptions } = useMedications('VACCINE')
   const { clients } = useClients()
   const { data: session } = useProfile()
@@ -70,6 +70,7 @@ const VaccinationForm = ({
   const petsRecords = records.filter(
     (record) => record.type === MedicalRecordTypes.PET,
   )
+  const usersOptions = generateOptions(users, 'name', 'id')
 
   const { handleSubmit, control, setValue, reset } = useForm({
     defaultValues,
@@ -95,10 +96,10 @@ const VaccinationForm = ({
   }, [vaccination, reset])
 
   useEffect(() => {
-    if (users.length > 0 && session?.id && !vaccination) {
+    if (session?.id && usersOptions.some((user) => user.value === session.id)) {
       setValue('veterinarianId', session.id)
     }
-  }, [session?.id, setValue, users, vaccination])
+  }, [session?.id, setValue, usersOptions])
 
   const handleOnSubmit: SubmitHandler<CreateVaccination> = (data) => {
     onSubmit(data)
@@ -156,7 +157,7 @@ const VaccinationForm = ({
         <ControlledSelect
           control={control}
           name="veterinarianId"
-          options={getUsersAsOptions()}
+          options={usersOptions}
           label="Veterinario"
           fieldDescription="Selecciona el veterinario que aplicó la vacuna"
         />
