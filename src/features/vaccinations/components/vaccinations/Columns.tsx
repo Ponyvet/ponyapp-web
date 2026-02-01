@@ -2,6 +2,8 @@ import type { ColumnDef } from '@tanstack/react-table'
 import { formatDate } from 'date-fns'
 
 import type { Vaccination } from '../../models/Vaccination'
+import EditButton from './EditButton'
+import DeleteButton from './DeleteButton'
 
 export const columns: ColumnDef<Vaccination>[] = [
   {
@@ -37,5 +39,17 @@ export const columns: ColumnDef<Vaccination>[] = [
     accessorKey: 'veterinarianId',
     header: 'Veterinario',
     cell: ({ row }) => row.original.veterinarian.name,
+  },
+  {
+    accessorKey: 'actions',
+    header: '',
+    cell: ({ row }) => {
+      return (
+        <div className="space-x-4">
+          <EditButton vaccination={row.original} />
+          <DeleteButton vaccination={row.original} />
+        </div>
+      )
+    },
   },
 ]
