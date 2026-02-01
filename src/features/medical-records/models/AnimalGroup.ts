@@ -9,5 +9,3 @@ export const animalGroupSchema = z.object({
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
 })
-
-export type AnimalGroup = z.infer<typeof animalGroupSchema>

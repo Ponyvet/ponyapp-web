@@ -8,7 +8,7 @@ import type { MedicalRecordParams } from '../models/MedicalRecordParams'
 import { paginatedDataSchema } from '@/shared/models/PaginatedData'
 
 const paginatedMedicalRecordSchema = paginatedDataSchema(medicalRecordSchema)
-export type PaginatedMedicalRecords = ReturnType<
+type PaginatedMedicalRecords = ReturnType<
   typeof paginatedMedicalRecordSchema.parse
 >
 

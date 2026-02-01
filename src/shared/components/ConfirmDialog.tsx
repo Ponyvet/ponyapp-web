@@ -9,7 +9,7 @@ import {
   AlertDialogTitle,
 } from '@/shared/components/ui/alert-dialog'
 
-export interface ConfirmDialogProps {
+interface ConfirmDialogProps {
   open: boolean
   onConfirm: () => void
   onCancel: () => void

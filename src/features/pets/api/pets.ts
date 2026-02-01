@@ -20,7 +20,3 @@ export const updatePet = async (
   const res = await api.put(`/pets/${petId}`, data)
   return petSchema.parse(res.data)
 }
-
-export const deletePet = async (petId: Pet['id']): Promise<void> => {
-  await api.delete(`/pets/${petId}`)
-}
