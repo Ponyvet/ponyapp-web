@@ -68,6 +68,11 @@
         "root": "Visitas",
         "add": "Agregar Visita",
         "edit": "Editar"
+      },
+      "consultations": {
+        "root": "Consultas",
+        "add": "Agregar Consulta",
+        "edit": "Editar"
       }
     }
   },
