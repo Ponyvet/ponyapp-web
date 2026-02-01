@@ -132,18 +132,18 @@ const PlaceAutocomplete = ({
       {error && <p className="text-sm text-red-500 mt-1">{error}</p>}
 
       {isOpen && predictions.length > 0 && (
-        <div className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-y-auto">
+        <div className="absolute z-50 w-full mt-1 bg-popover border border-border rounded-md shadow-lg max-h-60 overflow-y-auto">
           {predictions.map((prediction) => (
             <button
               key={prediction.place_id}
               type="button"
               onClick={() => handlePredictionClick(prediction)}
-              className="w-full px-4 py-2 text-left hover:bg-gray-100 focus:bg-gray-100 focus:outline-none border-none bg-transparent"
+              className="w-full px-4 py-2 text-left hover:bg-accent focus:bg-accent focus:outline-none border-none bg-transparent"
             >
-              <div className="font-medium">
+              <div className="font-medium text-popover-foreground">
                 {prediction.structured_formatting.main_text}
               </div>
-              <div className="text-sm text-gray-600">
+              <div className="text-sm text-muted-foreground">
                 {prediction.structured_formatting.secondary_text}
               </div>
             </button>
