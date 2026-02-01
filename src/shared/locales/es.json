@@ -52,6 +52,11 @@
     },
     "settings": {
       "root": "Configuraciones"
+    },
+    "medications": {
+      "root": "Medicamentos",
+      "add": "Agregar Medicamento",
+      "edit": "Editar"
     }
   }
 }
