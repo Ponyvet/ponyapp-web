@@ -9,7 +9,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/shared/components/ui/breadcrumb'
-import { generateBreadcrumbs } from '@/shared/utils/helpers'
+import { generateBreadcrumbs } from '@/shared/utils/breadcrumbs'
 
 const Breadcrumbs = () => {
   const { t } = useTranslation('shared')
