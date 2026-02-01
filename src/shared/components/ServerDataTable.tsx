@@ -8,6 +8,8 @@ import {
   type ColumnFiltersState,
 } from '@tanstack/react-table'
 
+import { PAGE_SIZE_OPTIONS } from '../utils/const'
+
 import {
   Table,
   TableBody,
@@ -95,7 +97,7 @@ export function ServerDataTable<TData, TValue>({
   onStateChange,
   initialColumnVisibility = {},
   filterConfig,
-  pageSizeOptions = [10, 20, 50, 100],
+  pageSizeOptions = PAGE_SIZE_OPTIONS,
 }: ServerDataTableProps<TData, TValue>) {
   const { t } = useTranslation('shared')
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(

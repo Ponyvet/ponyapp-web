@@ -30,7 +30,12 @@
       "root": "Clientes",
       "add": "Agregar Cliente",
       "pets": "Mascotas",
-      "edit": "Editar"
+      "edit": "Editar",
+      "medical-records": {
+        "root": "Historial Médico",
+        "add": "Agregar Historial Médico",
+        "edit": "Editar"
+      }
     },
     "pets": {
       "root": "Mascotas",
@@ -39,6 +44,11 @@
     "vaccination": {
       "root": "Vacunaciones",
       "add": "Agregar Vacunación"
+    },
+    "medical-records": {
+      "root": "Historial Médico",
+      "add": "Agregar",
+      "edit": "Editar"
     }
   }
 }

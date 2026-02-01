@@ -19,12 +19,13 @@ import {
 import EmptyTable from '@/shared/components/EmptyTable'
 import type { MedicalRecordParams } from '../models/MedicalRecordParams'
 import { MEDICAL_RECORD_TYPE_CATALOG } from '../utils/catalogs'
+import { DEFAULT_PAGE_SIZE, START_PAGE_INDEX } from '@/shared/utils/const'
 
 const MedicalRecordsPage = () => {
   const navigate = useNavigate()
   const [params, setParams] = useState<MedicalRecordParams>({
-    page: 1,
-    limit: 10,
+    page: START_PAGE_INDEX,
+    limit: DEFAULT_PAGE_SIZE,
   })
 
   const { data, isPending, isSuccess } = useGetMedicalRecords(params)
@@ -42,8 +43,8 @@ const MedicalRecordsPage = () => {
 
   const records = data?.data ?? []
   const pagination = data?.pagination ?? {
-    page: 1,
-    limit: 10,
+    page: START_PAGE_INDEX,
+    limit: DEFAULT_PAGE_SIZE,
     total: 0,
     totalPages: 1,
     hasNext: false,

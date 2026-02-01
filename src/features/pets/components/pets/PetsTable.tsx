@@ -12,6 +12,7 @@ import {
   type PaginationInfo,
 } from '@/shared/components/ServerDataTable'
 import EmptyTable from '@/shared/components/EmptyTable'
+import { PAGE_SIZE_OPTIONS } from '@/shared/utils/const'
 import { DogIcon, PlusIcon } from 'lucide-react'
 import { useNavigate } from 'react-router'
 import type { Pet } from '../../models/Pet'
@@ -100,7 +101,7 @@ const PetsTable = ({
                 },
               ],
             }}
-            pageSizeOptions={[5, 10, 20, 50]}
+            pageSizeOptions={PAGE_SIZE_OPTIONS}
           />
         ) : showEmptyState ? (
           <EmptyTable

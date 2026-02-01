@@ -11,6 +11,7 @@ import {
   type VisibilityState,
 } from '@tanstack/react-table'
 
+import { PAGE_SIZE_OPTIONS, DEFAULT_PAGE_SIZE } from '../utils/const'
 import {
   Table,
   TableBody,
@@ -60,6 +61,11 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
+    initialState: {
+      pagination: {
+        pageSize: DEFAULT_PAGE_SIZE,
+      },
+    },
     state: {
       sorting,
       columnFilters,
@@ -173,7 +179,7 @@ export function DataTable<TData, TValue>({
           total: table.getFilteredRowModel().rows.length,
           totalPages: table.getPageCount(),
         }}
-        pageSizeOptions={[5, 10, 20, 50]}
+        pageSizeOptions={PAGE_SIZE_OPTIONS.slice(0, 4)}
         isLoading={false}
         onPageChange={(page) => {
           table.setPageIndex(page - 1)

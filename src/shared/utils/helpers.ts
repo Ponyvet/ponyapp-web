@@ -47,7 +47,7 @@ export const formatPhoneNumber = (phoneNumber: string) => {
 const formatUuidRoute = (key: string) => {
   const segments = key.split('.')
   if (containsUuid(segments[segments.length - 1])) {
-    return segments[segments.length - 1]
+    return segments[segments.length - 1].split('-')[0]
   }
   const pathWithoutUuid = segments
     .filter((segment) => !containsUuid(segment))
