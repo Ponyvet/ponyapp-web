@@ -3,11 +3,12 @@ import { formatDate } from 'date-fns'
 
 import type { Vaccination } from '../../models/Vaccination'
 import VaccineName from './VaccineName'
-import { cn, getLabelFromCatalog } from '@/shared/utils/helpers'
+import { getLabelFromCatalog } from '@/shared/utils/helpers'
 import { VACCINATION_STATUS_CATALOG } from '../../utils/catalogs'
 import { VaccinationStatus } from '../../utils/enum'
 import { Badge } from '@/shared/components/ui/badge'
 import VeterinarianName from './VeterinarianName'
+import { cn } from '@/shared/utils/utils'
 
 export const columns: ColumnDef<Vaccination>[] = [
   {

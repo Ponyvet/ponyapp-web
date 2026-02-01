@@ -23,11 +23,12 @@ import {
   UserIcon,
   EditIcon,
 } from 'lucide-react'
-import { calculateAge, cn, getLabelFromCatalog } from '@/shared/utils/helpers'
+import { calculateAge, getLabelFromCatalog } from '@/shared/utils/helpers'
 import { SEX_CATALOG, SPECIES_CATALOG } from '@/features/pets/utils/catalogs'
 import { Sex, Species } from '@/features/pets/utils/enum'
 import WhatsAppLink from '@/shared/components/WhatsAppLink'
 import useClients from '@/features/clients/hooks/useClients'
+import { cn } from '../utils/utils'
 
 // Tipos para diferentes fuentes de datos de mascotas
 interface BasePetData {

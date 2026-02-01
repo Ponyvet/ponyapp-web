@@ -1,6 +1,4 @@
-import { clsx, type ClassValue } from 'clsx'
 import type { BreadcrumbItem, Option } from './types'
-import { twMerge } from 'tailwind-merge'
 import { DISABLE_BREADCRUMBS } from './const'
 
 export const getUserInitials = (name: string) => {
@@ -12,10 +10,6 @@ export const getUserInitials = (name: string) => {
 export const getLabelFromCatalog = (key: string, catalog: Option[]): string => {
   const item = catalog.find((item) => item.value === key)
   return item ? item.label : key
-}
-
-export const cn = (...inputs: ClassValue[]) => {
-  return twMerge(clsx(...inputs))
 }
 
 export const calculateAge = (birthDate: Date | null) => {

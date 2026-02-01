@@ -1,19 +1,11 @@
+import { Outlet } from 'react-router'
+
 import { AppSidebar } from '@/shared/components/AppSidebar'
-/* import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb'
-import { Separator } from '@/components/ui/separator' */
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from '@/shared/components/ui/sidebar'
-import { Outlet } from 'react-router'
 import Breadcrumbs from './Breadcrumbs'
 
 export default function AppFrame() {
