@@ -28,6 +28,7 @@ import { useConfirm } from '@/hooks/use-confirm'
 import { ConfirmDialog } from '@/shared/components/ConfirmDialog'
 import useGetMedicalRecordsByClient from '@/features/medical-records/queries/useGetMedicalRecordsByClient'
 import { columns } from '@/features/medical-records/components/medical-records/SimpleColumns'
+import Map from '@/components/Map'
 
 const ClientDetailsPage = () => {
   const navigate = useNavigate()
@@ -116,19 +117,42 @@ const ClientDetailsPage = () => {
               <ItemInfo icon={<NotebookIcon />} description={client.notes} />
             </>
           )}
+          {client.latitude && client.longitude && (
+            <>
+              <Separator className="my-4" />
+              <h4 className="font-semibold mb-2">Ubicación</h4>
+              <div className="h-64 rounded-lg overflow-hidden border">
+                <Map
+                  defaultCenter={{
+                    lat: client.latitude,
+                    lng: client.longitude,
+                  }}
+                  defaultZoom={15}
+                  markerPosition={{
+                    lat: client.latitude,
+                    lng: client.longitude,
+                  }}
+                  showMarker={true}
+                  className="h-full w-full"
+                />
+              </div>
+            </>
+          )}
         </CardContent>
       </Card>
       <Separator />
       <Card>
         <CardHeader>
           <CardTitle>
-            <h2 className="text-xl font-bold">Mascotas</h2>
+            <h2 className="text-xl font-bold">Cartillas médicas</h2>
           </CardTitle>
           <CardAction>
             <Button
               size="sm"
               onClick={() =>
-                navigate('/pets/add', { state: { clientId: client.id } })
+                navigate('/medical-records/add', {
+                  state: { clientId: client.id },
+                })
               }
             >
               <PlusIcon />
