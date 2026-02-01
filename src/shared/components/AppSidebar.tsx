@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ContactRound, Hospital, ClipboardList } from 'lucide-react'
+import { ContactRound, Hospital, ClipboardList, Pill } from 'lucide-react'
 
 import { NavUser } from './NavUser'
 import {
@@ -27,6 +27,11 @@ const data = {
       name: 'Cartillas Médicas',
       url: '/medical-records',
       icon: ClipboardList,
+    },
+    {
+      name: 'Medicamentos',
+      url: '/medications',
+      icon: Pill,
     },
   ],
 }

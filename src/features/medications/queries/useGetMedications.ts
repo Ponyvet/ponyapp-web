@@ -1,10 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
-import { getMedications } from '../api/medications'
 
-const useGetMedications = () => {
+import { getMedications } from '../api/medications'
+import type { MedicationsParams } from '../models/MedicationsParams'
+
+const useGetMedications = (params?: MedicationsParams) => {
   return useQuery({
-    queryKey: ['medications'],
-    queryFn: getMedications,
+    queryKey: ['medications', params],
+    queryFn: () => getMedications(params),
   })
 }
 

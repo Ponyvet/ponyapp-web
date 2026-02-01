@@ -18,6 +18,10 @@ import MedicalRecordsPage from '@/features/medical-records/pages/MedicalRecordsP
 import CreateMedicalRecordPage from '@/features/medical-records/pages/CreateMedicalRecordPage'
 import EditMedicalRecordPage from '@/features/medical-records/pages/EditMedicalRecordPage'
 import MedicalRecordDetailsPage from '@/features/medical-records/pages/MedicalRecordDetailsPage'
+import MedicationsPage from '@/features/medications/pages/MedicationsPage'
+import CreateMedicationPage from '@/features/medications/pages/CreateMedicationPage'
+import EditMedicationPage from '@/features/medications/pages/EditMedicationPage'
+import MedicationDetailsPage from '@/features/medications/pages/MedicationDetailsPage'
 
 const Router = () => {
   return (
@@ -46,6 +50,16 @@ const Router = () => {
             element={<MedicalRecordDetailsPage />}
           />
           <Route path="/vaccination/add" element={<CreateVaccinationPage />} />
+          <Route path="/medications" element={<MedicationsPage />} />
+          <Route path="/medications/add" element={<CreateMedicationPage />} />
+          <Route
+            path="/medications/:medicationId/edit"
+            element={<EditMedicationPage />}
+          />
+          <Route
+            path="/medications/:medicationId"
+            element={<MedicationDetailsPage />}
+          />
           <Route path="/settings" element={<SettingsPage />} />
         </Route>
       </Route>
