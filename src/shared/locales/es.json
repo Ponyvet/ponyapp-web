@@ -49,6 +49,9 @@
       "root": "Historial Médico",
       "add": "Agregar",
       "edit": "Editar"
+    },
+    "settings": {
+      "root": "Configuraciones"
     }
   }
 }

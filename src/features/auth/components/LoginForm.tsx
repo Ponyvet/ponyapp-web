@@ -117,7 +117,7 @@ export function LoginForm({
             <img
               src="/src/assets/undraw_petting_xclp.svg"
               alt="Image"
-              className="absolute inset-0 h-full w-full object-center dark:brightness-[0.2] dark:grayscale"
+              className="absolute inset-0 h-full w-full object-center p-8"
             />
           </div>
         </CardContent>
