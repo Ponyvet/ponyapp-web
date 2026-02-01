@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { ChevronDownIcon } from 'lucide-react'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/components/ui/button'
 import {
   Field,
   FieldContent,
@@ -14,19 +14,19 @@ import {
   FieldLegend,
   FieldSet,
   FieldTitle,
-} from '@/components/ui/field'
-import { Input } from '@/components/ui/input'
+} from '@/shared/components/ui/field'
+import { Input } from '@/shared/components/ui/input'
 import { createPetSchema, type CreatePet } from '../models/CreatePet'
 import { Sex, Species } from '../utils/enum'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { Label } from '@/components/ui/label'
+import { RadioGroup, RadioGroupItem } from '@/shared/components/ui/radio-group'
+import { Label } from '@/shared/components/ui/label'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover'
-import { Calendar } from '@/components/ui/calendar'
-import { Textarea } from '@/components/ui/textarea'
+} from '@/shared/components/ui/popover'
+import { Calendar } from '@/shared/components/ui/calendar'
+import { Textarea } from '@/shared/components/ui/textarea'
 import type { Pet } from '../models/Pet'
 
 const defaultValues: CreatePet = {

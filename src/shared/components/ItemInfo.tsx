@@ -4,7 +4,7 @@ import {
   ItemDescription,
   ItemMedia,
   ItemTitle,
-} from '@/components/ui/item'
+} from '@/shared/components/ui/item'
 import type { ReactNode } from 'react'
 
 interface ItemInfoProps {

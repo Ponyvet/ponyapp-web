@@ -2,7 +2,7 @@ import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/components/ui/button'
 import {
   Field,
   FieldDescription,
@@ -10,17 +10,20 @@ import {
   FieldLabel,
   FieldLegend,
   FieldSet,
-} from '@/components/ui/field'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
+} from '@/shared/components/ui/field'
+import { Input } from '@/shared/components/ui/input'
+import { Textarea } from '@/shared/components/ui/textarea'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { createMedicationSchema, type CreateMedication } from '../models/CreateMedication'
+} from '@/shared/components/ui/select'
+import {
+  createMedicationSchema,
+  type CreateMedication,
+} from '../models/CreateMedication'
 import type { Medication } from '../models/Medication'
 import { MEDICATION_CATEGORY_CATALOG, SPECIES_CATALOG } from '../utils/catalogs'
 

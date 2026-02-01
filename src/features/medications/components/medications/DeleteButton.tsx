@@ -1,9 +1,9 @@
 import { TrashIcon } from 'lucide-react'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/components/ui/button'
 import type { Medication } from '../../models/Medication'
 import useDeleteMedication from '../../queries/useDeleteMedication'
-import { useConfirm } from '@/hooks/use-confirm'
+import { useConfirm } from '@/shared/hooks/use-confirm'
 import { ConfirmDialog } from '@/shared/components/ConfirmDialog'
 
 interface DeleteButtonProps {

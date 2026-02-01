@@ -2,7 +2,7 @@ import useGetClients from '../queries/useGetClients'
 
 import { columns } from '@/features/clients/components/clients/Columns'
 import { DataTable } from '@/shared/components/DataTable'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/components/ui/button'
 import { DogIcon, Loader, PlusIcon } from 'lucide-react'
 import { useNavigate } from 'react-router'
 import {
@@ -11,7 +11,7 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
+} from '@/shared/components/ui/card'
 import EmptyTable from '@/shared/components/EmptyTable'
 
 const ClientPage = () => {

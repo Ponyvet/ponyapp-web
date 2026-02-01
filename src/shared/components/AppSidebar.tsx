@@ -10,7 +10,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar'
+} from '@/shared/components/ui/sidebar'
 import { useTranslation } from 'react-i18next'
 import { NavMain } from './NavMain'
 import { Link } from 'react-router'

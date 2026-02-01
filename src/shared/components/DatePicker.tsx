@@ -1,13 +1,13 @@
 import { useState } from 'react'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/components/ui/button'
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/components/ui/popover'
+} from '@/shared/components/ui/popover'
 import { ChevronDownIcon } from 'lucide-react'
-import { Calendar } from '@/components/ui/calendar'
+import { Calendar } from '@/shared/components/ui/calendar'
 import {
   Controller,
   type Control,
@@ -19,7 +19,7 @@ import {
   FieldDescription,
   FieldError,
   FieldLabel,
-} from '@/components/ui/field'
+} from '@/shared/components/ui/field'
 
 interface DatePickerProps<T extends FieldValues> {
   control: Control<T>

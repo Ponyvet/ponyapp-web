@@ -4,7 +4,7 @@ import {
   type FieldPath,
   type FieldValues,
 } from 'react-hook-form'
-import PlaceAutocomplete from '@/components/PlaceAutocomplete'
+import PlaceAutocomplete from '@/shared/components/PlaceAutocomplete'
 
 interface ControlledPlaceAutocompleteProps<
   TFieldValues extends FieldValues = FieldValues,

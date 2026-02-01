@@ -6,7 +6,7 @@ import VaccineName from './VaccineName'
 import { cn, getLabelFromCatalog } from '@/shared/utils/helpers'
 import { VACCINATION_STATUS_CATALOG } from '../../utils/catalogs'
 import { VaccinationStatus } from '../../utils/enum'
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@/shared/components/ui/badge'
 import VeterinarianName from './VeterinarianName'
 
 export const columns: ColumnDef<Vaccination>[] = [

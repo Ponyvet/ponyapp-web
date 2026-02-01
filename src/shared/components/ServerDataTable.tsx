@@ -17,28 +17,28 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
+} from '@/shared/components/ui/table'
 import { useState, useEffect, useCallback } from 'react'
 import { ChevronDown } from 'lucide-react'
 
-import { Input } from '@/components/ui/input'
+import { Input } from '@/shared/components/ui/input'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Button } from '@/components/ui/button'
+} from '@/shared/components/ui/dropdown-menu'
+import { Button } from '@/shared/components/ui/button'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/shared/components/ui/select'
 import { useTranslation } from 'react-i18next'
-import { useDebounce } from '../../hooks/use-debounce'
+import { useDebounce } from '../hooks/use-debounce'
 import TablePagination from './TablePagination'
 import {
   Dialog,
@@ -49,8 +49,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
-import { Field, FieldLabel } from '@/components/ui/field'
+} from '@/shared/components/ui/dialog'
+import { Field, FieldLabel } from '@/shared/components/ui/field'
 
 export interface ServerSideState {
   page: number

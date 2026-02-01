@@ -9,12 +9,12 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
+} from '@/shared/components/ui/card'
 import { DataTable } from '@/shared/components/DataTable'
 import { columns } from '@/features/vaccinations/components/vaccinations/Columns'
 import useGetPetVaccinations from '@/features/vaccinations/queries/useGetPetVaccinations'
-import { Separator } from '@/components/ui/separator'
-import { Button } from '@/components/ui/button'
+import { Separator } from '@/shared/components/ui/separator'
+import { Button } from '@/shared/components/ui/button'
 import PetInfo from '@/shared/components/PetInfo'
 import EmptyTable from '@/shared/components/EmptyTable'
 

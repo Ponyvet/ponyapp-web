@@ -1,9 +1,9 @@
 import { TrashIcon } from 'lucide-react'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/components/ui/button'
 import type { Client } from '@/features/clients/models/Client'
 import useDeleteClient from '@/features/clients/queries/useDeleteClient'
-import { useConfirm } from '@/hooks/use-confirm'
+import { useConfirm } from '@/shared/hooks/use-confirm'
 import { ConfirmDialog } from '@/shared/components/ConfirmDialog'
 
 interface DeleteButtonProps {

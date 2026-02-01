@@ -19,19 +19,19 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
+} from '@/shared/components/ui/table'
 import { useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 
-import { Input } from '@/components/ui/input'
+import { Input } from '@/shared/components/ui/input'
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Button } from '@/components/ui/button'
+} from '@/shared/components/ui/dropdown-menu'
+import { Button } from '@/shared/components/ui/button'
 import { useTranslation } from 'react-i18next'
 import TablePagination from './TablePagination'
 

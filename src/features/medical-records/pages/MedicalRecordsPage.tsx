@@ -8,14 +8,14 @@ import {
   ServerDataTable,
   type ServerSideState,
 } from '@/shared/components/ServerDataTable'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/components/ui/button'
 import {
   Card,
   CardAction,
   CardContent,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
+} from '@/shared/components/ui/card'
 import EmptyTable from '@/shared/components/EmptyTable'
 import type { MedicalRecordParams } from '../models/MedicalRecordParams'
 import { MEDICAL_RECORD_TYPE_CATALOG } from '../utils/catalogs'

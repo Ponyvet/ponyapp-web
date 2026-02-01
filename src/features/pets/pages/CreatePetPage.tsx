@@ -5,7 +5,7 @@ import { toast } from 'sonner'
 import { createPet } from '../api/pets'
 import PetForm from '../components/PetForm'
 import type { CreatePet } from '../models/CreatePet'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/components/ui/button'
 
 const CreatePetPage = () => {
   const navigate = useNavigate()

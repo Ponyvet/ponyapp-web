@@ -6,7 +6,7 @@ import DetailsButton from './DetailsButton'
 import EditButton from './EditButton'
 import DeleteButton from './DeleteButton'
 import SortableColumn from '@/shared/components/SortableColumn'
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@/shared/components/ui/badge'
 
 export const columns: ColumnDef<MedicalRecord>[] = [
   {

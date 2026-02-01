@@ -12,7 +12,7 @@ import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from '@/components/ui/sidebar'
+} from '@/shared/components/ui/sidebar'
 import { Outlet } from 'react-router'
 import Breadcrumbs from './Breadcrumbs'
 

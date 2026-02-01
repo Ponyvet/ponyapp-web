@@ -1,15 +1,15 @@
 import { Link, useNavigate } from 'react-router'
 
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback } from '@/shared/components/ui/avatar'
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
   CardAction,
-} from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+} from '@/shared/components/ui/card'
+import { Badge } from '@/shared/components/ui/badge'
+import { Button } from '@/shared/components/ui/button'
 import ItemInfo from '@/shared/components/ItemInfo'
 import {
   CalendarIcon,

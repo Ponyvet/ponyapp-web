@@ -6,11 +6,11 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
+} from '@/shared/components/ui/card'
 import { ThemeToggle } from '@/shared/components/ThemeToggle'
 import { useTheme } from '@/shared/components/ThemeProvider'
 import useProfile from '@/features/auth/queries/useProfile'
-import { Separator } from '@/components/ui/separator'
+import { Separator } from '@/shared/components/ui/separator'
 
 const SettingsPage = () => {
   const { theme } = useTheme()

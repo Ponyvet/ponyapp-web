@@ -2,8 +2,8 @@ import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useNavigate } from 'react-router'
 import { zodResolver } from '@hookform/resolvers/zod'
 
-import { Button } from '@/components/ui/button'
-import { FieldGroup } from '@/components/ui/field'
+import { Button } from '@/shared/components/ui/button'
+import { FieldGroup } from '@/shared/components/ui/field'
 import {
   createMedicalRecordSchema,
   type CreateMedicalRecord,

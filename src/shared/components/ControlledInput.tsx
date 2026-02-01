@@ -3,8 +3,8 @@ import {
   FieldDescription,
   FieldError,
   FieldLabel,
-} from '@/components/ui/field'
-import { Input } from '@/components/ui/input'
+} from '@/shared/components/ui/field'
+import { Input } from '@/shared/components/ui/input'
 import type { ComponentProps } from 'react'
 import {
   Controller,

@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/components/ui/button'
 import { Eye } from 'lucide-react'
 import { useNavigate } from 'react-router'
 import type { MedicalRecord } from '../../models/MedicalRecord'

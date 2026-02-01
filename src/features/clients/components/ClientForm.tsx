@@ -4,13 +4,13 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useState, useRef, useEffect } from 'react'
 import { useMapsLibrary } from '@vis.gl/react-google-maps'
 
-import { Button } from '@/components/ui/button'
-import { FieldGroup } from '@/components/ui/field'
+import { Button } from '@/shared/components/ui/button'
+import { FieldGroup } from '@/shared/components/ui/field'
 import { createClientSchema, type CreateClient } from '../models/CreateClient'
 import ControlledInput from '@/shared/components/ControlledInput'
 import ControlledTextarea from '@/shared/components/ControlledTextarea'
 import ControlledPlaceAutocomplete from '@/shared/components/ControlledPlaceAutocomplete'
-import Map from '@/components/Map'
+import Map from '@/shared/components/Map'
 import type { Client } from '../models/Client'
 
 const defaultValues: CreateClient = {

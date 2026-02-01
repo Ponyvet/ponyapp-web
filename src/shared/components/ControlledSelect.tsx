@@ -3,14 +3,14 @@ import {
   FieldDescription,
   FieldError,
   FieldLabel,
-} from '@/components/ui/field'
+} from '@/shared/components/ui/field'
 import {
   SelectContent,
   SelectItem,
   Select as SelectLib,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/shared/components/ui/select'
 import {
   Controller,
   type Control,

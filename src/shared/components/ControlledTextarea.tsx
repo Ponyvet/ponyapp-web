@@ -10,8 +10,8 @@ import {
   FieldDescription,
   FieldError,
   FieldLabel,
-} from '@/components/ui/field'
-import { Textarea } from '@/components/ui/textarea'
+} from '@/shared/components/ui/field'
+import { Textarea } from '@/shared/components/ui/textarea'
 
 interface ControlledInputProps<T extends FieldValues> {
   control: Control<T>

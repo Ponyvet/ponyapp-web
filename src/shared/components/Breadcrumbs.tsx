@@ -8,7 +8,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb'
+} from '@/shared/components/ui/breadcrumb'
 import { generateBreadcrumbs } from '@/shared/utils/helpers'
 
 const Breadcrumbs = () => {

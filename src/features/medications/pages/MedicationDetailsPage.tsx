@@ -19,12 +19,12 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Separator } from '@/components/ui/separator'
+} from '@/shared/components/ui/card'
+import { Button } from '@/shared/components/ui/button'
+import { Badge } from '@/shared/components/ui/badge'
+import { Separator } from '@/shared/components/ui/separator'
 import ItemInfo from '@/shared/components/ItemInfo'
-import { useConfirm } from '@/hooks/use-confirm'
+import { useConfirm } from '@/shared/hooks/use-confirm'
 import { ConfirmDialog } from '@/shared/components/ConfirmDialog'
 import { MEDICATION_CATEGORY_CATALOG, SPECIES_CATALOG } from '../utils/catalogs'
 import { getLabelFromCatalog } from '@/shared/utils/helpers'
@@ -127,9 +127,11 @@ const MedicationDetailsPage = () => {
               description={formatDate(medication.createdAt, 'dd/MM/yyyy')}
             />
             <ItemInfo
-              icon={<Badge variant={medication.isActive ? 'default' : 'secondary'}>
-                {medication.isActive ? 'Activo' : 'Inactivo'}
-              </Badge>}
+              icon={
+                <Badge variant={medication.isActive ? 'default' : 'secondary'}>
+                  {medication.isActive ? 'Activo' : 'Inactivo'}
+                </Badge>
+              }
               title="Estado"
               description=""
             />
@@ -140,7 +142,10 @@ const MedicationDetailsPage = () => {
               <Separator />
               <div>
                 <h3 className="font-semibold mb-2">Notas</h3>
-                <ItemInfo icon={<NotebookIcon />} description={medication.notes} />
+                <ItemInfo
+                  icon={<NotebookIcon />}
+                  description={medication.notes}
+                />
               </div>
             </>
           )}

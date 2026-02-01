@@ -2,8 +2,8 @@ import type { Column } from '@tanstack/react-table'
 import { ArrowDown, ArrowUp } from 'lucide-react'
 import type { ComponentProps } from 'react'
 
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
+import { Button } from '@/shared/components/ui/button'
+import { cn } from '@/shared/utils/utils'
 
 interface SortableColumnProps<T> extends Omit<
   ComponentProps<typeof Button>,

@@ -18,16 +18,16 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
+} from '@/shared/components/ui/card'
+import { Button } from '@/shared/components/ui/button'
 import ItemInfo from '@/shared/components/ItemInfo'
-import { useConfirm } from '@/hooks/use-confirm'
+import { useConfirm } from '@/shared/hooks/use-confirm'
 import { ConfirmDialog } from '@/shared/components/ConfirmDialog'
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@/shared/components/ui/badge'
 import { isPetRecord } from '../utils/formatters'
 import PetInfo from '@/shared/components/PetInfo'
 import AnimalGroupInfo from '../components/AnimalGroupInfo'
-import { Separator } from '@/components/ui/separator'
+import { Separator } from '@/shared/components/ui/separator'
 
 const MedicalRecordDetailsPage = () => {
   const navigate = useNavigate()
