@@ -14,7 +14,7 @@ import { columns } from '@/features/vaccinations/components/vaccinations/Columns
 import useGetPetVaccinations from '@/features/vaccinations/queries/useGetPetVaccinations'
 import { Separator } from '@/components/ui/separator'
 import { Button } from '@/components/ui/button'
-import PetInfo from '../components/PetInfo/PetInfo'
+import PetInfo from '@/shared/components/PetInfo'
 import EmptyTable from '@/shared/components/EmptyTable'
 
 const PetDetailsPage = () => {
@@ -29,7 +29,12 @@ const PetDetailsPage = () => {
 
   return (
     <div className="space-y-6">
-      <PetInfo pet={pet} />
+      <PetInfo 
+        pet={pet} 
+        name={pet.name}
+        clientId={pet.clientId}
+        client={pet.client || { id: pet.clientId, name: 'Cliente' }}
+      />
       <Separator />
       <Card>
         <CardHeader>

@@ -1,4 +1,6 @@
 import { clientSchema } from '@/features/clients/models/Client'
+import { petSchema } from '@/features/pets/models/Pet'
+import { animalGroupSchema } from './AnimalGroup'
 import z from 'zod'
 
 export const medicalRecordSchema = z.object({
@@ -14,7 +16,27 @@ export const medicalRecordSchema = z.object({
     id: true,
     name: true,
     phone: true,
+    address: true,
   }),
+  pet: petSchema
+    .pick({
+      id: true,
+      species: true,
+      sex: true,
+      breed: true,
+      birthDate: true,
+      color: true,
+      notes: true,
+    })
+    .nullable(),
+  animalGroup: animalGroupSchema
+    .pick({
+      id: true,
+      animalType: true,
+      quantity: true,
+      notes: true,
+    })
+    .nullable(),
 })
 
 export type MedicalRecord = z.infer<typeof medicalRecordSchema>

@@ -1,33 +1,74 @@
+import { Link } from 'react-router'
+
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { calculateAge, cn, getLabelFromCatalog } from '@/shared/utils/helpers'
-import { SEX_CATALOG, SPECIES_CATALOG } from '../../utils/catalogs'
+import { Badge } from '@/components/ui/badge'
 import ItemInfo from '@/shared/components/ItemInfo'
 import {
   CalendarIcon,
   CatIcon,
   DnaIcon,
   DogIcon,
-  Map,
+  MapIcon,
   NotebookIcon,
   PaletteIcon,
   PhoneIcon,
   UserIcon,
 } from 'lucide-react'
-import type { Pet } from '../../models/Pet'
-import useClients from '@/features/clients/hooks/useClients'
-import { Sex, Species } from '../../utils/enum'
-import { Link } from 'react-router'
+import { calculateAge, cn, getLabelFromCatalog } from '@/shared/utils/helpers'
+import { SEX_CATALOG, SPECIES_CATALOG } from '@/features/pets/utils/catalogs'
+import { Sex, Species } from '@/features/pets/utils/enum'
 import WhatsAppLink from '@/shared/components/WhatsAppLink'
+import useClients from '@/features/clients/hooks/useClients'
 
-interface PetInfoProps {
-  pet: Pet
+// Tipos para diferentes fuentes de datos de mascotas
+interface BasePetData {
+  species: string
+  sex?: string
+  breed?: string | null
+  birthDate?: Date | null
+  color?: string | null
+  notes?: string | null
 }
 
-const PetInfo = ({ pet }: PetInfoProps) => {
-  const { getClientName, selectClientById } = useClients()
-  const owner = selectClientById(pet.clientId)
+interface PetWithClient {
+  clientId: string
+  client?: {
+    id: string
+    name: string
+    phone?: string
+    address?: string
+  }
+}
+
+interface PetFromPetsFeature extends BasePetData, PetWithClient {
+  id: string
+  name: string
+  createdAt: Date
+  updatedAt: Date
+}
+
+interface PetFromMedicalRecord extends BasePetData {
+  id: string
+}
+
+interface PetInfoProps {
+  pet: PetFromPetsFeature | PetFromMedicalRecord
+  name: string // Nombre de la mascota/cartilla
+  clientId: string
+  client: {
+    id: string
+    name: string
+    phone?: string
+    address?: string
+  }
+}
+
+const PetInfo = ({ pet, name, clientId, client }: PetInfoProps) => {
+  const { selectClientById } = useClients()
+
+  // Si client no viene completo, intentar obtenerlo del hook
+  const owner = client || selectClientById(clientId)
 
   const getSpeciesIcon = (species: string) => {
     switch (species) {
@@ -36,7 +77,7 @@ const PetInfo = ({ pet }: PetInfoProps) => {
       case Species.CAT:
         return <CatIcon />
       default:
-        return ''
+        return <DogIcon />
     }
   }
 
@@ -48,17 +89,19 @@ const PetInfo = ({ pet }: PetInfoProps) => {
             <AvatarFallback>{getSpeciesIcon(pet.species)}</AvatarFallback>
           </Avatar>
           <div>
-            <CardTitle className="text-xl">{pet.name}</CardTitle>
+            <CardTitle className="text-xl">{name}</CardTitle>
             <div className="flex items-center space-x-2 mt-1">
-              <Badge
-                variant="secondary"
-                className={cn({
-                  'bg-blue-100 text-blue-800': pet.sex === Sex.MALE,
-                  'bg-pink-100 text-pink-800': pet.sex === Sex.FEMALE,
-                })}
-              >
-                {getLabelFromCatalog(pet.sex, SEX_CATALOG)}
-              </Badge>
+              {pet.sex && (
+                <Badge
+                  variant="secondary"
+                  className={cn({
+                    'bg-blue-100 text-blue-800': pet.sex === Sex.MALE,
+                    'bg-pink-100 text-pink-800': pet.sex === Sex.FEMALE,
+                  })}
+                >
+                  {getLabelFromCatalog(pet.sex, SEX_CATALOG)}
+                </Badge>
+              )}
               <Badge variant="outline">
                 {getLabelFromCatalog(pet.species, SPECIES_CATALOG)}
               </Badge>
@@ -109,14 +152,14 @@ const PetInfo = ({ pet }: PetInfoProps) => {
               icon={<UserIcon />}
               title="Nombre"
               description={
-                <Link to={`/clients/${pet.clientId}`}>
-                  {getClientName(pet.clientId)}
+                <Link to={`/clients/${clientId}`}>
+                  {owner?.name || 'No disponible'}
                 </Link>
               }
             />
             {owner?.address && (
               <ItemInfo
-                icon={<Map />}
+                icon={<MapIcon />}
                 title="Dirección"
                 description={owner.address}
               />

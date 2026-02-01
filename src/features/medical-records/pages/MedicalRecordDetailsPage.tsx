@@ -1,9 +1,15 @@
 import { useNavigate, useParams } from 'react-router'
 import { formatDate } from 'date-fns'
+import {
+  BookOpenIcon,
+  CalendarIcon,
+  EditIcon,
+  NotebookIcon,
+  TrashIcon,
+} from 'lucide-react'
 
 import useGetSingleMedicalRecord from '../queries/useGetSingleMedicalRecord'
 import useDeleteMedicalRecord from '../queries/useDeleteMedicalRecord'
-import useClients from '@/features/clients/hooks/useClients'
 import {
   Card,
   CardAction,
@@ -12,25 +18,19 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import {
-  BookOpenIcon,
-  CalendarIcon,
-  EditIcon,
-  NotebookIcon,
-  TrashIcon,
-  UserIcon,
-} from 'lucide-react'
 import ItemInfo from '@/shared/components/ItemInfo'
-import { Separator } from '@radix-ui/react-separator'
 import { useConfirm } from '@/hooks/use-confirm'
 import { ConfirmDialog } from '@/shared/components/ConfirmDialog'
 import { Badge } from '@/components/ui/badge'
+import { isPetRecord } from '../utils/formatters'
+import PetInfo from '@/shared/components/PetInfo'
+import AnimalGroupInfo from '../components/AnimalGroupInfo'
+import { Separator } from '@/components/ui/separator'
 
 const MedicalRecordDetailsPage = () => {
   const navigate = useNavigate()
   const params = useParams()
   const { data: record, isSuccess } = useGetSingleMedicalRecord(params.recordId)
-  const { getClientName } = useClients()
   const deleteRecordMutation = useDeleteMedicalRecord(() =>
     navigate('/medical-records'),
   )
@@ -60,7 +60,9 @@ const MedicalRecordDetailsPage = () => {
       <Card>
         <CardHeader>
           <CardTitle>
-            <h1 className="text-xl font-bold">Detalles de la Cartilla Médica</h1>
+            <h1 className="text-xl font-bold">
+              Detalles de la Cartilla Médica
+            </h1>
           </CardTitle>
           <CardAction className="flex gap-2">
             <Button
@@ -86,12 +88,7 @@ const MedicalRecordDetailsPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <ItemInfo
               icon={<BookOpenIcon />}
-              title="Nombre"
-              description={record.name}
-            />
-            <ItemInfo
-              icon={<BookOpenIcon />}
-              title="Tipo"
+              title="Tipo de Cartilla"
               description={
                 <Badge
                   variant={record.type === 'PET' ? 'default' : 'secondary'}
@@ -99,11 +96,6 @@ const MedicalRecordDetailsPage = () => {
                   {record.type === 'PET' ? 'Mascota' : 'Grupo'}
                 </Badge>
               }
-            />
-            <ItemInfo
-              icon={<UserIcon />}
-              title="Cliente"
-              description={getClientName(record.clientId)}
             />
             <ItemInfo
               icon={<CalendarIcon />}
@@ -114,12 +106,22 @@ const MedicalRecordDetailsPage = () => {
           {record.notes && (
             <>
               <Separator className="my-4" />
-              <h4 className="font-semibold mb-2">Notas</h4>
+              <h4 className="font-semibold mb-2">Notas Generales</h4>
               <ItemInfo icon={<NotebookIcon />} description={record.notes} />
             </>
           )}
         </CardContent>
       </Card>
+      {/* Información específica de mascota o grupo */}
+      {isPetRecord(record) && (
+        <PetInfo
+          pet={record.pet}
+          name={record.name}
+          clientId={record.clientId}
+          client={record.client}
+        />
+      )}
+      <AnimalGroupInfo record={record} />
       <ConfirmDialog
         open={isOpen}
         onConfirm={handleConfirm}

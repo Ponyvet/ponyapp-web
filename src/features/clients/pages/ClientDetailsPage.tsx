@@ -20,7 +20,6 @@ import {
   UserIcon,
 } from 'lucide-react'
 import ItemInfo from '@/shared/components/ItemInfo'
-import { Separator } from '@radix-ui/react-separator'
 import { formatPhoneNumber } from '@/shared/utils/helpers'
 import EmptyTable from '@/shared/components/EmptyTable'
 import { DataTable } from '@/shared/components/DataTable'
@@ -29,6 +28,7 @@ import { ConfirmDialog } from '@/shared/components/ConfirmDialog'
 import useGetMedicalRecordsByClient from '@/features/medical-records/queries/useGetMedicalRecordsByClient'
 import { columns } from '@/features/medical-records/components/medical-records/SimpleColumns'
 import Map from '@/components/Map'
+import { Separator } from '@/components/ui/separator'
 
 const ClientDetailsPage = () => {
   const navigate = useNavigate()
