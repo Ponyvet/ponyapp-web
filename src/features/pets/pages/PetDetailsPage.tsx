@@ -22,7 +22,8 @@ const PetDetailsPage = () => {
   const navigate = useNavigate()
   const params = useParams()
   const { data: pet, isSuccess: isPetSuccess } = useGetSinglePet(params.petId)
-  const { data: record, isSuccess: isRecordSuccess } = useGetSingleMedicalRecord(pet?.recordId)
+  const { data: record, isSuccess: isRecordSuccess } =
+    useGetSingleMedicalRecord(pet?.recordId)
   const { data: vaccinations = [] } = useGetPetVaccinations(params.petId)
 
   if (!isPetSuccess || !pet) {
@@ -30,16 +31,18 @@ const PetDetailsPage = () => {
   }
 
   // Obtener cliente del MedicalRecord
-  const client = isRecordSuccess && record ? record.client : { id: '', name: 'Cargando...' }
+  const client =
+    isRecordSuccess && record ? record.client : { id: '', name: 'Cargando...' }
   const clientId = isRecordSuccess && record ? record.clientId : ''
 
   return (
     <div className="space-y-6">
       <PetInfo
         pet={pet}
-        name={pet.name}
+        name={record?.name || ''}
         clientId={clientId}
         client={client}
+        showEditButton={true}
       />
       <Separator />
       <Card>

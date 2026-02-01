@@ -1,8 +1,15 @@
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardAction,
+} from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import ItemInfo from '@/shared/components/ItemInfo'
 import {
   CalendarIcon,
@@ -14,6 +21,7 @@ import {
   PaletteIcon,
   PhoneIcon,
   UserIcon,
+  EditIcon,
 } from 'lucide-react'
 import { calculateAge, cn, getLabelFromCatalog } from '@/shared/utils/helpers'
 import { SEX_CATALOG, SPECIES_CATALOG } from '@/features/pets/utils/catalogs'
@@ -62,13 +70,37 @@ interface PetInfoProps {
     phone?: string
     address?: string
   }
+  showEditButton?: boolean
+  editUrl?: string
+  recordId?: string // Para mascotas dentro de medical records
 }
 
-const PetInfo = ({ pet, name, clientId, client }: PetInfoProps) => {
+const PetInfo = ({
+  pet,
+  name,
+  clientId,
+  client,
+  showEditButton = false,
+  editUrl,
+  recordId,
+}: PetInfoProps) => {
+  const navigate = useNavigate()
   const { selectClientById } = useClients()
 
   // Si client no viene completo, intentar obtenerlo del hook
   const owner = client || selectClientById(clientId)
+
+  const handleEdit = () => {
+    if (editUrl) {
+      navigate(editUrl)
+    } else if ('name' in pet && pet.id) {
+      // Es un Pet completo, usar ruta de pets
+      navigate(`/pets/${pet.id}/edit`)
+    } else if (recordId) {
+      // Es un pet dentro de medical record
+      navigate(`/medical-records/${recordId}/edit`)
+    }
+  }
 
   const getSpeciesIcon = (species: string) => {
     switch (species) {
@@ -108,11 +140,19 @@ const PetInfo = ({ pet, name, clientId, client }: PetInfoProps) => {
             </div>
           </div>
         </div>
+        {showEditButton && (
+          <CardAction>
+            <Button variant="outline" size="sm" onClick={handleEdit}>
+              <EditIcon className="h-4 w-4" />
+              Editar detalles
+            </Button>
+          </CardAction>
+        )}
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-gray-900 border-b pb-2">
+            <h3 className="text-lg font-semibold text-gray-900 border-b pb-2 dark:text-gray-100">
               Información Básica
             </h3>
             {pet.breed && (
@@ -145,9 +185,7 @@ const PetInfo = ({ pet, name, clientId, client }: PetInfoProps) => {
             )}
           </div>
           <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-gray-900 border-b pb-2">
-              Propietario
-            </h3>
+            <h3 className="text-lg font-semibold border-b pb-2">Propietario</h3>
             <ItemInfo
               icon={<UserIcon />}
               title="Nombre"

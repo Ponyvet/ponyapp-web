@@ -50,7 +50,7 @@ const AnimalGroupInfo = ({ record }: AnimalGroupInfoProps) => {
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-gray-900 border-b pb-2">
+            <h3 className="text-lg font-semibold text-gray-900 border-b pb-2 dark:text-gray-100">
               Información del Grupo
             </h3>
             <ItemInfo
@@ -65,7 +65,7 @@ const AnimalGroupInfo = ({ record }: AnimalGroupInfoProps) => {
             />
           </div>
           <div className="space-y-2">
-            <h3 className="text-lg font-semibold text-gray-900 border-b pb-2">
+            <h3 className="text-lg font-semibold text-gray-900 border-b pb-2 dark:text-gray-100">
               Propietario
             </h3>
             <ItemInfo
@@ -94,7 +94,7 @@ const AnimalGroupInfo = ({ record }: AnimalGroupInfoProps) => {
           </div>
           {animalGroup.notes && (
             <div className="space-y-4 md:col-span-2 lg:col-span-1">
-              <h3 className="text-lg font-semibold text-gray-900 border-b pb-2">
+              <h3 className="text-lg font-semibold text-gray-900 border-b pb-2 dark:text-gray-100">
                 Notas del Grupo
               </h3>
               <ItemInfo

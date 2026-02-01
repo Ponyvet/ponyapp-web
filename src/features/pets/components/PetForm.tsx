@@ -144,10 +144,6 @@ const PetForm = ({
               }}
             />
             <Field>
-              <FieldLabel htmlFor="name">Nombre</FieldLabel>
-              <Input id="name" placeholder="Puppy" {...register('name')} />
-            </Field>
-            <Field>
               <FieldLabel htmlFor="breed">Raza</FieldLabel>
               <Input
                 id="breed"

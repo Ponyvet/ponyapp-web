@@ -121,6 +121,8 @@ const MedicalRecordDetailsPage = () => {
           name={record.name}
           clientId={record.clientId}
           client={record.client}
+          showEditButton={true}
+          recordId={record.id}
         />
       )}
       {/* Mostrar opción para agregar mascota si es tipo PET pero no tiene pet */}
