@@ -22,13 +22,6 @@ export const getSingleConsultation = async (
   return consultationSchema.parse(res.data)
 }
 
-export const getRecordConsultations = async (
-  recordId: Consultation['recordId'],
-): Promise<Consultation[]> => {
-  const res = await api.get(`/consultations/record/${recordId}`)
-  return consultationSchema.array().parse(res.data)
-}
-
 export const createConsultation = async (
   data: CreateConsultation,
 ): Promise<Consultation> => {

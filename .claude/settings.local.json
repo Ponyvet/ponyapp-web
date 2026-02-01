@@ -6,7 +6,10 @@
       "Bash(pnpm lint:*)",
       "Bash(pnpm typecheck:*)",
       "Bash(pnpm checks:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(tree:*)",
+      "Bash(npm run typecheck:*)",
+      "Bash(npm run build:*)"
     ]
   }
 }

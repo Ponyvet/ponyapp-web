@@ -5,7 +5,9 @@
 
 ## 1. Principios de Diseño
 
-- La **Consulta** es el evento clínico principal
+- La **Visita** es el evento de atención del cliente
+- La **Consulta** es la atención específica por animal dentro de una visita
+- Una visita puede tener 0, 1 o múltiples consultas (múltiples animales)
 - Una **Vacunación puede existir sin consulta**
 - Todo evento clínico pertenece a una **Cartilla**
 - El **Inventario** es independiente del historial clínico
@@ -139,21 +141,45 @@ Información específica cuando la cartilla es de tipo GROUP.
 
 ---
 
-## 🩺 Consultation
+## 📅 Visit (Visita)
 
-Evento clínico principal del sistema.
+Evento de atención del cliente. Agrupa las consultas de una misma visita.
 
 | Campo | Tipo | Obligatorio | Descripción |
 |---|---|---|---|
 | id | UUID | ✅ | Identificador |
-| date | DateTime | ✅ | Fecha de la consulta |
-| reason | String | ❌ | Motivo |
+| date | DateTime | ✅ | Fecha de la visita |
+| generalNotes | String | ❌ | Notas generales de la visita |
+| clientId | UUID | ✅ | Cliente atendido |
+| veterinarianId | UUID | ✅ | Veterinario que atendió |
+| createdAt | DateTime | ✅ | Fecha de creación |
+
+### Reglas
+- Una visita puede tener 0, 1 o múltiples consultas
+- Visita sin consultas = atención general (asesoría, venta de productos)
+- Múltiples consultas = atención de varios animales en una sola visita
+
+---
+
+## 🩺 Consultation
+
+Atención específica por animal dentro de una visita.
+
+| Campo | Tipo | Obligatorio | Descripción |
+|---|---|---|---|
+| id | UUID | ✅ | Identificador |
+| reason | String | ❌ | Motivo de la consulta |
 | diagnosis | String | ❌ | Diagnóstico |
 | treatment | String | ❌ | Tratamiento |
 | notes | String | ❌ | Notas adicionales |
+| visitId | UUID | ✅ | Visita a la que pertenece |
 | recordId | UUID | ✅ | Cartilla atendida |
-| veterinarianId | UUID | ✅ | Usuario que atendió |
 | createdAt | DateTime | ✅ | Fecha de creación |
+
+### Reglas
+- Siempre pertenece a una visita
+- Siempre está asociada a una cartilla (animal o grupo)
+- La fecha y veterinario se obtienen de la visita padre
 
 ---
 
@@ -212,14 +238,18 @@ Inventario físico (medicamentos y material).
 
 ## 4. Relaciones
 
+- Client → Visit (1 a muchos)
 - Client → MedicalRecord (1 a muchos)
+- Visit → Consultation (1 a muchos)
 - MedicalRecord → Consultation (1 a muchos)
 - MedicalRecord → Vaccination (1 a muchos)
 - Consultation → Vaccination (1 a muchos, opcional)
 - Vaccination → Medication (muchos a 1)
 - Medication → InventoryItem (1 a muchos, opcional)
 - Client ↔ User (1 a 0..1)
+- User (veterinario) → Visit (1 a muchos)
 - Una cartilla es **PET o GROUP**, nunca ambas
+- Una visita puede tener 0, 1 o N consultas
 
 ---
 

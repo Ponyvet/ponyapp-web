@@ -29,6 +29,10 @@ import ConsultationsPage from '@/features/consultations/pages/ConsultationsPage'
 import CreateConsultationPage from '@/features/consultations/pages/CreateConsultationPage'
 import EditConsultationPage from '@/features/consultations/pages/EditConsultationPage'
 import ConsultationDetailsPage from '@/features/consultations/pages/ConsultationDetailsPage'
+import VisitsPage from '@/features/visits/pages/VisitsPage'
+import CreateVisitPage from '@/features/visits/pages/CreateVisitPage'
+import EditVisitPage from '@/features/visits/pages/EditVisitPage'
+import VisitDetailsPage from '@/features/visits/pages/VisitDetailsPage'
 
 const Router = () => {
   return (
@@ -86,6 +90,10 @@ const Router = () => {
             path="/consultations/:consultationId"
             element={<ConsultationDetailsPage />}
           />
+          <Route path="/visits" element={<VisitsPage />} />
+          <Route path="/visits/add" element={<CreateVisitPage />} />
+          <Route path="/visits/:visitId/edit" element={<EditVisitPage />} />
+          <Route path="/visits/:visitId" element={<VisitDetailsPage />} />
           <Route path="/settings" element={<SettingsPage />} />
         </Route>
       </Route>
