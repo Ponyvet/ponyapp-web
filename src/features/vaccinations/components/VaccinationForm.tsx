@@ -77,10 +77,10 @@ const VaccinationForm = ({
   })
 
   useEffect(() => {
-    if (clientId && medicalRecordId) {
+    if (medicalRecordId && petsRecords.some((r) => r.id === medicalRecordId)) {
       setValue('recordId', medicalRecordId)
     }
-  }, [medicalRecordId, setValue, clientId])
+  }, [medicalRecordId, setValue, petsRecords])
 
   useEffect(() => {
     if (vaccination) {
