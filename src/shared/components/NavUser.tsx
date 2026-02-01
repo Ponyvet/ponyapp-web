@@ -1,11 +1,12 @@
 'use client'
 
-import { ChevronsUpDown, LogOut } from 'lucide-react'
+import { ChevronsUpDown, LogOut, Settings } from 'lucide-react'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -19,6 +20,7 @@ import {
 } from '@/components/ui/sidebar'
 import { getUserInitials } from '../utils/helpers'
 import useLogout from '@/features/auth/queries/useLogout'
+import { useNavigate } from 'react-router'
 
 export function NavUser({
   user,
@@ -31,6 +33,7 @@ export function NavUser({
 }) {
   const { isMobile } = useSidebar()
   const { mutate: logout, isPending } = useLogout()
+  const navigate = useNavigate()
 
   const handleOnLogout = () => {
     logout()
@@ -78,6 +81,23 @@ export function NavUser({
                 </div>
               </div>
             </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {/*  <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild tooltip="Configuración">
+                <Link to="/settings">
+                  <Settings />
+                  <span>Configuración</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu> */}
+            <DropdownMenuGroup>
+              <DropdownMenuItem onClick={() => navigate('/settings')}>
+                <Settings />
+                Configuración
+              </DropdownMenuItem>
+            </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleOnLogout} disabled={isPending}>
               <LogOut />

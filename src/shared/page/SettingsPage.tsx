@@ -1,19 +1,20 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Monitor, Moon, Sun, User, Mail } from 'lucide-react'
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import { ThemeToggle } from '@/shared/components/ThemeToggle'
 import { useTheme } from '@/shared/components/ThemeProvider'
-import { Button } from '@/components/ui/button'
-import { Monitor, Moon, Sun, LogOut, User, Mail } from 'lucide-react'
 import useProfile from '@/features/auth/queries/useProfile'
-import { logout } from '@/features/auth/api/login'
-import { useNavigate } from 'react-router'
-import { useQueryClient } from '@tanstack/react-query'
 import { Separator } from '@/components/ui/separator'
 
 const SettingsPage = () => {
   const { theme } = useTheme()
   const { data: user } = useProfile()
-  const navigate = useNavigate()
-  const queryClient = useQueryClient()
 
   const getThemeLabel = () => {
     switch (theme) {
@@ -41,12 +42,6 @@ const SettingsPage = () => {
     }
   }
 
-  const handleLogout = async () => {
-    await logout()
-    queryClient.clear()
-    navigate('/login')
-  }
-
   return (
     <div className="space-y-6">
       <div>
@@ -57,7 +52,6 @@ const SettingsPage = () => {
       </div>
 
       <div className="grid gap-6">
-        {/* Sección de Cuenta */}
         <Card>
           <CardHeader>
             <CardTitle>Cuenta</CardTitle>
@@ -84,28 +78,16 @@ const SettingsPage = () => {
                   </div>
                   <div>
                     <p className="text-sm font-medium">{user.email}</p>
-                    <p className="text-sm text-muted-foreground">Correo electrónico</p>
-                  </div>
-                </div>
-                <Separator />
-                <div className="flex items-center justify-between pt-2">
-                  <div className="space-y-1">
-                    <h3 className="text-sm font-medium">Cerrar sesión</h3>
                     <p className="text-sm text-muted-foreground">
-                      Cierra tu sesión actual en la aplicación
+                      Correo electrónico
                     </p>
                   </div>
-                  <Button variant="destructive" size="sm" onClick={handleLogout}>
-                    <LogOut className="h-4 w-4 mr-2" />
-                    Cerrar sesión
-                  </Button>
                 </div>
               </>
             )}
           </CardContent>
         </Card>
 
-        {/* Sección de Apariencia */}
         <Card>
           <CardHeader>
             <CardTitle>Apariencia</CardTitle>
@@ -132,13 +114,10 @@ const SettingsPage = () => {
           </CardContent>
         </Card>
 
-        {/* Sección Acerca de */}
         <Card>
           <CardHeader>
             <CardTitle>Acerca de</CardTitle>
-            <CardDescription>
-              Información sobre la aplicación
-            </CardDescription>
+            <CardDescription>Información sobre la aplicación</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center justify-between">
@@ -153,7 +132,8 @@ const SettingsPage = () => {
             <Separator />
             <div className="text-sm text-muted-foreground">
               <p>
-                Aplicación para la gestión de clientes, mascotas y registros médicos veterinarios.
+                Aplicación para la gestión de clientes, mascotas y registros
+                médicos veterinarios.
               </p>
             </div>
           </CardContent>

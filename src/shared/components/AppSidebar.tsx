@@ -1,10 +1,5 @@
 import * as React from 'react'
-import {
-  ContactRound,
-  Hospital,
-  ClipboardList,
-  Settings,
-} from 'lucide-react'
+import { ContactRound, Hospital, ClipboardList } from 'lucide-react'
 
 import { NavUser } from './NavUser'
 import {
@@ -68,16 +63,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
       {isSuccess && (
         <SidebarFooter>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton asChild tooltip="Configuración">
-                <Link to="/settings">
-                  <Settings />
-                  <span>Configuración</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
           <NavUser
             user={{
               email: user.email,
