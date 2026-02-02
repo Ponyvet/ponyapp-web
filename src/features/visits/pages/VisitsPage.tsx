@@ -11,6 +11,7 @@ import { DEFAULT_PAGE_SIZE, START_PAGE_INDEX } from '@/shared/utils/const'
 import {
   ServerDataTable,
   type ServerSideState,
+  type MobileConfig,
 } from '@/shared/components/ServerDataTable'
 
 import DetailsButton from '../components/visits/DetailsButton'
@@ -81,6 +82,43 @@ const VisitsPage = () => {
 
   const { data, isLoading } = useGetVisits(params)
 
+  const mobileConfig: MobileConfig<Visit> = {
+    fields: [
+      {
+        key: 'client',
+        label: 'Cliente',
+        isTitle: true,
+        render: (visit) => visit.client.name,
+      },
+      {
+        key: 'date',
+        label: 'Fecha',
+        render: (visit) => formatDate(visit.date, 'dd/MM/yyyy'),
+      },
+      {
+        key: 'veterinarian',
+        label: 'Veterinario',
+        render: (visit) => visit.veterinarian.name,
+      },
+      {
+        key: 'consultations',
+        label: 'Consultas',
+        render: (visit) => {
+          const count = visit.consultations?.length ?? 0
+          return `${count} consulta${count !== 1 ? 's' : ''}`
+        },
+      },
+    ],
+    onItemClick: (visit) => navigate(`/visits/${visit.id}`),
+    renderActions: (visit) => (
+      <div className="flex">
+        <EditButton visit={visit} />
+        <DeleteButton visit={visit} />
+      </div>
+    ),
+    getItemId: (visit) => visit.id,
+  }
+
   const handleStateChange = useCallback((state: ServerSideState) => {
     setParams({
       page: state.page,
@@ -143,6 +181,7 @@ const VisitsPage = () => {
           searchPlaceholder: 'Buscar...',
           filters: [],
         }}
+        mobileConfig={mobileConfig}
       />
     </div>
   )

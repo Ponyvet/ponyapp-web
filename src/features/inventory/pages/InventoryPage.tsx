@@ -11,6 +11,7 @@ import { DEFAULT_PAGE_SIZE, START_PAGE_INDEX } from '@/shared/utils/const'
 import {
   ServerDataTable,
   type ServerSideState,
+  type MobileConfig,
 } from '@/shared/components/ServerDataTable'
 
 import DetailsButton from '../components/inventory/DetailsButton'
@@ -82,6 +83,40 @@ const InventoryPage = () => {
 
   const { data, isLoading } = useGetInventory(params)
 
+  const mobileConfig: MobileConfig<InventoryItem> = {
+    fields: [
+      {
+        key: 'name',
+        label: 'Nombre',
+        isTitle: true,
+      },
+      {
+        key: 'category',
+        label: 'Categoría',
+        render: (item) => inventoryCategoryLabels[item.category],
+      },
+      {
+        key: 'quantity',
+        label: 'Cantidad',
+        render: (item) => `${item.quantity} ${item.unit}`,
+      },
+      {
+        key: 'expirationDate',
+        label: 'Caducidad',
+        render: (item) =>
+          item.expirationDate ? formatDate(item.expirationDate, 'dd/MM/yyyy') : '-',
+      },
+    ],
+    onItemClick: (item) => navigate(`/inventory/${item.id}`),
+    renderActions: (item) => (
+      <div className="flex">
+        <EditButton item={item} />
+        <DeleteButton item={item} />
+      </div>
+    ),
+    getItemId: (item) => item.id,
+  }
+
   const handleStateChange = useCallback((state: ServerSideState) => {
     setParams({
       page: state.page,
@@ -144,6 +179,7 @@ const InventoryPage = () => {
           searchPlaceholder: 'Buscar...',
           filters: [],
         }}
+        mobileConfig={mobileConfig}
       />
     </div>
   )

@@ -35,12 +35,22 @@ import { Button } from '@/shared/components/ui/button'
 import { useTranslation } from 'react-i18next'
 import TablePagination from './TablePagination'
 import { Skeleton } from './ui/skeleton'
+import { useIsMobile } from '../hooks/use-mobile'
+import { MobileCardView, type MobileCardField } from './MobileCardView'
+
+export interface DataTableMobileConfig<TData> {
+  fields: MobileCardField<TData>[]
+  onItemClick?: (item: TData) => void
+  renderActions?: (item: TData) => React.ReactNode
+  getItemId: (item: TData) => string
+}
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   filterBy?: keyof TData
   isLoading?: boolean
+  mobileConfig?: DataTableMobileConfig<TData>
 }
 
 export function DataTable<TData, TValue>({
@@ -48,8 +58,10 @@ export function DataTable<TData, TValue>({
   data,
   filterBy,
   isLoading = false,
+  mobileConfig,
 }: DataTableProps<TData, TValue>) {
   const { t } = useTranslation('shared')
+  const isMobile = useIsMobile()
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
@@ -76,9 +88,11 @@ export function DataTable<TData, TValue>({
     },
   })
 
+  const showMobileView = isMobile && mobileConfig
+
   return (
     <div className="w-full">
-      <div className="flex items-center py-4">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 py-4">
         {filterBy && (
           <Input
             placeholder={`Buscar por ${t(`table.columns.${filterBy as string}`)}`}
@@ -92,39 +106,53 @@ export function DataTable<TData, TValue>({
                 .getColumn(filterBy as string)
                 ?.setFilterValue(event.target.value)
             }
-            className="max-w-sm"
+            className="w-full sm:max-w-sm"
           />
         )}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columnas <ChevronDown />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuGroup>
-              {table
-                .getAllColumns()
-                .filter((column) => column.getCanHide())
-                .map((column) => {
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={column.id}
-                      checked={column.getIsVisible()}
-                      onCheckedChange={(value) =>
-                        column.toggleVisibility(!!value)
-                      }
-                    >
-                      {t(`table.columns.${column.id}`)}
-                    </DropdownMenuCheckboxItem>
-                  )
-                })}
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {!showMobileView && (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="ml-auto">
+                Columnas <ChevronDown />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuGroup>
+                {table
+                  .getAllColumns()
+                  .filter((column) => column.getCanHide())
+                  .map((column) => {
+                    return (
+                      <DropdownMenuCheckboxItem
+                        key={column.id}
+                        checked={column.getIsVisible()}
+                        onCheckedChange={(value) =>
+                          column.toggleVisibility(!!value)
+                        }
+                      >
+                        {t(`table.columns.${column.id}`)}
+                      </DropdownMenuCheckboxItem>
+                    )
+                  })}
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
       </div>
-      <div className="overflow-hidden rounded-md border">
-        <Table>
+
+      {showMobileView ? (
+        <MobileCardView
+          data={table.getRowModel().rows.map((row) => row.original)}
+          fields={mobileConfig.fields}
+          isLoading={isLoading}
+          loadingCount={DEFAULT_PAGE_SIZE}
+          onItemClick={mobileConfig.onItemClick}
+          renderActions={mobileConfig.renderActions}
+          getItemId={mobileConfig.getItemId}
+        />
+      ) : (
+        <div className="overflow-hidden rounded-md border">
+          <Table>
           <TableHeader className="bg-muted">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -182,7 +210,8 @@ export function DataTable<TData, TValue>({
             )}
           </TableBody>
         </Table>
-      </div>
+        </div>
+      )}
       <TablePagination
         pagination={{
           hasNext: table.getCanNextPage(),

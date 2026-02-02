@@ -52,6 +52,8 @@ import {
 } from '@/shared/components/ui/dialog'
 import { Field, FieldLabel } from '@/shared/components/ui/field'
 import { Skeleton } from './ui/skeleton'
+import { useIsMobile } from '../hooks/use-mobile'
+import { MobileCardView, type MobileCardField } from './MobileCardView'
 
 export interface ServerSideState {
   page: number
@@ -68,6 +70,13 @@ export interface PaginationInfo {
   totalPages: number
   hasNext: boolean
   hasPrev: boolean
+}
+
+export interface MobileConfig<TData> {
+  fields: MobileCardField<TData>[]
+  onItemClick?: (item: TData) => void
+  renderActions?: (item: TData) => React.ReactNode
+  getItemId: (item: TData) => string
 }
 
 interface ServerDataTableProps<TData, TValue> {
@@ -88,6 +97,7 @@ interface ServerDataTableProps<TData, TValue> {
     }>
   }
   pageSizeOptions?: number[]
+  mobileConfig?: MobileConfig<TData>
 }
 
 export function ServerDataTable<TData, TValue>({
@@ -99,8 +109,10 @@ export function ServerDataTable<TData, TValue>({
   initialColumnVisibility = {},
   filterConfig,
   pageSizeOptions = PAGE_SIZE_OPTIONS,
+  mobileConfig,
 }: ServerDataTableProps<TData, TValue>) {
   const { t } = useTranslation('shared')
+  const isMobile = useIsMobile()
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(
     initialColumnVisibility,
   )
@@ -197,20 +209,22 @@ export function ServerDataTable<TData, TValue>({
     })
   }
 
+  const showMobileView = isMobile && mobileConfig
+
   return (
     <div className="w-full">
-      <div className="flex items-center justify-between py-4">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 py-4">
         {filterConfig?.searchBy && (
           <Input
             placeholder={filterConfig.searchPlaceholder || 'Buscar...'}
             value={searchValue}
             onChange={(event) => setSearchValue(event.target.value)}
-            className="max-w-sm"
+            className="w-full sm:max-w-sm"
             disabled={isLoading}
           />
         )}
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 justify-end">
           {filterConfig?.filters && filterConfig.filters.length > 0 && (
             <Dialog>
               <DialogTrigger asChild>
@@ -304,37 +318,51 @@ export function ServerDataTable<TData, TValue>({
             </Dialog>
           )}
 
-          {/* Column Visibility */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" disabled={isLoading}>
-                Columnas <ChevronDown />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuGroup>
-                {table
-                  .getAllColumns()
-                  .filter((column) => column.getCanHide())
-                  .map((column) => (
-                    <DropdownMenuCheckboxItem
-                      key={column.id}
-                      checked={column.getIsVisible()}
-                      onCheckedChange={(value) =>
-                        column.toggleVisibility(!!value)
-                      }
-                    >
-                      {t(`table.columns.${column.id}`)}
-                    </DropdownMenuCheckboxItem>
-                  ))}
-              </DropdownMenuGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {/* Column Visibility - hidden on mobile */}
+          {!showMobileView && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" disabled={isLoading}>
+                  Columnas <ChevronDown />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuGroup>
+                  {table
+                    .getAllColumns()
+                    .filter((column) => column.getCanHide())
+                    .map((column) => (
+                      <DropdownMenuCheckboxItem
+                        key={column.id}
+                        checked={column.getIsVisible()}
+                        onCheckedChange={(value) =>
+                          column.toggleVisibility(!!value)
+                        }
+                      >
+                        {t(`table.columns.${column.id}`)}
+                      </DropdownMenuCheckboxItem>
+                    ))}
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-md border">
-        <Table>
+      {/* Mobile Card View */}
+      {showMobileView ? (
+        <MobileCardView
+          data={data}
+          fields={mobileConfig.fields}
+          isLoading={isLoading}
+          loadingCount={pagination.limit}
+          onItemClick={mobileConfig.onItemClick}
+          renderActions={mobileConfig.renderActions}
+          getItemId={mobileConfig.getItemId}
+        />
+      ) : (
+        <div className="overflow-hidden rounded-md border">
+          <Table>
           <TableHeader className="bg-muted">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -390,7 +418,8 @@ export function ServerDataTable<TData, TValue>({
             )}
           </TableBody>
         </Table>
-      </div>
+        </div>
+      )}
       <TablePagination
         pagination={pagination}
         pageSizeOptions={pageSizeOptions}

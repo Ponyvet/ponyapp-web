@@ -23,24 +23,24 @@ const StatCard = ({
 }: StatCardProps) => {
   return (
     <Link to={href}>
-      <Card className="hover:bg-muted/50 transition-colors cursor-pointer">
-        <CardContent className="pt-6">
-          <div className="flex items-center justify-between">
-            <div className="space-y-1">
-              <p className="text-sm font-medium text-muted-foreground">
+      <Card className="hover:bg-muted/50 transition-colors cursor-pointer h-full">
+        <CardContent className="pt-4 sm:pt-6 px-3 sm:px-6">
+          <div className="flex items-center justify-between gap-2">
+            <div className="space-y-0.5 sm:space-y-1 min-w-0">
+              <p className="text-xs sm:text-sm font-medium text-muted-foreground truncate">
                 {title}
               </p>
               {isLoading ? (
-                <Skeleton className="h-8 w-16" />
+                <Skeleton className="h-6 sm:h-8 w-12 sm:w-16" />
               ) : (
-                <p className="text-2xl font-bold">{value}</p>
+                <p className="text-xl sm:text-2xl font-bold">{value}</p>
               )}
               {description && (
-                <p className="text-xs text-muted-foreground">{description}</p>
+                <p className="text-xs text-muted-foreground truncate">{description}</p>
               )}
             </div>
-            <div className="p-3 bg-primary/10 rounded-full">
-              <Icon className="h-6 w-6 text-primary" />
+            <div className="p-2 sm:p-3 bg-primary/10 rounded-full shrink-0">
+              <Icon className="h-4 w-4 sm:h-6 sm:w-6 text-primary" />
             </div>
           </div>
         </CardContent>
