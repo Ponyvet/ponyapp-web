@@ -73,6 +73,16 @@
         "root": "Consultas",
         "add": "Agregar Consulta",
         "edit": "Editar"
+      },
+      "inventory": {
+        "root": "Inventario",
+        "add": "Agregar Artículo",
+        "edit": "Editar"
+      },
+      "users": {
+        "root": "Usuarios",
+        "add": "Agregar Usuario",
+        "edit": "Editar"
       }
     }
   },

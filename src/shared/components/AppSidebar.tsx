@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ContactRound, Hospital, ClipboardList, PillBottle, Syringe, Stethoscope, CalendarDays } from 'lucide-react'
+import { ContactRound, Hospital, ClipboardList, PillBottle, Syringe, Stethoscope, CalendarDays, Package, Users } from 'lucide-react'
 
 import { NavUser } from './NavUser'
 import {
@@ -47,6 +47,16 @@ const data = {
       name: 'Visitas',
       url: '/visits',
       icon: CalendarDays,
+    },
+    {
+      name: 'Inventario',
+      url: '/inventory',
+      icon: Package,
+    },
+    {
+      name: 'Usuarios',
+      url: '/users',
+      icon: Users,
     },
   ],
 }

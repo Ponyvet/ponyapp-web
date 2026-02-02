@@ -33,6 +33,14 @@ import VisitsPage from '@/features/visits/pages/VisitsPage'
 import CreateVisitPage from '@/features/visits/pages/CreateVisitPage'
 import EditVisitPage from '@/features/visits/pages/EditVisitPage'
 import VisitDetailsPage from '@/features/visits/pages/VisitDetailsPage'
+import InventoryPage from '@/features/inventory/pages/InventoryPage'
+import CreateInventoryItemPage from '@/features/inventory/pages/CreateInventoryItemPage'
+import EditInventoryItemPage from '@/features/inventory/pages/EditInventoryItemPage'
+import InventoryItemDetailsPage from '@/features/inventory/pages/InventoryItemDetailsPage'
+import UsersPage from '@/features/users/pages/UsersPage'
+import CreateUserPage from '@/features/users/pages/CreateUserPage'
+import EditUserPage from '@/features/users/pages/EditUserPage'
+import UserDetailsPage from '@/features/users/pages/UserDetailsPage'
 
 const Router = () => {
   return (
@@ -94,6 +102,20 @@ const Router = () => {
           <Route path="/visits/add" element={<CreateVisitPage />} />
           <Route path="/visits/:visitId/edit" element={<EditVisitPage />} />
           <Route path="/visits/:visitId" element={<VisitDetailsPage />} />
+          <Route path="/inventory" element={<InventoryPage />} />
+          <Route path="/inventory/add" element={<CreateInventoryItemPage />} />
+          <Route
+            path="/inventory/:itemId/edit"
+            element={<EditInventoryItemPage />}
+          />
+          <Route
+            path="/inventory/:itemId"
+            element={<InventoryItemDetailsPage />}
+          />
+          <Route path="/users" element={<UsersPage />} />
+          <Route path="/users/add" element={<CreateUserPage />} />
+          <Route path="/users/:userId/edit" element={<EditUserPage />} />
+          <Route path="/users/:userId" element={<UserDetailsPage />} />
           <Route path="/settings" element={<SettingsPage />} />
         </Route>
       </Route>
