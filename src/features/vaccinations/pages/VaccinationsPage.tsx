@@ -86,7 +86,7 @@ const VaccinationsPage = () => {
       limit: state.limit,
       sortBy: state.sortBy as VaccinationsParams['sortBy'],
       sortOrder: state.sortOrder,
-      status: state.filters?.status as VaccinationsParams['status'],
+      // status: state.filters?.status as VaccinationsParams['status'],
     })
   }, [])
 

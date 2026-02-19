@@ -19,7 +19,7 @@ const useUpdatePet = () => {
       queryClient.invalidateQueries({ queryKey: ['pets'] })
       queryClient.invalidateQueries({ queryKey: ['pet', updatedPet.id] })
       queryClient.invalidateQueries({
-        queryKey: ['pets', 'client', updatedPet.clientId],
+        queryKey: ['pets', 'client'],
       })
       toast.success('Cartilla actualizada correctamente')
     },
