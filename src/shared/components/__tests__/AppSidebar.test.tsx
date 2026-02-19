@@ -27,6 +27,17 @@ vi.mock('@/features/auth/queries/useProfile', () => ({
   default: () => mockUseProfile(),
 }))
 
+const mockAuthState = {
+  isAuth: false,
+  session: null as { email: string; name: string } | null,
+  setAuth: vi.fn(),
+  setSession: vi.fn(),
+}
+vi.mock('@/features/auth/store/authStore', () => ({
+  useAuthStore: (selector?: (state: typeof mockAuthState) => unknown) =>
+    selector ? selector(mockAuthState) : mockAuthState,
+}))
+
 const renderAppSidebar = () => {
   return render(
     <QueryClientProvider client={queryClient}>
@@ -42,6 +53,8 @@ const renderAppSidebar = () => {
 describe('AppSidebar', () => {
   beforeEach(() => {
     mockUseProfile.mockReset()
+    mockAuthState.isAuth = false
+    mockAuthState.session = null
   })
 
   it('renders the sidebar with title and subtitle', () => {
@@ -64,6 +77,7 @@ describe('AppSidebar', () => {
   })
 
   it('renders NavUser when user is authenticated', () => {
+    mockAuthState.isAuth = true
     mockUseProfile.mockReturnValue({
       isSuccess: true,
       data: { email: 'test@example.com', name: 'Test User' },

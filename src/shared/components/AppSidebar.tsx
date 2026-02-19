@@ -15,6 +15,7 @@ import { useTranslation } from 'react-i18next'
 import { NavMain } from './NavMain'
 import { Link } from 'react-router'
 import useProfile from '@/features/auth/queries/useProfile'
+import { useAuthStore } from '@/features/auth/store/authStore'
 
 const data = {
   menus: [
@@ -63,7 +64,11 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { t } = useTranslation('shared')
-  const { isSuccess, data: user } = useProfile()
+  const { isSuccess, data: profileData } = useProfile()
+  const isAuth = useAuthStore((state) => state.isAuth)
+  const session = useAuthStore((state) => state.session)
+
+  const userData = isSuccess ? profileData : session
 
   return (
     <Sidebar variant="inset" {...props}>
@@ -91,12 +96,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <NavMain menus={data.menus} />
       </SidebarContent>
-      {isSuccess && (
+      {isAuth && (
         <SidebarFooter>
           <NavUser
             user={{
-              email: user.email,
-              name: user.name,
+              email: userData?.email ?? '',
+              name: userData?.name ?? '',
             }}
           />
         </SidebarFooter>

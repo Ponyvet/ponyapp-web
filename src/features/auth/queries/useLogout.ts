@@ -5,12 +5,16 @@ import { useAuthStore } from '../store/authStore'
 
 const useLogout = () => {
   const { setAuth, setSession } = useAuthStore()
+
+  const clearSession = () => {
+    setAuth(false)
+    setSession(null)
+  }
+
   return useMutation({
     mutationFn: logout,
-    onSuccess: () => {
-      setAuth(false)
-      setSession(null)
-    },
+    onSuccess: clearSession,
+    onError: clearSession,
   })
 }
 
