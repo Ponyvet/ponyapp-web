@@ -13,7 +13,7 @@ export const getSingleUser = async (id: User['id']): Promise<User> => {
 }
 
 export const createUser = async (data: CreateUser): Promise<User> => {
-  const res = await api.post('/users', data)
+  const res = await api.post('/users/register', data)
   return userSchema.parse(res.data)
 }
 
