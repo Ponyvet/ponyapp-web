@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { useAuthStore } from '../store/authStore'
 import { useNavigate } from 'react-router'
 import { Card, CardContent } from '@/shared/components/ui/card'
+import pettingImage from '../assets/undraw_petting_xclp.svg'
 
 export default function LoginPage() {
   const navigate = useNavigate()
@@ -23,7 +24,7 @@ export default function LoginPage() {
               <LoginForm />
               <div className="bg-secondary relative hidden md:block">
                 <img
-                  src="src/features/auth/assets/undraw_petting_xclp.svg"
+                  src={pettingImage}
                   alt="Image"
                   className="absolute inset-0 h-full w-full object-center p-8"
                 />
