@@ -72,8 +72,8 @@ const VisitForm = ({
         <DatePicker
           control={control}
           name="date"
-          label="Fecha de la visita"
-          fieldDescription="Selecciona la fecha de la visita"
+          label="Fecha de la consulta"
+          fieldDescription="Selecciona la fecha de la consulta"
         />
         <ControlledSelect
           control={control}
@@ -93,7 +93,7 @@ const VisitForm = ({
           control={control}
           name="generalNotes"
           label="Descripción / Notas"
-          placeholder="Notas generales de la visita"
+          placeholder="Notas generales de la consulta"
         />
       </FieldGroup>
 

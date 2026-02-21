@@ -42,7 +42,7 @@ const ConsultationDetailsPage = () => {
     const confirmed = await confirm({
       title: '¿Estás absolutamente seguro?',
       description:
-        '¿Estás seguro de que deseas eliminar esta consulta? Esta acción no se puede deshacer.',
+        '¿Estás seguro de que deseas eliminar este tratamiento? Esta acción no se puede deshacer.',
       confirmText: 'Eliminar',
       cancelText: 'Cancelar',
     })
@@ -61,7 +61,7 @@ const ConsultationDetailsPage = () => {
       <Card>
         <CardHeader>
           <CardTitle>
-            <h1 className="text-xl font-bold">Detalles de la Consulta</h1>
+            <h1 className="text-xl font-bold">Detalles del Tratamiento</h1>
           </CardTitle>
           <CardAction className="flex gap-2">
             <Button
@@ -124,7 +124,7 @@ const ConsultationDetailsPage = () => {
               {consultation.reason && (
                 <ItemInfo
                   icon={<StethoscopeIcon />}
-                  title="Motivo de consulta"
+                  title="Motivo de tratamiento"
                   description={consultation.reason}
                 />
               )}

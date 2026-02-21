@@ -22,7 +22,7 @@ export const columns: ColumnDef<Visit>[] = [
   },
   {
     accessorKey: 'consultations',
-    header: 'Consultas',
+    header: 'Tratamientos',
     cell: ({ row }) => row.original.consultations?.length ?? 0,
   },
   {

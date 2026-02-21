@@ -56,7 +56,7 @@ const ConsultationForm = ({
   onCancel,
   consultation,
   submitButtonText = 'Guardar',
-  title = 'Nueva Consulta',
+  title = 'Nuevo Tratamiento',
   initialClientId,
   medicalRecordId,
   initialVisitId,
@@ -132,7 +132,7 @@ const ConsultationForm = ({
         <ControlledSelect
           control={control}
           name="visitId"
-          label="Visita"
+          label="Consulta"
           options={visitsOptions}
         />
         <ControlledSelect
@@ -150,8 +150,8 @@ const ConsultationForm = ({
         <ControlledTextarea
           control={control}
           name="reason"
-          label="Motivo de consulta"
-          placeholder="Describe el motivo de la consulta..."
+          label="Motivo de tratamiento"
+          placeholder="Describe el motivo del tratamiento..."
         />
         <ControlledTextarea
           control={control}

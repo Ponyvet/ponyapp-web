@@ -10,11 +10,11 @@ const useCreateVisit = (onSuccess?: () => void) => {
     mutationFn: createVisit,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['visits'] })
-      toast.success('Visita creada exitosamente')
+      toast.success('Consulta creada exitosamente')
       onSuccess?.()
     },
     onError: () => {
-      toast.error('Error al crear la visita')
+      toast.error('Error al crear la consulta')
     },
   })
 }

@@ -23,7 +23,7 @@ const RecentVisits = () => {
       <CardHeader className="border-b">
         <CardTitle className="flex items-center gap-2">
           <CalendarDays className="h-5 w-5" />
-          Visitas Recientes
+          Consultas Recientes
         </CardTitle>
         <CardAction>
           <Button variant="ghost" size="sm" asChild>
@@ -50,7 +50,7 @@ const RecentVisits = () => {
         ) : visits.length === 0 ? (
           <div className="text-center py-6 text-muted-foreground">
             <CalendarDays className="h-10 w-10 mx-auto mb-2 opacity-50" />
-            <p>No hay visitas registradas</p>
+            <p>No hay consultas registradas</p>
           </div>
         ) : (
           <div className="space-y-3">

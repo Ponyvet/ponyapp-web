@@ -16,9 +16,9 @@ const DeleteButton = ({ consultation }: DeleteButtonProps) => {
 
   const handleDelete = async () => {
     const confirmed = await confirm({
-      title: '¿Eliminar consulta?',
+      title: '¿Eliminar tratamiento?',
       description:
-        '¿Estás seguro de que deseas eliminar esta consulta? Esta acción no se puede deshacer.',
+        '¿Estás seguro de que deseas eliminar este tratamiento? Esta acción no se puede deshacer.',
       confirmText: 'Eliminar',
       cancelText: 'Cancelar',
     })

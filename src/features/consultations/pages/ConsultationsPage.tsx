@@ -107,16 +107,16 @@ const ConsultationsPage = () => {
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Consultas</h1>
+          <h1 className="text-2xl font-bold">Tratamientos</h1>
         </div>
         <EmptyTable
           icon={<StethoscopeIcon className="h-12 w-12" />}
-          title="No hay consultas registradas"
-          description="Agrega tu primera consulta para comenzar."
+          title="No hay tratamientos registrados"
+          description="Agrega tu primer tratamiento para comenzar."
           buttonText={
             <>
               <PlusIcon className="mr-2 h-4 w-4" />
-              Agregar consulta
+              Agregar tratamiento
             </>
           }
           onclick={() => navigate('/consultations/add')}
@@ -128,10 +128,10 @@ const ConsultationsPage = () => {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Consultas</h1>
+        <h1 className="text-2xl font-bold">Tratamientos</h1>
         <Button size="sm" onClick={() => navigate('/consultations/add')}>
           <PlusIcon />
-          Agregar
+          Agregar tratamiento
         </Button>
       </div>
       <ServerDataTable

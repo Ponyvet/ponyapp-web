@@ -65,13 +65,13 @@
         "edit": "Editar"
       },
       "visits": {
-        "root": "Visitas",
-        "add": "Agregar Visita",
+        "root": "Consultas",
+        "add": "Agregar Consulta",
         "edit": "Editar"
       },
       "consultations": {
-        "root": "Consultas",
-        "add": "Agregar Consulta",
+        "root": "Tratamientos",
+        "add": "Agregar Tratamiento",
         "edit": "Editar"
       },
       "inventory": {

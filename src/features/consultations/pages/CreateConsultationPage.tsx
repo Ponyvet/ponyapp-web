@@ -19,7 +19,7 @@ const CreateConsultationPage = () => {
       onSubmit={handleSubmit}
       isLoading={isPending}
       onCancel={() => navigate(-1)}
-      title="Crear Consulta"
+      title="Crear Tratamiento"
       initialClientId={state?.clientId}
       medicalRecordId={state?.medicalRecordId}
       initialVisitId={state?.visitId}

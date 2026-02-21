@@ -10,11 +10,11 @@ const useDeleteVisit = (onSuccess?: () => void) => {
     mutationFn: deleteVisit,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['visits'] })
-      toast.success('Visita eliminada exitosamente')
+      toast.success('Consulta eliminada exitosamente')
       onSuccess?.()
     },
     onError: () => {
-      toast.error('Error al eliminar la visita')
+      toast.error('Error al eliminar la consulta')
     },
   })
 }
