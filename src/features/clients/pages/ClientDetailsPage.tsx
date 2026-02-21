@@ -210,8 +210,8 @@ const ClientDetailsPage = () => {
           ) : (
             <EmptyTable
               icon={<CalendarDaysIcon />}
-              title="No hay visitas registradas"
-              description="Agrega una nueva visita para este cliente."
+              title="No hay consultas registradas"
+              description="Agrega una nueva consulta para este cliente."
               buttonText={
                 <>
                   <PlusIcon className="mr-2" />

@@ -29,7 +29,7 @@ const EditConsultationPage = () => {
       isLoading={isPending}
       onCancel={() => navigate(-1)}
       consultation={consultation}
-      title="Editar Consulta"
+      title="Editar Tratamiento"
       submitButtonText="Actualizar"
       initialClientId={consultation.visit.client.id}
     />

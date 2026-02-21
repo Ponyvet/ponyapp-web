@@ -12,11 +12,11 @@ const useUpdateVisit = (onSuccess?: () => void) => {
       updateVisit(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['visits'] })
-      toast.success('Visita actualizada exitosamente')
+      toast.success('Consulta actualizada exitosamente')
       onSuccess?.()
     },
     onError: () => {
-      toast.error('Error al actualizar la visita')
+      toast.error('Error al actualizar la consulta')
     },
   })
 }

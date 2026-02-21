@@ -12,11 +12,11 @@ const useUpdateConsultation = (onSuccess?: () => void) => {
       updateConsultation(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['consultations'] })
-      toast.success('Consulta actualizada exitosamente')
+      toast.success('Tratamiento actualizado exitosamente')
       onSuccess?.()
     },
     onError: () => {
-      toast.error('Error al actualizar la consulta')
+      toast.error('Error al actualizar el tratamiento')
     },
   })
 }

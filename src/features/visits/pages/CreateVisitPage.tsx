@@ -19,7 +19,7 @@ const CreateVisitPage = () => {
       onSubmit={handleSubmit}
       isLoading={isPending}
       onCancel={() => navigate(-1)}
-      title="Crear Visita"
+      title="Crear Consulta"
       initialClientId={state?.clientId}
     />
   )

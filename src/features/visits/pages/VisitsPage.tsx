@@ -50,12 +50,13 @@ const columns: ColumnDef<Visit>[] = [
   },
   {
     accessorKey: 'consultations',
-    header: 'Consultas',
+    header: 'Tratamientos',
     cell: ({ row }) => {
       const consultations = row.original.consultations ?? []
       return (
         <span className="text-muted-foreground">
-          {consultations.length} consulta{consultations.length !== 1 ? 's' : ''}
+          {consultations.length} tratamiento
+          {consultations.length !== 1 ? 's' : ''}
         </span>
       )
     },
@@ -102,10 +103,10 @@ const VisitsPage = () => {
       },
       {
         key: 'consultations',
-        label: 'Consultas',
+        label: 'Tratamientos',
         render: (visit) => {
           const count = visit.consultations?.length ?? 0
-          return `${count} consulta${count !== 1 ? 's' : ''}`
+          return `${count} tratamiento${count !== 1 ? 's' : ''}`
         },
       },
     ],
@@ -129,8 +130,7 @@ const VisitsPage = () => {
   }, [])
 
   const visits = data?.data ?? []
-  const showEmptyState =
-    !isLoading && visits.length === 0 && params.page === 1
+  const showEmptyState = !isLoading && visits.length === 0 && params.page === 1
   const pagination = data?.pagination ?? {
     page: START_PAGE_INDEX,
     limit: DEFAULT_PAGE_SIZE,
@@ -144,16 +144,16 @@ const VisitsPage = () => {
     return (
       <div className="space-y-6">
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Visitas</h1>
+          <h1 className="text-2xl font-bold">Consultas</h1>
         </div>
         <EmptyTable
           icon={<CalendarIcon className="h-12 w-12" />}
-          title="No hay visitas registradas"
-          description="Agrega tu primera visita para comenzar."
+          title="No hay consultas registradas"
+          description="Agrega tu primera consulta para comenzar."
           buttonText={
             <>
               <PlusIcon className="mr-2 h-4 w-4" />
-              Agregar visita
+              Agregar consulta
             </>
           }
           onclick={() => navigate('/visits/add')}
@@ -165,10 +165,10 @@ const VisitsPage = () => {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Visitas</h1>
+        <h1 className="text-2xl font-bold">Consultas</h1>
         <Button size="sm" onClick={() => navigate('/visits/add')}>
           <PlusIcon />
-          Agregar
+          Agregar consulta
         </Button>
       </div>
       <ServerDataTable

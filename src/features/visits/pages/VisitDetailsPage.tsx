@@ -58,7 +58,7 @@ const VisitDetailsPage = () => {
       <Card>
         <CardHeader>
           <CardTitle>
-            <h1 className="text-xl font-bold">Detalles de la Visita</h1>
+            <h1 className="text-xl font-bold">Detalles de la Consulta</h1>
           </CardTitle>
           <CardAction className="flex gap-2">
             <Button
@@ -113,7 +113,7 @@ const VisitDetailsPage = () => {
           <CardTitle>
             <h2 className="text-lg font-semibold flex items-center gap-2">
               <StethoscopeIcon className="h-5 w-5" />
-              Consultas ({consultations.length})
+              Tratamientos ({consultations.length})
             </h2>
           </CardTitle>
           <CardAction>
@@ -127,7 +127,7 @@ const VisitDetailsPage = () => {
               }
             >
               <PlusIcon />
-              Agregar consulta
+              Agregar tratamiento
             </Button>
           </CardAction>
         </CardHeader>
@@ -135,9 +135,9 @@ const VisitDetailsPage = () => {
           {consultations.length === 0 ? (
             <div className="text-center py-8 text-muted-foreground">
               <StethoscopeIcon className="h-12 w-12 mx-auto mb-4 opacity-50" />
-              <p>No hay consultas registradas para esta visita.</p>
+              <p>No hay tratamientos registrados para esta consulta.</p>
               <p className="text-sm mt-2">
-                Agrega una consulta para registrar la atención de una mascota.
+                Agrega un tratamiento para registrar la atención de una mascota.
               </p>
             </div>
           ) : (

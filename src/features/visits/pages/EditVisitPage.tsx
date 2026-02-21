@@ -24,7 +24,7 @@ const EditVisitPage = () => {
       isLoading={isPending}
       onCancel={() => navigate(-1)}
       visit={visit}
-      title="Editar Visita"
+      title="Editar Consulta"
       submitButtonText="Actualizar"
     />
   )

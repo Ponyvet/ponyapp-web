@@ -10,11 +10,11 @@ const useCreateConsultation = (onSuccess?: () => void) => {
     mutationFn: createConsultation,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['consultations'] })
-      toast.success('Consulta creada exitosamente')
+      toast.success('Tratamiento creado exitosamente')
       onSuccess?.()
     },
     onError: () => {
-      toast.error('Error al crear la consulta')
+      toast.error('Error al crear el tratamiento')
     },
   })
 }

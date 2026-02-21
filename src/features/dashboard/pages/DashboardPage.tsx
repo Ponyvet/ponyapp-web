@@ -52,14 +52,14 @@ const DashboardPage = () => {
           isLoading={isLoadingRecords}
         />
         <StatCard
-          title="Visitas"
+          title="Consultas"
           value={visits?.pagination.total ?? 0}
           icon={CalendarDays}
           href="/visits"
           isLoading={isLoadingVisits}
         />
         <StatCard
-          title="Consultas"
+          title="Tratamientos"
           value={consultations?.pagination.total ?? 0}
           icon={Stethoscope}
           href="/consultations"

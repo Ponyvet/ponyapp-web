@@ -16,9 +16,9 @@ const DeleteButton = ({ visit }: DeleteButtonProps) => {
 
   const handleDelete = async () => {
     const confirmed = await confirm({
-      title: '¿Eliminar visita?',
+      title: '¿Eliminar consulta?',
       description:
-        '¿Estás seguro de que deseas eliminar esta visita? Esta acción no se puede deshacer.',
+        '¿Estás seguro de que deseas eliminar esta consulta? Esta acción no se puede deshacer.',
       confirmText: 'Eliminar',
       cancelText: 'Cancelar',
     })
