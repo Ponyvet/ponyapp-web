@@ -14,6 +14,7 @@ interface MapProps {
   markerPosition?: { lat: number; lng: number } | null
   showMarker?: boolean
   onMarkerPositionChange?: (position: { lat: number; lng: number }) => void
+  readOnly?: boolean
 }
 
 const Map = ({
@@ -24,6 +25,7 @@ const Map = ({
   markerPosition,
   showMarker = true,
   onMarkerPositionChange,
+  readOnly = false,
 }: MapProps) => {
   const [center, setCenter] = useState(defaultCenter)
 
@@ -74,11 +76,11 @@ const Map = ({
         defaultCenter={defaultCenter}
         center={markerPosition || center}
         onCameraChanged={handleCameraChange}
-        onClick={handleMapClick}
+        onClick={readOnly ? undefined : handleMapClick}
         mapId="clientLocationMap"
-        gestureHandling="greedy"
-        disableDefaultUI={false}
-        clickableIcons={true}
+        gestureHandling={readOnly ? 'none' : 'cooperative'}
+        disableDefaultUI={readOnly}
+        clickableIcons={!readOnly}
         styles={[
           {
             featureType: 'poi',
@@ -90,8 +92,8 @@ const Map = ({
         {showMarker && markerPosition && (
           <Marker
             position={markerPosition}
-            draggable={!!onMarkerPositionChange}
-            onDragEnd={handleMarkerDragEnd}
+            draggable={!readOnly && !!onMarkerPositionChange}
+            onDragEnd={readOnly ? undefined : handleMarkerDragEnd}
           />
         )}
       </GoogleMap>

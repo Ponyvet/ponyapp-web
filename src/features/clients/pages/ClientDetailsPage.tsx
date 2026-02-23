@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import useGetSingleClient from '../queries/useGetSingleClient'
 import useDeleteClient from '../queries/useDeleteClient'
@@ -13,7 +14,9 @@ import {
   CalendarDaysIcon,
   DogIcon,
   EditIcon,
+  ExternalLinkIcon,
   MapIcon,
+  MapPinIcon,
   NotebookIcon,
   PhoneIcon,
   PlusIcon,
@@ -32,6 +35,8 @@ import { columns as visitColumns } from '@/features/visits/components/visits/Sim
 import useGetVisitsByClient from '@/features/visits/queries/useGetVisitsByClient'
 import Map from '@/shared/components/Map'
 import { Separator } from '@/shared/components/ui/separator'
+import EditAddressModal from '../components/EditAddressModal'
+import useUpdateClient from '../queries/useUpdateClient'
 
 const ClientDetailsPage = () => {
   const navigate = useNavigate()
@@ -40,7 +45,25 @@ const ClientDetailsPage = () => {
   const { data: records = [] } = useGetMedicalRecordsByClient(params.clientId)
   const { data: visits = [] } = useGetVisitsByClient(params.clientId)
   const deleteClientMutation = useDeleteClient(() => navigate('/clients'))
+  const [isEditAddressOpen, setIsEditAddressOpen] = useState(false)
+  const updateAddressMutation = useUpdateClient(params.clientId!, () =>
+    setIsEditAddressOpen(false),
+  )
   const { confirm, isOpen, options, handleConfirm, handleCancel } = useConfirm()
+
+  const handleSaveAddress = (data: {
+    address: string
+    latitude: number | null
+    longitude: number | null
+  }) => {
+    if (!client) return
+    updateAddressMutation.mutate({
+      name: client.name,
+      phone: client.phone,
+      notes: client.notes ?? '',
+      ...data,
+    })
+  }
 
   const handleDeleteClient = async () => {
     if (!client) return
@@ -121,26 +144,53 @@ const ClientDetailsPage = () => {
               <ItemInfo icon={<NotebookIcon />} description={client.notes} />
             </>
           )}
-          {client.latitude && client.longitude && (
-            <>
-              <Separator className="my-4" />
-              <h4 className="font-semibold mb-2">Ubicación</h4>
-              <div className="h-64 rounded-lg overflow-hidden border">
-                <Map
-                  defaultCenter={{
-                    lat: client.latitude,
-                    lng: client.longitude,
-                  }}
-                  defaultZoom={15}
-                  markerPosition={{
-                    lat: client.latitude,
-                    lng: client.longitude,
-                  }}
-                  showMarker={true}
-                  className="h-full w-full"
-                />
-              </div>
-            </>
+          <Separator className="my-4" />
+          <div className="flex items-center justify-between mb-2">
+            <h4 className="font-semibold">Ubicación</h4>
+            <div className="flex gap-2">
+              {client.latitude && client.longitude && (
+                <Button variant="outline" size="sm" asChild>
+                  <a
+                    href={`https://www.google.com/maps?q=${client.latitude},${client.longitude}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <ExternalLinkIcon />
+                    Abrir en Maps
+                  </a>
+                </Button>
+              )}
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setIsEditAddressOpen(true)}
+              >
+                <MapPinIcon />
+                Editar dirección
+              </Button>
+            </div>
+          </div>
+          {client.latitude && client.longitude ? (
+            <div className="h-64 rounded-lg overflow-hidden border">
+              <Map
+                defaultCenter={{
+                  lat: client.latitude,
+                  lng: client.longitude,
+                }}
+                defaultZoom={15}
+                markerPosition={{
+                  lat: client.latitude,
+                  lng: client.longitude,
+                }}
+                showMarker={true}
+                readOnly={true}
+                className="h-full w-full"
+              />
+            </div>
+          ) : (
+            <p className="text-sm text-muted-foreground">
+              Sin ubicación registrada.
+            </p>
           )}
         </CardContent>
       </Card>
@@ -234,6 +284,15 @@ const ClientDetailsPage = () => {
         confirmText={options.confirmText}
         cancelText={options.cancelText}
         isLoading={deleteClientMutation.isPending}
+      />
+      <EditAddressModal
+        open={isEditAddressOpen}
+        onClose={() => setIsEditAddressOpen(false)}
+        onSave={handleSaveAddress}
+        isSaving={updateAddressMutation.isPending}
+        initialAddress={client.address}
+        initialLatitude={client.latitude}
+        initialLongitude={client.longitude}
       />
     </div>
   )
