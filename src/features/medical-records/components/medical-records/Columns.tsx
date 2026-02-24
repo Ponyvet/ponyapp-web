@@ -10,10 +10,11 @@ import { Badge } from '@/shared/components/ui/badge'
 
 export const columns: ColumnDef<MedicalRecord>[] = [
   {
-    accessorKey: 'name',
+    accessorKey: 'clientId',
     header: ({ column }) => (
-      <SortableColumn column={column}>Nombre</SortableColumn>
+      <SortableColumn column={column}>Cliente</SortableColumn>
     ),
+    cell: ({ row }) => row.original.client.name,
   },
   {
     accessorKey: 'type',
@@ -25,16 +26,17 @@ export const columns: ColumnDef<MedicalRecord>[] = [
     ),
   },
   {
-    accessorKey: 'clientId',
-    header: 'Cliente',
-    cell: ({ row }) => row.original.client.name,
+    accessorKey: 'name',
+    header: 'Nombre de mascota o grupo',
+    cell: ({ row }) => row.original.name,
   },
   {
-    accessorKey: 'createdAt',
-    header: ({ column }) => (
-      <SortableColumn column={column}>Fecha de creación</SortableColumn>
-    ),
-    cell: ({ row }) => formatDate(row.original.createdAt, 'dd/MM/yyyy'),
+    accessorKey: 'latestVaccination',
+    header: 'Fecha de última vacunación',
+    cell: ({ row }) =>
+      row.original.latestVaccination?.appliedAt
+        ? formatDate(row.original.latestVaccination.appliedAt, 'dd/MM/yyyy')
+        : '-',
   },
   {
     accessorKey: 'actions',

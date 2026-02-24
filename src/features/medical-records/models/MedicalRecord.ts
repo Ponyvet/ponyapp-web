@@ -3,6 +3,7 @@ import { petSchema } from '@/features/pets/models/Pet'
 import { animalGroupSchema } from './AnimalGroup'
 import z from 'zod'
 import { MedicalRecordTypes } from '../utils/enum'
+import { vaccinationSchema } from '@/features/vaccinations/models/Vaccination'
 
 export const medicalRecordSchema = z.object({
   id: z.string(),
@@ -38,6 +39,7 @@ export const medicalRecordSchema = z.object({
       notes: true,
     })
     .nullable(),
+  latestVaccination: vaccinationSchema.omit({ record: true }).nullish(),
 })
 
 export type MedicalRecord = z.infer<typeof medicalRecordSchema>
