@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router'
+import { useNavigate, useParams, Link } from 'react-router'
 import { formatDate } from 'date-fns'
 import {
   CalendarIcon,
@@ -103,6 +103,15 @@ const VaccinationDetailsPage = () => {
                 vaccination.nextDueDate
                   ? formatDate(vaccination.nextDueDate, 'dd/MM/yyyy')
                   : 'No programada'
+              }
+            />
+            <ItemInfo
+              icon={<UserIcon />}
+              title="Cliente"
+              description={
+                <Link to={`/clients/${vaccination.record.client.id}`}>
+                  {vaccination.record.client.name}
+                </Link>
               }
             />
             <ItemInfo

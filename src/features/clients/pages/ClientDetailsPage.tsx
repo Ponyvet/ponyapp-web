@@ -145,18 +145,23 @@ const ClientDetailsPage = () => {
             </>
           )}
           <Separator className="my-4" />
-          <div className="flex items-center justify-between mb-2">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
             <h4 className="font-semibold">Ubicación</h4>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               {client.latitude && client.longitude && (
-                <Button variant="outline" size="sm" asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  asChild
+                  className="w-full sm:w-auto"
+                >
                   <a
                     href={`https://www.google.com/maps?q=${client.latitude},${client.longitude}`}
                     target="_blank"
                     rel="noreferrer"
                   >
-                    <ExternalLinkIcon />
-                    Abrir en Maps
+                    <ExternalLinkIcon className="w-4 h-4" />
+                    <span className="ml-2">Abrir en Maps</span>
                   </a>
                 </Button>
               )}
@@ -164,9 +169,10 @@ const ClientDetailsPage = () => {
                 variant="outline"
                 size="sm"
                 onClick={() => setIsEditAddressOpen(true)}
+                className="w-full sm:w-auto"
               >
-                <MapPinIcon />
-                Editar dirección
+                <MapPinIcon className="w-4 h-4" />
+                <span className="ml-2">Editar dirección</span>
               </Button>
             </div>
           </div>
