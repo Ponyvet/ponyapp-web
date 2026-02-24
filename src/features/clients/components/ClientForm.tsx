@@ -153,16 +153,23 @@ const ClientForm = ({
   return (
     <form onSubmit={handleSubmit(handleOnSubmit)}>
       <h1 className="text-xl font-bold mb-4">{title}</h1>
+      <p className="text-sm text-muted-foreground mb-4">
+        <span className="text-destructive">*</span> Campos obligatorios
+      </p>
       <FieldGroup className="gap-2">
         <ControlledInput
           control={control}
           name="name"
           label="Nombre completo"
           placeholder="Ej. Juan Pérez"
+          required
         />
         {client ? (
           <div className="space-y-1.5">
-            <Label>Dirección</Label>
+            <Label>
+              Dirección
+              <span className="text-destructive ml-0.5">*</span>
+            </Label>
             <Input value={currentAddress ?? ''} disabled readOnly />
           </div>
         ) : (
@@ -172,6 +179,7 @@ const ClientForm = ({
             label="Dirección"
             placeholder="Ej. Calle Durango 123"
             onPlaceSelect={handlePlaceSelect}
+            required
           />
         )}
         {client ? (
@@ -277,6 +285,7 @@ const ClientForm = ({
           label="Teléfono"
           placeholder="123-456-7890"
           maxLength={10}
+          required
         />
         <ControlledTextarea
           control={control}

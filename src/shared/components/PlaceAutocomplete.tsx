@@ -9,6 +9,7 @@ interface PlaceAutocompleteProps {
   onPlaceSelect?: (place: google.maps.places.PlaceResult) => void
   placeholder?: string
   label?: string
+  required?: boolean
   value?: string
   onChange?: (value: string) => void
   className?: string
@@ -19,6 +20,7 @@ const PlaceAutocomplete = ({
   onPlaceSelect,
   placeholder = 'Buscar dirección...',
   label,
+  required,
   value = '',
   onChange,
   className,
@@ -119,7 +121,12 @@ const PlaceAutocomplete = ({
 
   return (
     <div className="relative">
-      {label && <Label className="mb-2 block">{label}</Label>}
+      {label && (
+        <Label className="mb-2 block">
+          {label}
+          {required && <span className="text-destructive ml-0.5">*</span>}
+        </Label>
+      )}
       <Input
         ref={inputRef}
         value={inputValue}
