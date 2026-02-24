@@ -13,9 +13,9 @@ const CreateMedicalRecordPage = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: createMedicalRecord,
-    onSuccess: () => {
-      navigate(-1)
+    onSuccess: (newRecord) => {
       toast.success('Cartilla médica creada exitosamente')
+      navigate('/pets/add', { state: { recordId: newRecord.id } })
     },
     onError: (error) => {
       toast.error('Error al crear la cartilla médica', {

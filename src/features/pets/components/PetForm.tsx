@@ -70,6 +70,9 @@ const PetForm = ({
   return (
     <form onSubmit={handleSubmit(handleOnSubmit)}>
       <h1 className="text-xl font-bold mb-4">{title}</h1>
+      <p className="text-sm text-muted-foreground mb-4">
+        <span className="text-destructive">*</span> Campos obligatorios
+      </p>
       <FieldGroup className="gap-3">
         <ControlledRadioGroup
           control={control}
@@ -87,6 +90,7 @@ const PetForm = ({
               description: 'Gatos y gatitos',
             },
           ]}
+          required
         />
         <ControlledInput
           control={control}
@@ -108,6 +112,7 @@ const PetForm = ({
             { label: 'Macho', value: Sex.MALE },
             { label: 'Hembra', value: Sex.FEMALE },
           ]}
+          required
         />
         <DatePicker
           control={control}
