@@ -26,6 +26,7 @@ interface ControlledRadioGroupProps<T extends FieldValues> {
   options: RadioGroupOption[]
   label: string
   fieldDescription?: string
+  required?: boolean
 }
 
 const ControlledRadioGroup = <T extends FieldValues>({
@@ -34,6 +35,7 @@ const ControlledRadioGroup = <T extends FieldValues>({
   options,
   label,
   fieldDescription,
+  required,
 }: ControlledRadioGroupProps<T>) => {
   return (
     <Controller
@@ -43,7 +45,10 @@ const ControlledRadioGroup = <T extends FieldValues>({
         const isInvalid = fieldState.invalid
         return (
           <FieldSet data-invalid={isInvalid} id={name}>
-            <FieldLegend variant="label">{label}</FieldLegend>
+            <FieldLegend variant="label">
+              {label}
+              {required && <span className="text-destructive ml-0.5">*</span>}
+            </FieldLegend>
             <FieldDescription>{fieldDescription}</FieldDescription>
             <RadioGroup
               id={name}

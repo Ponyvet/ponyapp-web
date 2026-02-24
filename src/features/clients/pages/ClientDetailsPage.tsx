@@ -235,7 +235,9 @@ const ClientDetailsPage = () => {
                 </>
               }
               onclick={() =>
-                navigate('/pets/add', { state: { clientId: client.id } })
+                navigate('/medical-records/add', {
+                  state: { clientId: client.id },
+                })
               }
             />
           )}

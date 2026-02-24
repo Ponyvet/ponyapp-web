@@ -1,4 +1,4 @@
-import { useNavigate, useParams, Link } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { formatDate } from 'date-fns'
 import {
   CalendarIcon,
@@ -21,6 +21,7 @@ import { Button } from '@/shared/components/ui/button'
 import ItemInfo from '@/shared/components/ItemInfo'
 import { useConfirm } from '@/shared/hooks/use-confirm'
 import { ConfirmDialog } from '@/shared/components/ConfirmDialog'
+import PetInfo from '@/shared/components/PetInfo'
 
 const VaccinationDetailsPage = () => {
   const navigate = useNavigate()
@@ -55,6 +56,21 @@ const VaccinationDetailsPage = () => {
 
   return (
     <div className="space-y-6">
+      {vaccination.record.pet && (
+        <PetInfo
+          pet={{
+            ...vaccination.record.pet,
+            sex: vaccination.record.pet.sex ?? undefined,
+          }}
+          name={vaccination.record.name}
+          clientId={vaccination.record.client.id}
+          client={{
+            ...vaccination.record.client,
+            phone: vaccination.record.client.phone ?? undefined,
+            address: vaccination.record.client.address ?? undefined,
+          }}
+        />
+      )}
       <Card>
         <CardHeader>
           <CardTitle>
@@ -103,15 +119,6 @@ const VaccinationDetailsPage = () => {
                 vaccination.nextDueDate
                   ? formatDate(vaccination.nextDueDate, 'dd/MM/yyyy')
                   : 'No programada'
-              }
-            />
-            <ItemInfo
-              icon={<UserIcon />}
-              title="Cliente"
-              description={
-                <Link to={`/clients/${vaccination.record.client.id}`}>
-                  {vaccination.record.client.name}
-                </Link>
               }
             />
             <ItemInfo

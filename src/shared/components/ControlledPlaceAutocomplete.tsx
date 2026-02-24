@@ -13,6 +13,7 @@ interface ControlledPlaceAutocompleteProps<
   control: Control<TFieldValues>
   name: TName
   label?: string
+  required?: boolean
   placeholder?: string
   onPlaceSelect?: (place: google.maps.places.PlaceResult) => void
   className?: string
@@ -25,6 +26,7 @@ const ControlledPlaceAutocomplete = <
   control,
   name,
   label,
+  required,
   placeholder,
   onPlaceSelect,
   className,
@@ -36,6 +38,7 @@ const ControlledPlaceAutocomplete = <
       render={({ field, fieldState }) => (
         <PlaceAutocomplete
           label={label}
+          required={required}
           placeholder={placeholder}
           value={field.value || ''}
           onChange={field.onChange}

@@ -70,6 +70,9 @@ const MedicalRecordForm = ({
   return (
     <form onSubmit={handleSubmit(handleOnSubmit)}>
       <h1 className="text-xl font-bold mb-4">{title}</h1>
+      <p className="text-sm text-muted-foreground mb-4">
+        <span className="text-destructive">*</span> Campos obligatorios
+      </p>
       <FieldGroup className="gap-2">
         <ControlledSelect
           control={control}
@@ -77,12 +80,14 @@ const MedicalRecordForm = ({
           label="Tipo de cartilla"
           options={MEDICAL_RECORD_TYPE_CATALOG}
           fieldDescription="Selecciona si es una mascota individual o un grupo de animales"
+          required
         />
         <ControlledInput
           control={control}
           name="name"
-          label="Nombre"
+          label="Nombre de la mascota o grupo"
           placeholder="Ej. Luna, Rebaño Norte"
+          required
         />
         <ControlledSelect
           control={control}
@@ -90,6 +95,7 @@ const MedicalRecordForm = ({
           label="Cliente"
           options={clientOptions}
           fieldDescription="Selecciona el cliente propietario"
+          required
         />
         <ControlledTextarea
           control={control}

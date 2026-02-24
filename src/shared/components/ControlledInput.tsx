@@ -21,6 +21,7 @@ interface ControlledInputProps<T extends FieldValues> extends ComponentProps<
   label?: string
   fieldDescription?: string
   placeholder?: string
+  required?: boolean
 }
 const ControlledInput = <T extends FieldValues>({
   control,
@@ -28,6 +29,7 @@ const ControlledInput = <T extends FieldValues>({
   label,
   fieldDescription,
   placeholder,
+  required,
   ...props
 }: ControlledInputProps<T>) => {
   return (
@@ -36,7 +38,12 @@ const ControlledInput = <T extends FieldValues>({
       name={name}
       render={({ field, fieldState }) => (
         <Field data-invalid={fieldState.invalid}>
-          {label && <FieldLabel htmlFor={field.name}>{label}</FieldLabel>}
+          {label && (
+            <FieldLabel htmlFor={field.name}>
+              {label}
+              {required && <span className="text-destructive ml-0.5">*</span>}
+            </FieldLabel>
+          )}
           <Input
             {...props}
             aria-invalid={fieldState.invalid}

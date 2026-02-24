@@ -5,6 +5,7 @@ import { useNavigate, useLocation } from 'react-router'
 import { createMedicalRecord } from '../api/medicalRecords'
 import MedicalRecordForm from '../components/MedicalRecordForm'
 import type { CreateMedicalRecord } from '../models/CreateMedicalRecord'
+import { MedicalRecordTypes } from '../utils/enum'
 
 const CreateMedicalRecordPage = () => {
   const navigate = useNavigate()
@@ -13,9 +14,16 @@ const CreateMedicalRecordPage = () => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: createMedicalRecord,
-    onSuccess: () => {
-      navigate(-1)
+    onSuccess: (newRecord) => {
       toast.success('Cartilla médica creada exitosamente')
+      if (newRecord.type === MedicalRecordTypes.GROUP) {
+        navigate(-1)
+        return
+      }
+      navigate('/pets/add', {
+        state: { recordId: newRecord.id },
+        replace: true,
+      })
     },
     onError: (error) => {
       toast.error('Error al crear la cartilla médica', {

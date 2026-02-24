@@ -25,6 +25,7 @@ interface SelectProps<T extends FieldValues> {
   options: Option[]
   label: string
   fieldDescription?: string
+  required?: boolean
 }
 
 const ControlledSelect = <T extends FieldValues>({
@@ -33,6 +34,7 @@ const ControlledSelect = <T extends FieldValues>({
   options,
   label,
   fieldDescription,
+  required,
 }: SelectProps<T>) => {
   return (
     <Controller
@@ -40,7 +42,10 @@ const ControlledSelect = <T extends FieldValues>({
       name={name}
       render={({ field, fieldState }) => (
         <Field data-invalid={fieldState.invalid}>
-          <FieldLabel htmlFor={name}>{label}</FieldLabel>
+          <FieldLabel htmlFor={name}>
+            {label}
+            {required && <span className="text-destructive ml-0.5">*</span>}
+          </FieldLabel>
           <SelectLib
             name={field.name}
             value={field.value}

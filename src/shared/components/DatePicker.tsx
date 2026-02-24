@@ -65,6 +65,8 @@ const DatePicker = <T extends FieldValues>({
               align="start"
             >
               <Calendar
+                startMonth={new Date(2000, 0)}
+                endMonth={new Date(new Date().getFullYear() + 10, 11)}
                 {...props}
                 mode="single"
                 selected={field.value}
