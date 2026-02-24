@@ -44,7 +44,7 @@ const columns: ColumnDef<Visit>[] = [
     ),
   },
   {
-    accessorKey: 'consultations',
+    accessorKey: 'generalNotes',
     header: 'Descripción',
     cell: ({ row }) => {
       return <span className="text-sm">{row.original.generalNotes || '-'}</span>
@@ -96,7 +96,7 @@ const VisitsPage = () => {
         render: (visit) => visit.veterinarian.name,
       },
       {
-        key: 'consultations',
+        key: 'generalNotes',
         label: 'Descripción',
         render: (visit) => {
           return visit.generalNotes || '-'
