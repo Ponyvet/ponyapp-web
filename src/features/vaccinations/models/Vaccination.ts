@@ -14,10 +14,25 @@ export const vaccinationSchema = z.object({
   medication: medicationSchema.pick({ id: true, name: true }),
   record: z.object({
     id: z.string(),
+    name: z.string(),
     client: z.object({
       id: z.string(),
       name: z.string(),
+      phone: z.string().nullable().optional(),
+      address: z.string().nullable().optional(),
     }),
+    pet: z
+      .object({
+        id: z.string(),
+        species: z.string(),
+        sex: z.string().nullable().optional(),
+        breed: z.string().nullable().optional(),
+        birthDate: z.coerce.date().nullable().optional(),
+        color: z.string().nullable().optional(),
+        notes: z.string().nullable().optional(),
+      })
+      .nullable()
+      .optional(),
   }),
   veterinarian: z.object({
     id: z.string(),
