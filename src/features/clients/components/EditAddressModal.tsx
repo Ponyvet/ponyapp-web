@@ -246,7 +246,11 @@ const EditAddressModal = ({
             >
               Cancelar
             </Button>
-            <Button type="submit" disabled={isSaving}>
+            <Button
+              type="button"
+              disabled={isSaving}
+              onClick={handleSubmit(onSubmit)}
+            >
               Guardar
             </Button>
           </DialogFooter>
