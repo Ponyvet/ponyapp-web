@@ -54,9 +54,9 @@ const columns: ColumnDef<Vaccination>[] = [
     },
   },
   {
-    accessorKey: 'veterinarianId',
-    header: 'Veterinario',
-    cell: ({ row }) => row.original.veterinarian.name,
+    accessorKey: 'client',
+    header: 'Cliente',
+    cell: ({ row }) => row.original.record.client.name,
   },
   {
     accessorKey: 'actions',
