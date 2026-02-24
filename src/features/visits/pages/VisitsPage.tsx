@@ -44,22 +44,16 @@ const columns: ColumnDef<Visit>[] = [
     ),
   },
   {
+    accessorKey: 'consultations',
+    header: 'Descripción',
+    cell: ({ row }) => {
+      return <span className="text-sm">{row.original.generalNotes || '-'}</span>
+    },
+  },
+  {
     accessorKey: 'veterinarianId',
     header: 'Veterinario',
     cell: ({ row }) => row.original.veterinarian.name,
-  },
-  {
-    accessorKey: 'consultations',
-    header: 'Tratamientos',
-    cell: ({ row }) => {
-      const consultations = row.original.consultations ?? []
-      return (
-        <span className="text-muted-foreground">
-          {consultations.length} tratamiento
-          {consultations.length !== 1 ? 's' : ''}
-        </span>
-      )
-    },
   },
   {
     accessorKey: 'actions',
@@ -103,10 +97,9 @@ const VisitsPage = () => {
       },
       {
         key: 'consultations',
-        label: 'Tratamientos',
+        label: 'Descripción',
         render: (visit) => {
-          const count = visit.consultations?.length ?? 0
-          return `${count} tratamiento${count !== 1 ? 's' : ''}`
+          return visit.generalNotes || '-'
         },
       },
     ],
