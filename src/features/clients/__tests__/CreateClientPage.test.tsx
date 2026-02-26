@@ -8,8 +8,12 @@ import { renderPage } from '@/test/utils'
 import CreateClientPage from '../pages/CreateClientPage'
 
 const mockToastError = vi.fn()
+const mockToastSuccess = vi.fn()
 vi.mock('sonner', () => ({
-  toast: { error: (...args: unknown[]) => mockToastError(...args) },
+  toast: {
+    error: (...args: unknown[]) => mockToastError(...args),
+    success: (...args: unknown[]) => mockToastSuccess(...args),
+  },
 }))
 
 const mockNavigate = vi.fn()
@@ -92,6 +96,11 @@ describe('CreateClientPage', () => {
     })
 
     await waitFor(() => expect(mockNavigate).toHaveBeenCalledWith(-1))
+    await waitFor(() => {
+      expect(mockToastSuccess).toHaveBeenCalledWith(
+        'Cliente creado exitosamente',
+      )
+    })
   })
 
   it('shows validation errors and makes no backend request when submitting an empty form', async () => {
