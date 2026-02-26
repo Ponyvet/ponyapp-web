@@ -14,7 +14,12 @@ export default defineConfig({
     setupFiles: ['./src/test/setup.tsx'],
     coverage: {
       include: ['src/**/*.{ts,tsx}'],
-      exclude: ['src/shared/components/ui/**'],
+      exclude: [
+        'src/test/**',
+        'src/main.tsx',
+        'src/app/**',
+        'src/shared/components/ui/**',
+      ],
     },
   },
   plugins: [react(), tailwindcss()],
