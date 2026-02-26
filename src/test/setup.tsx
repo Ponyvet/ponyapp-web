@@ -31,9 +31,15 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 })
 
-vi.mock('@vis.gl/react-google-maps', () => ({
-  useMapsLibrary: vi.fn().mockReturnValue(null),
-}))
+vi.mock('@vis.gl/react-google-maps', async () => {
+  const actual = await vi.importActual<
+    typeof import('@vis.gl/react-google-maps')
+  >('@vis.gl/react-google-maps')
+  return {
+    ...actual,
+    useMapsLibrary: vi.fn().mockReturnValue(null),
+  }
+})
 
 vi.mock('@/shared/components/Map', () => ({
   default: () => <div data-testid="map" />,
