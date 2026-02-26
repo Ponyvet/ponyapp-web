@@ -137,6 +137,29 @@ describe('ClientPage', () => {
     expect(mockNavigate).toHaveBeenCalledWith('/clients/1/edit')
   })
 
+  it('navigates to client details page when clicking details button', async () => {
+    const user = userEvent.setup()
+
+    server.use(
+      http.get('/clients', () => {
+        return HttpResponse.json(mockClients)
+      }),
+    )
+
+    renderPage({ children: <ClientPage /> })
+
+    await waitFor(() => {
+      expect(screen.getByText('María García')).toBeInTheDocument()
+    })
+
+    const row = screen.getByText('María García').closest('tr')
+    const detailsButton = row!.querySelector('.lucide-eye')?.closest('button')
+
+    await user.click(detailsButton!)
+
+    expect(mockNavigate).toHaveBeenCalledWith('/clients/2')
+  })
+
   it('navigates to add client page when clicking "Agregar primer cliente" button', async () => {
     const user = userEvent.setup()
 
