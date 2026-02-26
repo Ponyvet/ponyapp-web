@@ -246,7 +246,7 @@ const ClientDetailsPage = () => {
       <Card>
         <CardHeader>
           <CardTitle>
-            <h2 className="text-xl font-bold">Visitas</h2>
+            <h2 className="text-xl font-bold">Consultas</h2>
           </CardTitle>
           <CardAction>
             <Button
@@ -258,7 +258,7 @@ const ClientDetailsPage = () => {
               }
             >
               <PlusIcon />
-              Agregar Visita
+              Agregar Consulta
             </Button>
           </CardAction>
         </CardHeader>
@@ -273,7 +273,7 @@ const ClientDetailsPage = () => {
               buttonText={
                 <>
                   <PlusIcon className="mr-2" />
-                  Agregar primera visita
+                  Agregar primera consulta
                 </>
               }
               onclick={() =>

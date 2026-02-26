@@ -37,7 +37,7 @@ const VisitDetailsPage = () => {
     const confirmed = await confirm({
       title: '¿Estás absolutamente seguro?',
       description:
-        '¿Estás seguro de que deseas eliminar esta visita? Esta acción no se puede deshacer.',
+        '¿Estás seguro de que deseas eliminar esta consulta? Esta acción no se puede deshacer.',
       confirmText: 'Eliminar',
       cancelText: 'Cancelar',
     })

@@ -36,7 +36,7 @@ const VisitForm = ({
   onCancel,
   visit,
   submitButtonText = 'Guardar',
-  title = 'Nueva Visita',
+  title = 'Nueva Consulta',
   initialClientId,
 }: VisitFormProps) => {
   const { clients } = useClients()

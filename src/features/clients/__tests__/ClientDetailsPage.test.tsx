@@ -165,9 +165,9 @@ describe('ClientDetailsPage', () => {
       screen.getByRole('button', { name: /Agregar Cartilla/i }),
     ).toBeInTheDocument()
 
-    expect(screen.getByText('Visitas')).toBeInTheDocument()
+    expect(screen.getByText('Consultas')).toBeInTheDocument()
     expect(
-      screen.getByRole('button', { name: /Agregar Visita/i }),
+      screen.getByRole('button', { name: /Agregar Consulta/i }),
     ).toBeInTheDocument()
 
     expect(screen.getByTestId('map')).toBeInTheDocument()
@@ -276,9 +276,7 @@ describe('ClientDetailsPage', () => {
     })
 
     expect(screen.getByLabelText(/Dirección/i)).toBeInTheDocument()
-    expect(
-      screen.getByText('Pegar enlace de Google Maps'),
-    ).toBeInTheDocument()
+    expect(screen.getByText('Pegar enlace de Google Maps')).toBeInTheDocument()
     expect(screen.getAllByTestId('map').length).toBeGreaterThanOrEqual(1)
     expect(
       screen.getByRole('button', { name: /Limpiar dirección/i }),
@@ -286,9 +284,7 @@ describe('ClientDetailsPage', () => {
     expect(
       screen.getByRole('button', { name: /Cancelar/i }),
     ).toBeInTheDocument()
-    expect(
-      screen.getByRole('button', { name: /Guardar/i }),
-    ).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /Guardar/i })).toBeInTheDocument()
   })
 
   it('navigates to add medical record page when clicking "Agregar Cartilla" button', async () => {
@@ -319,7 +315,9 @@ describe('ClientDetailsPage', () => {
     renderPage({ children: <ClientDetailsPage /> })
 
     await waitFor(() => {
-      expect(screen.getByText('No hay mascotas registradas')).toBeInTheDocument()
+      expect(
+        screen.getByText('No hay mascotas registradas'),
+      ).toBeInTheDocument()
     })
 
     await user.click(
@@ -331,7 +329,7 @@ describe('ClientDetailsPage', () => {
     })
   })
 
-  it('navigates to add visit page when clicking "Agregar Visita" button', async () => {
+  it('navigates to add visit page when clicking "Agregar Consulta" button', async () => {
     const user = userEvent.setup()
 
     renderPage({ children: <ClientDetailsPage /> })
@@ -340,14 +338,14 @@ describe('ClientDetailsPage', () => {
       expect(screen.getByText('Detalles del Cliente')).toBeInTheDocument()
     })
 
-    await user.click(screen.getByRole('button', { name: /Agregar Visita/i }))
+    await user.click(screen.getByRole('button', { name: /Agregar Consulta/i }))
 
     expect(mockNavigate).toHaveBeenCalledWith('/visits/add', {
       state: { clientId: '1' },
     })
   })
 
-  it('navigates to add visit page when clicking "Agregar primera visita" button', async () => {
+  it('navigates to add visit page when clicking "Agregar primera consulta" button', async () => {
     const user = userEvent.setup()
 
     server.use(
@@ -365,7 +363,7 @@ describe('ClientDetailsPage', () => {
     })
 
     await user.click(
-      screen.getByRole('button', { name: /Agregar primera visita/i }),
+      screen.getByRole('button', { name: /Agregar primera consulta/i }),
     )
 
     expect(mockNavigate).toHaveBeenCalledWith('/visits/add', {
