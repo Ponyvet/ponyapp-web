@@ -15,16 +15,22 @@ export const calculateAge = (birthDate: Date | null) => {
   if (!birthDate) return 'N/A'
   const today = new Date()
   const birth = new Date(birthDate)
-  const diffTime = Math.abs(today.getTime() - birth.getTime())
-  const diffYears = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 365.25))
-  const diffMonths = Math.floor(
-    (diffTime % (1000 * 60 * 60 * 24 * 365.25)) / (1000 * 60 * 60 * 24 * 30.44),
-  )
 
-  if (diffYears > 0) {
-    return `${diffYears} año${diffYears !== 1 ? 's' : ''}`
+  let years = today.getFullYear() - birth.getFullYear()
+  let months = today.getMonth() - birth.getMonth()
+
+  if (today.getDate() < birth.getDate()) {
+    months--
+  }
+  if (months < 0) {
+    years--
+    months += 12
+  }
+
+  if (years > 0) {
+    return `${years} año${years !== 1 ? 's' : ''}`
   } else {
-    return `${diffMonths} mes${diffMonths !== 1 ? 'es' : ''}`
+    return `${months} mes${months !== 1 ? 'es' : ''}`
   }
 }
 
