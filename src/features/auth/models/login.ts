@@ -11,6 +11,9 @@ export const sessionSchema = z.object({
   id: z.string(),
   email: z.email(),
   name: z.string(),
+  role: z.string(),
+  clientId: z.string().nullish(),
+  isActive: z.boolean(),
 })
 
 export type Session = z.infer<typeof sessionSchema>
